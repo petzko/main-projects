@@ -1,0 +1,36 @@
+# matlab sim files
+*.mat
+*.m
+*.fig 
+*.sim
+*.set
+# mupad notebook
+*.mn
+
+
+# archives
+*.zip
+*.tar
+
+# latex resiudal files
+*.gz
+*.blg
+*.aux
+*.bbl
+*.log
+*.out 
+
+# image files
+*.wmf
+*.emf
+*.svg
+*.png
+*.avi
+*.jpeg
+
+# simple text files
+*.txt
+*.dat
+
+# pdf files
+*.pdf
