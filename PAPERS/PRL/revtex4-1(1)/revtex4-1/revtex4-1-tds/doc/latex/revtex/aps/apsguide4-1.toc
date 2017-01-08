@@ -1,0 +1,37 @@
+\contentsline {title}{APS Author Guide for REVT\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m {}\ \nobreakspace {}4.1\\(Version 1.0)}{1}{}
+\tocdepth@munge 
+\contentsline {section}{\numberline {}Contents}{1}{}
+\tocdepth@restore 
+\contentsline {section}{\numberline {I}Introduction}{1}{}
+\contentsline {section}{\numberline {II}Formatting}{1}{}
+\contentsline {subsection}{\numberline {II.1}Preprint, reprint, and twocolumn options}{1}{}
+\contentsline {subsection}{\numberline {II.2}Paper size}{2}{}
+\contentsline {section}{\numberline {III}Marking up front matter}{2}{}
+\contentsline {subsection}{\numberline {III.1}Title}{2}{}
+\contentsline {subsection}{\numberline {III.2}Authors, affiliations, and collaborations}{2}{}
+\contentsline {subsection}{\numberline {III.3}Abstract}{2}{}
+\contentsline {subsection}{\numberline {III.4}PACS codes}{2}{}
+\contentsline {section}{\numberline {IV}References and footnotes}{2}{}
+\contentsline {section}{\numberline {V}Body of the paper}{3}{}
+\contentsline {subsection}{\numberline {V.1}Sectioning and cross-referencing}{3}{}
+\contentsline {subsection}{\numberline {V.2}Appendices}{3}{}
+\contentsline {subsection}{\numberline {V.3}Acknowledgments}{3}{}
+\contentsline {subsection}{\numberline {V.4}Counters}{3}{}
+\contentsline {subsection}{\numberline {V.5}Fonts}{3}{}
+\contentsline {subsection}{\numberline {V.6}Environments}{3}{}
+\contentsline {subsubsection}{\numberline {V.6.1}Lists}{3}{}
+\contentsline {subsubsection}{\numberline {V.6.2}Other Environments}{4}{}
+\contentsline {subsection}{\numberline {V.7}Boxes}{4}{}
+\contentsline {subsubsection}{\numberline {V.7.1}Margin Notes}{4}{}
+\contentsline {section}{\numberline {VI}Math Markup}{4}{}
+\contentsline {section}{\numberline {VII}Figures}{4}{}
+\contentsline {subsection}{\numberline {VII.1}Figure inclusions}{4}{}
+\contentsline {subsection}{\numberline {VII.2}Figure placement}{4}{}
+\contentsline {section}{\numberline {VIII}Tables}{5}{}
+\contentsline {subsection}{\numberline {VIII.1}Doubled rules and table formatting}{5}{}
+\contentsline {subsection}{\numberline {VIII.2}Wide tables}{5}{}
+\contentsline {subsection}{\numberline {VIII.3}Table placement}{5}{}
+\contentsline {subsection}{\numberline {VIII.4}Aligning columns on a decimal point}{5}{}
+\contentsline {subsection}{\numberline {VIII.5}Tablenotes}{5}{}
+\contentsline {section}{\numberline {IX}Author-defined macros}{5}{}
+\contentsline {section}{\numberline {X}Summary}{5}{}

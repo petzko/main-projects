@@ -1,0 +1,259 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                File: OpEx_temp.tex                  %
+%             Created: 2 September 2009               %
+%                Updated: 15 May 2015                 %
+%                                                     %
+%           LaTeX template file for use with          %
+%           OSA's journals Optics Express,            %
+%             Biomedical Optics Express,              %
+%            and Optical Materials Express            %
+%                                                     %
+%  send comments to Theresa Miller, tmiller@osa.org   %
+%                                                     %
+% This file requires style file, opex3.sty, under     %
+%              the LaTeX article class                %
+%                                                     %
+%   \documentclass[10pt,letterpaper]{article}         %
+%   \usepackage{opex3}                                %
+%                                                     %
+%                                                     %
+%       (c) 2015 Optical Society of America           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt,letterpaper]{article}
+\usepackage{opex3}
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\uline{\underline}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+
+%%%%%%%%%%%%%%%%%%%%%%% begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
+	\title{Simple template for authors submitting to OSA Express Journals}
+	
+	\author{Petar Tzenov$^{1,*}$, Christian Jirauschek$^1$ and David Burghoff$^{2}$}
+	
+	\address{$^1$ Institute for Nanoelectronics, Technische Universit\''at M\''unchen, D-80333 Munich, Germany}
+	\address{$^2$ Somewhere in MIT, US}
+	
+	\email{$^*$petar.tzenov@tum.de} %% email address is required
+	
+	% \homepage{http:...} %% author's URL, if desired
+	
+	%%%%%%%%%%%%%%%%%%% abstract and OCIS codes %%%%%%%%%%%%%%%%
+	%% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
+	
+	\begin{abstract}
+		A simple template with few examples is provided for preparing \textit{Optics Express}, \textit{Biomedical Optics Express}, and \textit{Optical Materials Express} manuscripts in \LaTeX. For complete instructions, refer to \texttt{OpEx\_temp.txt}. The Express journal simple and extended templates are also available on \url{http://www.overleaf.com/gallery/tagged/osa}. OSA encourages the use of this free online collaborative tool for writing your OSA article.
+	\end{abstract}
+	
+	\ocis{(000.0000) General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE, MINIMUM OF TWO; Avoid using the OCIS codes for âGeneralâ or âGeneral scienceâ whenever possible.
+	
+	%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{thebibliography}{99}
+		
+		\bibitem{gallo99} K. Gallo and G. Assanto, ``All-optical diode based on second-harmonic generation in an asymmetric waveguide,'' \josab {\bf 16}(2), 267--269 (1999).
+	\end{thebibliography}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Dispersion analysis:MBloch in RWA + SVEA. Ring cavity.}
+	
+	EOM:
+	\begin{subequations}
+		\label{eq:threelevelmodel}
+		\begin{align}
+		&\frac{n}{c}\partial_t f + \partial_{x}f = i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32} - \frac{l_0}{2} f \label{eq:rtwave} .\\
+		&\frac{d \rho_{1'1'}}{d t} = i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33} 
+		+ (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22} - \frac{\rho_{1'1'}}{\tau_{1'}} \\
+		&\frac{d \rho_{33}}{d t} = i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32}- c.c. \big )+ \frac{1}{\tau_{1'3}}\rho_{1'1'} +  \frac{1}{\tau_{23}}\rho_{22} - \frac{\rho_{33}}{\tau_{3}}  \\
+		&\frac{d \rho_{22}}{d t}  = -i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32} - c.c. \big ) + \frac{1}{\tau_{1'2}}\rho_{1'1'}  +  \frac{1}{\tau_{32}}\rho_{33} - \frac{\rho_{22}}{\tau_{21}} , \\
+		&\frac{d \rho_{1'3}}{d t}  = -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2}-\tau_{\parallel 1'3}^{-1} \rho_{1'3},  \\
+		&\frac{d \eta_{32}}{d t}   = i(\omega - \omega_{32})\eta_{32} +i \frac{\mu_{32}}{2\hbar}f(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} - \tau_{\parallel 32}^{-1}\eta_{32}, \\
+		&\frac{d \eta_{1'2}}{d t}  = i(\omega - \omega_{32}-\epsilon)\eta_{1'2} +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}.
+		\end{align}
+	\end{subequations}
+	
+	
+	Steady state solution for the cohrences:
+	\begin{align}
+	&\frac{d \rho_{1'3}}{d t}  = 0 =  -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2}-\tau_{\parallel 1'3}^{-1} \rho_{1'3},  \\
+	&\Rightarrow \nonumber \\
+	&\rho_{1'3} (\tau_{\parallel 1'3}^{-1}+i\epsilon\rho_{1'3}) = i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \\
+	&\Rightarrow \nonumber \\
+	&\rho_{1'3}  =\frac{1}{(\epsilon\rho_{1'3}-i\tau_{\parallel 1'3}^{-1})} \left( \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \right).
+	\end{align}
+	Now for the $1'-2$ coherence:
+	\begin{align}
+	&\frac{d \eta_{1'2}}{d t}  = 0 = i(\omega - \omega_{32}-\epsilon)\eta_{1'2} +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}. \\
+	&\Rightarrow \nonumber \\
+	&\eta_{1'2}(\tau_{\parallel 1'2}^{-1} -i(\omega - \omega_{32}-\epsilon)) =  +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32}  \\
+	&\Rightarrow \nonumber \\
+	&\eta_{1'2}=  \frac{1}{((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ) } \left(\Omega_{1'3}\eta_{32} - \frac{\mu_{32}}{2\hbar}f\rho_{1'3} \right)  \\
+	&\eta_{1'2}=  \frac{1}{((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ) } \left(\Omega_{1'3}\eta_{32} - \frac{\mu_{32}}{2\hbar}f\frac{1}{(\epsilon\rho_{1'3}-i\tau_{\parallel 1'3}^{-1})} \left( \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \right) \right)
+	\end{align}
+	Setting
+	\begin{align}
+	\Gamma_{1'3} = (\epsilon\rho_{1'3}-i\tau_{\parallel 1'3}^{-1}) \\
+	\Gamma_{1'2}(\omega) = ((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ),
+	\end{align}
+	we can write:
+	\begin{align}
+	&\eta_{1'2}=  \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})- \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2\times\eta_{1'2}
+	\end{align}
+	or also:
+	\begin{align}
+	&\eta_{1'2}\left(1+\frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2 \right)=  \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) \\ 
+	&\Rightarrow \\
+	&\eta_{1'2}= \left(1+\frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2 \right)^{-1} \left\{ \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})\right\} 
+	\end{align}
+	Again abbreviating:
+	\begin{align}
+	& A(\omega) = \frac{\Gamma_{1'2}(\omega)\Gamma_{1'3}}{\Gamma_{1'2}(\omega)\Gamma_{1'3}+\Omega_{ph}^2},
+	\end{align}
+	where $\Omega_{ph}$ is the photon induced Rabi frequency, it then follows that:
+	\begin{align}
+	&\eta_{1'2}=  \frac{A(\omega)}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \Omega_{ph}\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})
+	\end{align}
+	Plugging into the equation for $\eta_{32}$ it therefore follows that:
+	\begin{align}
+	&\frac{d \eta_{32}}{d t}   = 0 = i(\omega - \omega_{32})\eta_{32} +i \Omega_{ph}(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} - \tau_{\parallel 32}^{-1}\eta_{32}, \\
+	&\Rightarrow \nonumber \\
+	&\eta_{32} (\tau_{\parallel 32}^{-1}-i(\omega - \omega_{32})) = i\Omega_{ph}(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} \\ 
+	&\Rightarrow \nonumber \\
+	&\eta_{32} = \frac{1}{\Gamma_{32}(\omega) }  \left(\Omega_{1'3}\eta_{1'2}-\Omega_{ph}(\rho_{33}-\rho_{22}) \right), \\ 
+	&\eta_{32} = \frac{1}{\Gamma_{32}(\omega) }  \left(\Omega_{1'3}\left(\frac{A(\omega)}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \Omega_{ph}\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})\right)-\Omega_{ph}(\rho_{33}-\rho_{22}) \right), \\ 
+	&\eta_{32}(1-\frac{1}{\Gamma_{32}\Gamma_{1'2}}\times\Omega_{1'3}^2 \times A(\omega)) = -\left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]\times\Omega_{ph}
+	\end{align}
+	where $  \Gamma_{32}(\omega) = ((\omega - \omega_{32})+i\tau_{\parallel 32}^{-1}). $ Finally:
+	\begin{align}
+	&\eta_{32} =-(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}\Gamma_{1'2}})^{-1} \left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]\times\Omega_{ph}
+	\end{align}
+	
+	Susceptibility:
+	
+	Since we have:
+	$$
+	P(t,x=0) = \epsilon_0\chi E(t) = \epsilon_0 \chi \frac{1}{2} ( f(t)e^{-i\omega t} +f^*(t)e^{+i\omega t}= N\Gamma\mu_{32}(\eta_{32}e^{-i\omega t}+\eta_{32}^*e^{i\omega t}),
+	$$
+	it therefore follows that 
+	$$
+	\epsilon_0 \chi = 2N\Gamma\mu_{32}\eta_{32}/f(t) = -N\Gamma\frac{\mu_{32}^2}{\hbar}(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}\Gamma_{1'2}})^{-1} \left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]
+	$$
+	Adding a background polarization $\chi_0 = n^2-1$, the total susceptibility is:
+	$$
+	\chi = n^2-1+N\Gamma\frac{\mu_{32}^2}{\hbar\epsilon_0}G_{3lvl}(\omega),
+	$$
+	where $G_{3lvl}$ has the form:
+	$$
+	G_{3lvl}(\omega) = -
+	(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)})^{-1} \left [ \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{32}(\omega)\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}(\omega)} \right].
+	$$
+	If the optical field is weak, we get $A(\omega) \approx 1$ which gives 
+	\begin{align}
+	G_{3lvl}(\omega)&= 
+	\frac{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega) }{\Omega_{1'3}^2-\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)} \left [ \frac{\Omega_{1'3}^2}{\Gamma_{1'2}(\omega)\Gamma_{32}(\omega)\Gamma_{1'3}}\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}(\omega)} \right] \\
+	&=  \frac{\Omega_{1'3}^2}{\Gamma_{1'3}(\Omega_{1'3}^2-\Gamma_{32}(\omega)\Gamma_{1'2}(\omega))}\times(\rho_{1'1'}-\rho_{33}) +\frac{\Gamma_{1'2}(\omega)}{\Omega_{1'3}^2-\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)}\times(\rho_{33}-\rho_{22}) 
+	\end{align}
+	
+	At design bias, due to the string coherent coupling between levels $\rho_{1'1'}$ and $\rho_{33}$ we get $\rho_{1'1'} - \rho_{33}\approx {0}$, thus the lineshape is reduced to:
+	
+	\begin{align}
+	\Lambda_{3lvl}^{(1)}(\omega) &= 
+	\frac{\Gamma_{1'2}(\omega)}{\Omega_{1'3}^2-\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)} 
+	\end{align}
+	
+	Giving us the total linear susceptibility:
+	\begin{align}
+	\chi_{3lvl}^{(1)} = n^2-1+\frac{\Delta N_{32}\Gamma\mu_{32}^2}{\hbar\epsilon_0}\times\frac{(\tilde{\omega}-\epsilon)+i\gamma_{1'2}}{\Omega_{1'3}^2-(\tilde{\omega}+i\gamma_{32})(\tilde{\omega}-\epsilon+i\gamma_{1'2})}, 
+	\end{align}
+	where $\tilde{\omega} = \omega - \omega_{32}$ and $\Delta N_{32} = N(\rho_{33}-\rho_{22})$ is the density of active electrons.  The complex refractive index is therefore:
+	$$
+	\uline{n} = n+\frac{1}{2n}\times \frac{\Delta N_{32}\Gamma \mu_{32}^2}{\hbar \epsilon_0} \Lambda_{3lvl}^{(1)}({\omega}) = n+\frac{3}{4}\times \frac{\Delta N_{32}\Gamma e^2f_{32}}{n\epsilon_0\omega_{32}m_e} \Lambda_{3lvl}^{(1)}({\omega}),
+	$$ 
+	
+	where $f_{32}$ is the oscillator strength. Defining the "modified" plasma frequency [Khurgin optical buffers] as: 
+	$$
+	\Omega_p = \frac{3}{4}\times \frac{\Delta N_{32}\Gamma e^2f_{32}}{n\epsilon_0\omega_{32}m_e}, 
+	$$
+	we get:
+	$$
+	\uline{n} = n+ \Omega_p \times \frac{(\tilde{\omega}-\epsilon)+i\gamma_{1'2}}{\Omega_{1'3}^2-(\tilde{\omega}+i\gamma_{32})(\tilde{\omega}-\epsilon+i\gamma_{1'2})}.
+	$$ 
+	
+	\subsection{two level system}
+	
+	Similarly to Eq. (\ref{eq:threelevelmodel}) the Maxwell-Bloch equations for a two level system can be written as: 
+	
+	\begin{subequations}
+		\label{eq:twolevelmodel}
+		\begin{align}
+		&\frac{n}{c}\partial_t f + \partial_{x}f = i\frac{N \Gamma \mu_{ab} k_c}{\epsilon_0 n^2} \eta_{ab} - \frac{l_0}{2} f \label{eq:rtwave} .\\
+		&\frac{d \Delta n_{ab}}{d t} = + i\frac{\mu_{ab}}{\hbar} \big (f^*\eta_{ab}- c.c. \big )- \frac{\Delta n_{ab}-\Delta n_{ab}^{(eq)} }{T_{1}}  \\
+		&\frac{d \eta_{ab}}{d t}   = i(\omega - \omega_{ab})\eta_{ab} +i \frac{\mu_{ab}}{2\hbar}f(\Delta n_{ab}) -  \tau_{\parallel ab}^{-1}\eta_{ab},
+		\end{align}
+	\end{subequations}
+	which following an equivalent procedure as above, yields the complex susceptibility:
+	
+	\begin{equation}
+	\chi_{2lvl}^{(1)} = n^2-1-\Omega_{ab} \times \frac{1}{\omega - \omega_{ab} + i\gamma_{ab}},
+	\end{equation}
+	where
+	$$\Omega_{ab} = \frac{3}{4}\times \frac{\Delta N_{ab}\Gamma e^2f_{ab}}{n\epsilon_0\omega_{ab}m_e},  $$
+	as defined before ($\Delta N_{ab} = N \Delta n_{ab}$). If we imagine a mixed active region, consisting of a single $3lvl$ system and $M-$ $2lvl$ systems of the type above, we can write down the total linear susceptibility as:
+	\begin{align}
+	\label{eq:totalsusceptibility}
+	\chi_{total}^{(1)} &= n^2-1 + \Omega_p \underbrace{\frac{(\omega-\omega_{32}-\epsilon)+i\gamma_{1'2}^{-1}}{\Omega_{1'3}^2-(\omega-\omega_{32}+i\gamma_{32})(\omega-\omega_{32}-\epsilon+i\gamma_{1'2})}}_{\Lambda_{3lvl}^{(1)}(\omega)} - \sum_{m=1}^{M} \Omega_{ab}^{m} \frac{1}{\omega - \omega_{ab}^{m} + i\gamma_{ab}^{m}} \nonumber \\
+	&= n^2-1 + \Omega_p \underbrace{ \left  (\frac{(\omega-\omega_{32}-\epsilon)+i\gamma_{1'2} }{(\omega-\omega_{32}+i\gamma_{32})(\omega-\omega_{32}-\epsilon+i\gamma_{1'2})-\Omega_{1'3}^2} - \sum_{m=1}^{M} r_{ab}^{m}  \times \frac{1}{\omega - \omega_{ab}^{m} + i\gamma_{ab}^{m}} \right )}_{\chi_{\vec{p}}(\omega)^{(1)}},	
+	\end{align}
+	where 
+	$$
+	r_{ab}^{m} = \frac{\Omega_{ab}^{m}}{\Omega_p} = \frac{\Delta n_{ab}^{m} |\mu_{ab}^{m}|}{(\rho_{33}-\rho_{22})|\mu_{32}|}.
+	$$
+	\noindent
+	\textbf{Idea}: find the parameters $\omega_{ab}^{m},\gamma_{ab}^{m}, \Delta n_{ab}^{m-(eq)},\mu_{ab}^{m}$ etc. so that the dispersion is minimized and also that the original gain is minimally affected: 
+	\begin{align}
+	\min_{\vec{p}=[\omega_{ab}^{m},\gamma_{ab}^{m}, \Delta n_{ab}^{m-(eq)},\mu_{ab}^{m}] \in \bm{P}} & \left ( \lambda \int{\Re\{\chi_{\vec{p}}(\omega)^{(1)}\}^2 d\omega} + (1-\lambda)\int{ \Im\{\chi_{\vec{p}}(\omega)^{(1)} - \Lambda_{3lvl}^{(1)}(\omega)\}^2 d\omega} \right ) \nonumber \\
+	\Rightarrow \nonumber \\
+	\min_{ {\vec{p}} \in \bm{P}} & \left ( \lambda \|\Re\{\chi_{\vec{p}}^{(1)}\}\|_{L_2}^2  + (1-\lambda)\| \Im\{\chi_{\vec{p}}^{(1)} - \Lambda_{3lvl}^{(1)}\}\|_{L_2}^2   \right )
+	\end{align}
+	where $\lambda \in [0;1]$ is some weight and $\bm{P}$ is the domain of possible values for the optimization variables,  $\omega_{ab}^{m},\gamma_{ab}^{m}, \Delta n_{ab}^{m-(eq)},\mu_{ab}^{m}$ , which can be geometrically represented as a convex polygon enclosed by intersecting hyperplanes in the $M\times4$ dimensional search space. The constraints can simply be written as:
+	$$
+	\bm{P} \text{ : }  A\cdot \vec{p} \leq \vec{b},
+	$$
+	where $\vec{p} = [\omega_{ab}^{1},\gamma_{ab}^{1},\cdots \Delta n_{ab}^{M-(eq)},\mu_{ab}^{M}]^T$ is a parameter vector , A is a matrix and $\vec{b}$ is a vector.  
+	
+	
+	
+	
+	
+	
+\end{document}

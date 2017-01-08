@@ -1,0 +1,466 @@
+\documentclass[twocolumn,secnumarabic,amssymb, nobibnotes, aps, prd]{revtex4-1}
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\DeclareMathOperator{\Tr}{Tr}
+\bibliographystyle{ieeetr}
+
+\begin{document}
+\title{Title goes here}
+
+\author{Petar Tzenov$^{1*}$,  David Burghoff$^{2}$, Qing Hu$^{2}$ and Christian Jirauschek$^1$}
+
+\address{$^1$ Institute for Nanoelectronics, Technical University f Munich, D-80333 Munich, Germany}
+\address{$^2$ Department of Electrical Engineering and Computer Science, Research Laboratory of Electronics, Massachusetts Institute of Technology, Cambridge,
+	Massachusetts 02139, USA}
+
+\email{$^*$petar.tzenov@tum.de} %% email address is required
+
+% \homepage{http:...} %% author's URL, if desired
+
+%%%%%%%%%%%%%%%%%%% abstract and OCIS codes %%%%%%%%%%%%%%%%
+%% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
+
+\begin{abstract}
+	The generation of frequency combs in the mid-infrared and terahertz from compact and potentially cheap sources could have a strong impact on spectroscopy as many molecules have their rotovibrational bands in this spectral range. Quantum cascade lasers (QCLs) are the perfect candidates for comb generation in the mid- and far-infrared portions of the electromagnetic spectrum, due to the broadband nature of their gain as well as their high quantum efficiency. Here we present a theoretical model based on a full numerical solution of  Maxwell-Bloch equations suitable for the simulation of such devices, as we attempt to identify the main ingredients for a successful generation of QCL based terahertz combs. We show that our approach captures the intricate interplay between four wave mixing, spatial hole burning and chromatic dispersion that are essentially present in free running QCLs and come to conclusions regarding comb like and chaotic regimes of multimode operations reported in these types of devices. 
+\end{abstract}
+
+\tableofcontents
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+
+Quantum cascade lasers (QCLs)  promise to be efficient, cheap and compact generators of frequency combs in the mid- and far- infrared portions of the electromagnetic spectrum. QCL based combs in both spectral regions have been previously demonstrated \cite{wienold2014evidence,burghoff2014terahertz,hugi2012mid}, but due to material dispersion or optical instabilities their spectral coverage has remained just a fraction of their central frequency. From an application point of view, combs with bandwidth spanning an octave are highly desired devices, since then the round-trip and carrier offset frequencies can be readily identified via a self-referencing scheme based on heterodyne detection \cite{ye2005femtosecond}. However, achieving comb stability over such a broadband frequency range has proven to be difficult \cite{rosch2015octave}, namely due to the distorting effect of chromatic dispersion. Nevertheless, a proof of concept narrowband QCL comb utilization has already been demonstrated based on the so called dual-comb spectroscopy technique \cite{villares2014dual}.
+
+Experimental results have shown comb generation in the mid-infrared \cite{hugi2012mid} as well as the terahertz \cite{wienold2014evidence,burghoff2014terahertz,rosch2015octave} range based on free running lasers. High order nonlinear optical processes, such as four wave mixing, have long been identified as the main mode proliferation mechanisms that contribute to comb formation in these devices \cite{friedli2013four,khurgin2014coherent}. In contrast, it has been argued that group velocity dispersion (GVD) leads to unstable multimode operation and pulse broadening and thus limits the full exploitation of the gain bandwidth of the material \cite{villares2015quantum}. In the terahertz regime, the two widest comb generating devices demonstrated so far \cite{burghoff2014terahertz,rosch2015octave}, have shown a strong variation of the beatnote's linewidth with changing injection current and thus indicate that "comb"  operation regimes are only a fraction of the whole dynamic range of these lasers. 
+
+This paper addresses the reasons behind the alternation between comb and non-comb regimes of multimode operation in free running THz QCLs by full numerical simulations of the semi-classical Maxwell-Bloch (MB) laser equations \cite{boyd2003nonlinear}. In Sec. \ref{sec:thmodel} we present our theoretical model, where a single optical and a single resonant tunneling (RT) transition have been coherently included. Despite the existence of numerous implementations of the Maxwell-Bloch system for modelling of QCLs \cite{villares2015quantum,gordon2008multimode,wang2015active,talukder2010self}, to the extend of our knowledge, we are the first authors to demonstrate transient dynamic simulations of QCLs in regimes of perfect and imperfect comb operation, without any prior assumptions on the mode-spacing or perturbative solutions as done in \cite{khurgin2014coherent,villares2015quantum}. This keeps the formalism closer to the standard MB equations, but it nevertheless allows us to directly probe important characteristics of the device. In Sec.\ref{subsec:extension} we analyze the active region from \cite{burghoff2014terahertz} and show how our approach can be faithfully applied to model this particular QCL. In Sec. \ref{subsec:numthztds}, we perform  numerical experiments to characterize the shape of the spectral gain and related dispersion, which results in a good agreement with experimental data in \cite{burghoff2014broadband}. We continue our discussion, in Sec. \ref{subsec:FWM}, by investigating the dominant mode proliferation mechanisms captured by our model. From our results we can clearly confirm that four wave mixing, and more specifically third-order difference frequency generation, is the main effect contributing to multimode emission, as we investigate conditions to set off this nonlinear process. Lastly, in Sec. \ref{subsec:tdsims} we present results from evolving the MB system over many thousands of round-trips and study the chaotic beatnote regime of operation in multimode QCLs as a form of multi-pulse behaviour in lasers with strong chromatic dispersion. The numerical methods employed throughout as well as all relevant simulation parameters are given in appendices \ref{sec:numerics} and \ref{sec:params}, respectively. 
+
+\section{Theoretical Model}
+\label{sec:thmodel}
+
+The Maxwell-Bloch (MB) equations are a semi-classical model describing the light-matter interaction in microscopic systems, where the coherent coupling between the optical field and the gain medium is treated within a density matrix formalism, whereas the effect of the induced polarization onto the propagating optical field is captured via the classical Maxwell's equations.
+
+In this section, after we write down the Maxwell-Bloch equations for a three level system with a resonant tunneling and an optical transition, we employ the rotating wave and slowly varying envelope approximations to simplify the numerical load of the solution. Following standard approaches found in literature \cite{wang2015active,callebaut2005importance}, the effect of other nonradiative scattering mechanisms onto the carrier dynamics is captured phenomenologically via a  rate equations approach, where we also employ periodic boundary conditions to eliminate the pump current density from the model. In order to maintain the inclusion of empirical parameters to a minimum, we also use our Schr{\"o}dinger-Poisson solver to calculate the eigenenergies, dipole moments and anticrossing strengths, coupled to our well established Monte Carlo simulations code, which has proven accuracy for electron transport simulations in various QCL configurations \cite{jirauschek2007comparative,jirauschek2009monte,jirauschek2010monte}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{figs/TOYMODEL.eps}
+	\caption{A schematic diagram of a simple three level LO-phonon THz QCL, where the upper laser level is populated via resonant tunneling.} \label{fig:img01}
+\end{figure}
+
+First, in order to illustrate the system of interest, let us consider a simple three level resonant phonon QCL as depicted in Fig. \ref{fig:img01}. In this configuration, there are four relevant levels per period $\Ket{1'}, \Ket{3}, \Ket{2} $ and $\Ket{1}$ which are the injector level, the upper and lower laser levels and the depopulation level, respectively. The state $\Ket{1'}$ couples to $\Ket{3}$ via the anticrossing energy $\hbar\Omega_{1'3}$, whereas the upper and lower laser levels interact via the optical Rabi frequency $\Omega_L(t)= \mu_{32}E_z(t)/\hbar$, where $\mu_{32} = |e| \Bra{3}\hat{z} \Ket{2}$ is the dipole matrix element, for convenience taken with a positive sign, $E_z(t)$ is the electric field component along the growth direction $z$ and $|e|$ is the elementary charge. Lastly, we assume that the energy separation between $\Ket{1'}$ and $\Ket{3}$ is $\Delta_{1'3} = \hbar \epsilon$ and that between the upper and lower laser levels $\Delta_{32} = \hbar \omega_0$. As it will be shown by our simulations, such a system possess very rich and interesting dynamics, incorporating effects such as anticrossing splitting, group velocity dispersion/delay, four wave mixing, temporal and spatial hole burning and others.
+
+The transport of electron wave packets, cascading through the structure, can be treated quantum mechanically within the density matrix formalism, where the equation of motion (EOM) is given by the von Neumann equation:
+\begin{align}
+\label{eq:vonNeumann}
+\frac{d \hat{\rho}}{dt} =\frac{i}{\hbar}[\hat{\rho},\hat{H}].
+\end{align}
+Above $\hat{\rho}$ denotes the density operator, $\hat{H}$ the Hamiltonian of the system, and $[\cdot,\cdot]$ the usual quantum mechanical commutator. In general, $\hat{H}$ contains many different contributions corresponding to various physical mechanisms that determine the overall carrier transport in the system. These could be radiative transitions, resonant tunneling or incoherent scattering events such as LO phonon, electron-electron, interface roughness scattering and others \cite{jirauschek2014modeling}. In view of the fact that we want to numerically solve Eq. (\ref{eq:vonNeumann}), incorporating all those effects quantum mechanically proves to be a difficult task and it is out of the scope of this research. Therefore, under the assumption of weak non-parabolicity and using that the tunneling and radiative transitions conserve the in-plane momentum, we can include those two processes fully quantum mechanically, whereas treat all incoherent scattering process within a rate equation approach \cite{jirauschek2014modeling,iotti2005microscopic}. 
+
+When resonant tunneling transitions are modelled, one usually employs the so called tight-binding approximation \cite{bastardwave}, where the wave functions are calculated for a single isolated period, whereas the electron subbands in adjacent modules are simply translated in space and energy by the module length $L_p$ \cite{callebaut2005importance}. The energetic coupling between levels spanning an intermodule barrier is modelled by including the so called anticrossing energies in the Hamiltonian matrix. In our case these are the injector and upper laser level where their coupling energy is assumed to be $\hbar \Omega_{1'3}$. In this tight-binding basis, the von Neumann equation reads
+\begin{align}
+\label{eq:vonNeumannmatrix}
+& \frac{d}{dt} \begin{pmatrix}
+\rho_{1'1'}& \rho_{1'3} & \rho_{1'2} \\
+\rho_{31'} & \rho_{33} & \rho_{32} \\ 
+\rho_{21'} & \rho_{23} & \rho_{22}
+\end{pmatrix}  =   \frac{i}{\hbar}\left [
+\begin{pmatrix}
+\rho_{1'1'}& \rho_{1'3} & \rho_{1'2} \\
+\rho_{31'} & \rho_{33} & \rho_{32} \\ 
+\rho_{21'} & \rho_{23} & \rho_{22}
+\end{pmatrix} , 
+\overbrace{\begin{pmatrix} 
+	\frac{\hbar \epsilon}{2} & \hbar\Omega_{1'3} & 0 \\
+	\hbar\Omega_{1'3}  & -\frac{\hbar	\epsilon}{2} &  \hbar\Omega_{L}(t) \\
+	0  &\hbar\Omega_{L}(t) & -\frac{\hbar \epsilon}{2}-\hbar\omega_{0}   
+	\end{pmatrix} }^{\text{resonant tunneling and radiative coupling}}
+\right ]  \nonumber \\
+& + 
+\underbrace{\begin{pmatrix}
+	-\frac{\rho_{1'1'}}{\tau_{1'}} + (\frac{1}{\tau_{31'}}+\frac{1}{\tau_{31}})\rho_{33}  +  (\frac{1}{\tau_{21'}}+\frac{1}{\tau_{21}})\rho_{22} & \tau_{\parallel 1'3}^{-1}\rho_{1'3} & \tau_{\parallel 1'2}^{-1}\rho_{1'2}\\
+	\tau_{\parallel 1'3}^{-1}\rho_{31'} & \frac{\rho_{1'1'}}{\tau_{1'3}}   - \frac{\rho_{33}}{\tau_{3}} +  \frac{\rho_{22}}{\tau_{23}} &  \tau_{\parallel 32}^{-1}\rho_{32}\\
+	\tau_{\parallel 1'2}^{-1}\rho_{21'}& \tau_{\parallel 32}^{-1}\rho_{32} &	\frac{ \rho_{1'1'}}{\tau_{1'2}} + \frac{\rho_{33} }{\tau_{32}} 	- \frac{\rho_{22}}{\tau_2}
+	\end{pmatrix}}_{\text{scattering rates matrix}},
+\end{align}
+where $\rho_{i,j} = \Bra{i} \hat{\rho} \Ket{j}$ are the corresponding density matrix elements and we have set the zero energy at $E_0 = (E_{1'}+E_{3})/2 $. Furthermore $\tau_{ij}^{-1}$ denotes the total outscattering rate from level $i$ to level $j$, $\tau_{i}$ is the lifetime of level $i$ and
+$$
+\tau_{\parallel ij}^{-1} = \frac{1}{2}(\frac{1}{\tau_{i}} +\frac{1}{\tau_{j}}) + \frac{1}{\tau_{pure}}   
+$$
+is the damping rate of the coherence between levels $i$ and $j$, containing lifetime broadening and other "pure" dephasing mechanisms, which scramble the phase coherence between these subbands \cite{callebaut2005importance}. 
+
+Notice that in Eq. (\ref{eq:vonNeumannmatrix}) we have omitted the time evolution related to state $\Ket{1}$. This is due to the fact that the depopulation level, $\Ket{1}$, is effectively the injector level of the next period, which allows us to eliminate it from the model by employing "periodic" boundary conditions in the scattering rates matrix. It is vital for the simulation that these periodic boundary conditions are implemented correctly. This is so, because our model is formulated in a manner which does not phenomenologically include the injection current density $J$ into the equations. Instead, we assume a periodic system where all carriers that reach the depopulation level $\Ket{1}$ are immediately re-injected into the system through level $\Ket{1'}$. In such a configuration the overall carrier density has to be conserved, which means that the relation $\sum_{j} d \rho_{jj}/dt =0 $ has to be satisfied at all times. Then, the current injected into the system is essentially equal to the current entering into the depopulation level, $\Ket{1}$. From rate equation analysis, the current density through such a system with average carrier concentration $N$, and arbitrary number of, say M,  levels is given via 
+\begin{equation}
+J = e N  L_p \left( \sum_{j=2}^{M}\frac{\rho_{jj}}{\tau_{j1}} + \frac{\rho_{1'1'}}{\tau_{1'1}} \right),
+\end{equation}
+where $\rho_{1^\prime 1^\prime}$ denotes the injector level element and the $\rho_{jj}$ the density matrix elements corresponding to all electron transport "channel" levels within a single module.   
+
+The coupling of the microscopic density matrix equations to the macroscopic Maxwell's equations is usually done via the incorporation of  polarization term in Maxwell's equations as the expectation value of the quantum mechanical dipole moment operator,
+\begin{equation} 
+P_z = -N\Gamma \Tr\{\rho \mu\} = -N\Gamma(\mu_{32}\rho_{32} + \mu_{23}\rho_{23}) =  -N\Gamma\mu_{32}(\rho_{32}+\rho_{23}) , \label{eq:fullpolarization}
+\end{equation}
+where $\Gamma$ is the spatial overlap factor between the optical field  and the active region. The negative sign in the above expression is due to the fact that we have taken the dipole element as $|e| \Bra{3}\hat{z} \Ket{2}$ instead of$-|e| \Bra{3}\hat{z} \Ket{2}$. Assuming no free electric charges and also weak inhomogeneities in the polarization field, we obtain the classical wave equation for  $E_z$
+\begin{equation}
+\Big (\partial^2_{x} -\frac{n^2}{c^2}\partial^2_{t} \Big) E_z = \frac{1}{\epsilon_0 c^2}\partial^2_t P_z, 
+\label{eq:fullwave}
+\end{equation}
+where $x$ denotes the propagation direction, $c$ the speed of light in vacuum, $n$ is the refractive index of our material and $\epsilon_0$ is the permittivity of free space.
+
+\subsection{Maxwell-Bloch equations for a Fabry-Perot resonator} 
+\label{subsec:mbforfpresonator}
+Let us consider a Fabry-Perot resonator of a certain length $L$, and employ the rotating wave (RWA) and the slowly varying envelope approximations (SVEA) \cite{boyd2003nonlinear,gordon2008multimode}. The optical field inside the cavity can be written as a superposition of forward and backward propagating waves
+\begin{align}
+E_z(x,t) &= \frac{1}{2} \big [ f_{+}(x,t) e^{i(k_c x-\omega_c t)} + f_{-}(x,t) e^{-i(k_c x+\omega_c t)} + c.c \big],\label{eq:e-ansatz}
+\end{align}
+where "c.c." denotes the complex conjugate of the preceding expression, the $+$ and $-$ signs specify the forward/backward propagating waves' envelopes, respectively, and $\omega_c$  and $k_c$ are the field's  carrier frequency and wave number, related by $k_c = n \omega_c  / c$. Since the superposition of two counter propagating waves forms a standing wave, this will lead to the formation of an inversion grating along the propagation direction $x$, a phenomenon also known as spatial hole burning. Thus for the diagonal elements of the density matrix we make the following ansatz
+\begin{align}
+\rho_{ii}(x,t) = \rho_{ii}^0(x,t) + \rho_{ii}^+(x,t) e^{2ik_c x} + \rho_{ii}^-(x,t)e^{-2ik_c x}, \label{eq:ii-ansatz}
+\end{align}
+where $\rho_{ii}^+ = (\rho_{ii}^-)^*$ are the inversion grating's amplitudes \cite{wang2007coherent}. Lastly, we decompose the coherences of the density matrix as
+\begin{subequations}
+	\label{eq:cohansatz}
+	\begin{align}
+	\rho_{32}(x,t) &= \eta_{32}^{+}(x,t)e^{i(k_cx-\omega_ct)} + \eta_{32}^{-}(x,t)e^{-i(k_c x+\omega_c t)}, \label{eq:32ansatz} \\
+	\rho_{1'2}(x,t) &= \eta_{1'2}^{+}(x,t)e^{i(k_c x - \omega_c t)} + \eta_{1'2}^{-}(x,t)e^{-i(k_c x+\omega_c t)}, \label{eq:12ansatz} \\
+	\rho_{1'3}(x,t) &= \rho_{1'3}^0(x,t) + \rho_{1'3}^{+}(x,t) e^{2ik_cx} +  \rho_{1'3}^{-}(x,t) e^{-2ik_cx}.   \label{eq:13ansatz}
+	\end{align}
+\end{subequations}
+Notice that the term $\rho_{1'3}$ is assumed to evolve in a similar manner as the $\rho_{jj}$'s whereas $\rho_{32}$ and $\rho_{1'2}$ follow the electric field ansatz. Indeed, taking Eqs. (\ref{eq:e-ansatz}) and (\ref{eq:12ansatz}) and inserting into the product $E_z\rho_{1'2}$ in the expanded form of Eq. (\ref{eq:vonNeumannmatrix}), after applying the rotating wave approximation we get
+$$
+E_z\rho_{1'2} \approx  \frac{1}{2}\big (f_{+}^*\eta_{1'2}^{+}+f_{-}^*\eta_{1'2}^{-} + f_{-}^* \eta_{1'2}^{+}e^{2ik_c x} +f_{+}^* \eta_{1'2}^{-}e^{-2ik_c x}  \big ),
+$$
+which does not contain terms oscillating with $e^{\pm i\omega_ct }$, and hence confirms that within the rotating wave approximation the spatio-temporal dependence of $\rho_{1'3}$ can be assumed to follow Eq. (\ref{eq:13ansatz}).
+Finally, plugging Eqs. (\ref{eq:e-ansatz}), (\ref{eq:ii-ansatz}) and (\ref{eq:cohansatz}) into Eqs. (\ref{eq:vonNeumannmatrix}), (\ref{eq:fullpolarization}) and (\ref{eq:fullwave})  and invoking the rotating wave and slowly varying amplitude approximations, we obtain our model in its final form
+\begin{enumerate}
+	\item { Propagation equations
+		\begin{align}
+		&\frac{n}{c}\partial_t f_{\pm} \pm \partial_{x}f_{\pm} = -i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32}^{\pm} - l_0 f_{\pm} \label{eq:rtwave},
+		\end{align} }
+	\item{ Population densities
+		\begin{subequations}
+			\label{eq:diagonaldm}
+			\begin{align}
+			&\frac{d \rho_{1'1'}}{d t}^{0} = i\Omega_{1'3} (\rho_{1'3}^{0} - \rho_{31'}^{0}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33}^{0} 
+			+ (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22}^{0} - \frac{\rho_{1'1'}^{0}}{\tau_{1'}} \label{eq:rho11-dm} \\
+			&\frac{d \rho_{1'1'}}{d t}^{+} = i\Omega_{1'3} (\rho_{1'3}^{+} - \rho_{31'}^{+}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33}^{+}  
+			+ (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22}^{+} - (\frac{1}{\tau_{1'}} + 4k_c^2D )\rho_{1'1'}^{+}  \label{eq:rtpop1grating}\\
+			&\frac{d \rho_{33}}{d t}^0 = i\Omega_{1'3} (\rho_{31'}^0 - \rho_{1'3}^0) + i\frac{\mu_{32}}{2\hbar} \big (f_{-}^*\eta_{32}^{-}+f_{+}^*\eta_{32}^{+} - c.c. \big )+ \frac{1}{\tau_{1'3}}\rho_{1'1'}^0 +  \frac{1}{\tau_{23}}\rho_{22}^0 - \frac{\rho_{33}^0}{\tau_{3}}  \\
+			&\frac{d \rho_{33}}{d t}^{+}   = i\Omega_{1'3} (\rho_{31'}^{+} - \rho_{1'3}^{+}) + i\frac{\mu_{32}}{2\hbar}\big ( f_{-}^*\eta_{32}^{+}-f_{+}(\eta_{32}^{-})^* \big ) 
+			+ \frac{\rho_{1'1'}^+}{\tau_{1'3}} +  \frac{\rho_{22}^+}{\tau_{23}} - (\frac{1}{\tau_{3}} +4k_c^2D) \rho_{33}^+ \label{eq:rtpop3grating}\\
+			&\frac{d \rho_{22}}{d t}^{0}  = -i\frac{\mu_{32}}{2\hbar} \big (f_{-}^*\eta_{32}^{-}+f_{+}^*\eta_{32}^{+} - c.c. \big ) + \frac{1}{\tau_{1'2}}\rho_{1'1'}^0  +  \frac{1}{\tau_{32}}\rho_{33}^{0} - \frac{\rho_{22}^0}{\tau_{21}} , \\
+			&\frac{d \rho_{22}}{d t}^{+}   = - i\frac{\mu_{32}}{2\hbar}\big ( f_{-}^*\eta_{32}^{+}-f_{+}(\eta_{32}^{-})^* \big )  + \frac{1}{\tau_{1'2}}\rho_{1'1'}^+  +  \frac{1}{\tau_{32}}\rho_{33}^+ - (\frac{1}{\tau_{2}}+4k_c^2D) \rho_{22}^+ , \label{eq:rtpop2grating}
+			\end{align}
+		\end{subequations}}
+		\item {Coherence terms
+			\begin{subequations}
+				\label{eq:coherencesdm}
+				\begin{align}
+				&\frac{d \rho_{1'3}}{d t}^0  = -i\epsilon\rho_{1'3}^0 +i \Omega_{1'3}(\rho_{1'1'}^{0} - \rho_{33}^{0}) +i\frac{\mu_{32}}{2 \hbar}\big (f_{+}^*\eta_{1'2}^{+}+f_{-}^*\eta_{1'2}^{-} \big ) -
+				\tau_{\parallel 1'3}^{-1} \rho_{1'3}^{0} ,  \\
+				&\frac{d \rho_{1'3}}{d t} ^\pm = -i\epsilon\rho_{1'3}^\pm  +i\Omega_{1'3}(\rho_{1'1'}^{\pm} - \rho_{33}^{\pm}) +i \frac{\mu_{32}}{2 \hbar} f_{\mp}^* \eta_{1'2}^{\pm} 
+				- (\tau_{\parallel 1'3}^{-1} +4k_c^2 D)\rho_{1'3}^{\pm} ,\label{eq:rho13grating}\\
+				&\frac{d \eta_{32}^{\pm}}{d t}   = i(\omega_c - \omega_{0})\eta_{32}^{\pm} +i \frac{\mu_{32}}{2\hbar}\Big(  f_{\pm}(\rho_{33}^0-\rho_{22}^0) + f_{\mp}(\rho_{33}^\pm-\rho_{22}^\pm) \Big ) - i\Omega_{1'3}\eta_{1'2}^{\pm}
+				- \tau_{\parallel 32}^{-1}\eta_{32}^\pm , \\
+				&\frac{d \eta_{1'2}^\pm}{d t}  = i(\omega_c - \omega_{0}-\epsilon)\eta_{1'2}^{\pm} +i \frac{\mu_{32}}{2\hbar}(f_{\pm }\rho_{1'3}^0 + f_{\mp} \rho_{1'3}^{\pm}) - i\Omega_{1'3}\eta_{32}^{\pm} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}^\pm.\label{eq:rho12-dm}
+				\end{align}
+			\end{subequations}}
+		\end{enumerate}
+		Notice that in Eq. (\ref{eq:rtwave}) we have added, phenomenologically, a linear amplitude loss coefficient $l_0$, and in equations (\ref{eq:rtpop1grating},\ref{eq:rtpop3grating} ,{\ref{eq:rtpop2grating},\ref{eq:rho13grating}) a diffusion term $4k_c^2D$ describing the diffusion rate at which carriers diffuse away from peaks of the population grating. Here $D$ denotes the diffusion constant, which for GaAs-AlGaAs systems is 46 cm$^2$/sec \cite{wang2009mode,vukovic2016multimode}.
+			
+			\section{Applications}
+			\label{sec:application}
+			\subsection{Self-consistent simulations of LO-phonon terahertz QCLs}
+			\label{subsec:extension}
+			In this section we apply our model to simulate one of the best performing QCL based terahertz frequency combs so far, the QCL design in \cite{burghoff2014terahertz}. This laser is based on a resonant LO phonon active region, lasing at the central frequency  $f_0\approx 3.5$ THz, and  has been shown to produce a stable multimode spectrum containing more than 70 equidistant longitudinal modes in a free running regime of operation. At optimal biases, field autocorrelation measurements show a broadband periodic signal with a very strong and narrow beatnote with minimal reported FWHM linewidth of approximately 1.53 kHz. Furthermore, a novel comb coherence detection technique, SWIFT \cite{burghoff2015evaluating}, was used to prove the stability of the terahertz comb over a large number of round trips. 
+			To correctly describe the device under test, we start off by wave function calculations in order to determine operating regimes where the "single resonant tunneling and single optical transition" assumption of our model is justified. 
+			
+			Fig. \ref{fig:img02}a illustrates the calculated wave functions at bias of 11 kV/cm obtained with the tight binding approximation. From graphical inspection we see that there are in total of five relevant levels per period, which we will refer to, according to their assumed role, as $\Ket{ULL}$ for the upper laser level, $\Ket{LLL1}$ for the higher energy level from a pair of lower laser levels, $\Ket{LLL2}$ for the lower energy level from the same pair, $\Ket{DEP1}$ for the higher energy level from a doublet of depopulation levels, and finally $\Ket{DEP2}$ for the lowest energy level. Furthermore, since the structure is periodic, the depopulation levels from the previous period will be referred to as $\Ket{INJ1}$ and $\Ket{INJ2}$, respectively.
+			
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=.8]{figs/FL183S.eps}
+					\caption{\textbf{a}, The moduli squared of the wave functions of the THz QCL in \cite{burghoff2014terahertz} within the tight-binding approximation. \textbf{b}, The anticrossing coupling strengths between the pair of injector levels, $\ket{INJ1},\ket{INJ2}$, and the upper laser level $\ket{ULL}$, computed via the method outlined in  \cite{bastardwave}. \textbf{c}, Dipole elements calculated for the same laser, obtained with the extended basis Hamiltonian, $\hat{H}_{ext}$.} \label{fig:img02}
+				\end{center}	
+			\end{figure}
+			
+			Fig. \ref{fig:img02}b and \ref{fig:img02}c depict the calculated, for different biases, coupling strengths, $\hbar \Omega_{ij}$, between the injector states and the upper laser level as well as the dipole matrix elements, $\mu_{ij}$, between the upper laser level and the lower laser levels doublet. The anticrossing energies (AC) were calculated via the method described in \cite{bastardwave} and the numerical values were verified by diagonalization of the tight binding Hamiltonian. Focusing on those values at biases around 11 kV/cm, our calculations show that there is almost perfect energetic alignment between $\Ket{INJ2} \leftrightarrow \Ket{ULL}$, whereas $\Ket{INJ1}$ and $\Ket{ULL}$ are separated by approximately $\Delta_{INJ1,ULL} \approx 4.3 \text{ meV}$ (not shown in the figure). Even though the anticrossing energies $\hbar \Omega_{INJ1,ULL} \approx 1.18 \text{ meV}$ and $\hbar \Omega_{INJ2,ULL} \approx 1.38 \text{ meV}$ are of comparable strength, the strong resonance condition between the pair $\Ket{INJ2} \leftrightarrow \Ket{ULL}$ enhances the tunneling probability, i.e. reduces the tunneling time, between those levels \cite{williams2007terahertz}, as compared to the $\Ket{INJ1} \leftrightarrow \Ket{ULL}$ tunneling transition. This means that the majority of the tunneling electrons will prefer the $\Ket{INJ2} \leftrightarrow \Ket{ULL}$ transport channel and hence our model, which includes only a single tunneling transition, ought to correctly capture the microscopic dynamics of the real device. From dipole moment calculations in Fig. \ref{fig:img02}c, we see that the optical transition at 11 kV/cm is most likely to occur between the pair $\Ket{ULL} \leftrightarrow \Ket{LLL1}$ and thus we can assign the state $\Ket{2}$ in our equations, to be subband $\Ket{LLL1}$ from the system under investigation. Similarly, due to the discussion above, we can set the injector level in our reduced model, i.e. $\Ket{1'}$, to state $\Ket{INJ2}$. Finally, we can map $\Ket{3}$ to subband $\Ket{ULL}$ and include the effect of the rest of the electron transport channels, i.e. the states $\Ket{INJ1},\Ket{LLL2}$, into the scattering rates matrix, i.e. within a rate equations approach.
+			
+			\subsection{Gain and dispersion characterization}
+			\label{subsec:numthztds}
+			In order to estimate the shape of the spectral gain in our model, as well as the strength of the chromatic dispersion induced by the quantum structure design, i.e. the so called gain dispersion, we performed numerical experiments emulating the terahertz time-domain spectroscopy (THz-TDS) technique, often used for gain characterization of THz QCLs \cite{burghoff2014broadband,jukam2008gain}.
+			
+			Neglecting spatial hole burning effects, which are not expected to play a vital role during the duration of the simulation experiment, we apply our model to a ring cavity laser, in which we let a weak un-chirped Gaussian pulse propagate over a certain length $L$. At each time step $t_n$ of our simulation, as well as at different points along the cavity length $x_j$, we record the electric field envelope $f_j^{n}$ for further data processing. From this data the real and imaginary parts of the refractive index can be calculated in a straightforward manner, as briefly discussed below. 
+			
+			We will denote the electric field of the injected seed pulse at the input facet of our cavity as $E_{in}(t)$, the field of the detected pulse as $E_{out}(t)$ and their Fourier transforms as $E_{in}(\omega)$ and $E_{out}(\omega)$, respectively, where $\omega$ denotes the angular frequency.
+			
+			In a ring cavity, we have only forward propagating waves (no standing waves) and thus the electric field can be written as
+			\begin{equation}
+			E(t,x) = \Re\{f(t,x)e^{i (k_c x - \omega_c t) }\} = \frac{1}{2} \left ( f(t,x)e^{i (k_c z - \omega_c t)} +f^*(t,x) e^{-i (k_c z - \omega_c t) }\right) ,
+			\end{equation}
+			where $f(t,x)$ is the (slowly varying) envelope function. In the Fourier domain the wave number  $k(\omega)$ is related to the overall accumulated phase via $k(\omega)L = \Psi(\omega),$ and to the real part of the refractive index as 
+			$k(\omega) =  \frac{n'(\omega)\omega}{c}.$ From this, after some elementary manipulations we obtain 
+			\begin{equation}
+			n'(\omega) = \frac{c}{L \omega }\angle\{F_{out}(\omega-\omega_c)/F_{in}(\omega-\omega_c)\}+\frac{ck_c}{\omega} = \frac{c}{L\omega }\angle\{F_{out}(\omega-\omega_c)/F_{in}(\omega-\omega_c)\}+n\frac{\omega_c}{\omega},
+			\end{equation}
+			where $F_{out/in}(\tilde\omega)$ denotes the Fourier transform of the envelopes $f_{out/in}$, respectively. 
+			
+			Similarly, the spectral \emph{amplitude} gain $g(\omega)$ is simply given by the log of the ratio of the corresponding frequency components of the output and the input signals
+			\begin{equation}
+			\label{eq:gaineq}
+			g(\omega) = \frac{1}{L} \log\{|F_{out}(\omega-\omega_c)|/|F_{in}(\omega-\omega_c)|\}.
+			\end{equation}
+			Since $g(\omega)$ can be related to the complex part of the refractive index $n''(\omega)$ via
+			$
+			g(\omega) = -\frac{n''(\omega)\omega}{c}, 
+			$
+			this gives us
+			\begin{equation}
+			n''(\omega) = -\frac{c}{L\omega}\log\{|F_{out}(\omega-\omega_c)|/|F_{in}(\omega-\omega_c)|\}.
+			\end{equation}
+			
+			Fig. \ref{fig:img03} shows the results from numerical THz-TDS simulations for the active region in \cite{burghoff2014terahertz}, at the bias of $10.8$ kV/cm. The cavity length was chosen to be $2.5$ mm and the seed THz pulse was propagated only once before post processing. All relevant simulation parameters, as well as the scattering times are given in appendix \ref{sec:params}. 
+			
+			Since our aim was to probe the unsaturated gain profile, for these numerical experiments the seed pulse was chosen to be with amplitude strength of $0.0005$ rad/ps, where the electric field was normalized to the Rabi frequency, i.e. $\tilde{E}(x,t) = \mu_{32} E(x,t)/\hbar$, whereas the pulse FWHM duration was set to 1 ps, corresponding to a FWHM bandwidth of 440 GHz for a transform limited pulse. 
+			In Fig. \ref{fig:img03} the blue curve illustrates the simulated spectral gain profile, obtained from Eq. (\ref{eq:gaineq}), and thus denoting the  amplitude amplification ratio. We clearly can observe a pronounced splitting of the gain spectra into two frequency lobes, one centred around 3.55 THz and another around 4.21 THz. The red curve in Fig. \ref{fig:img03}, depicts the frequency resolved group velocity, calculated from $[\p k(\omega)/\p \omega]^{-1}$, and normalized to the central frequency's phase velocity, i.e. $v_{ph} = c/n$. Due to the strong resonances at 3.55 THz and 4.21 THz, the optical field experiences group velocity delay as this ratio approaches 0.9511 and 0.9326 for the low and high frequency peaks of the gain, respectively, where this ratio depends on the strength of the transition as evident from the gain profile. The upper left inset of Fig. \ref{fig:img03} depicts the calculated higher order phase $\Psi_{meas}$ (with the linear part factored out) together with a third order polynomial fit to it, $\Psi_{fit}$, and shows that the dispersion relation within the spectral range of interest (i.e. from 3.5 THz to 4.2 THz) is approximately cubic. Lastly, the top right inset illustrates the second derivative of the wave number with respect to frequency, i.e. $\p^2 k(\omega)/\p \omega^2$, which is a measure of the group velocity dispersion of the material.
+			
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=0.8]{figs/THZtds.eps}
+					\caption{Simulated spectral gain (blue curve, left y-axis) profile together with the normalized group velocity $v_{gr}/v_{ph}$ (red curve, right y-axis). (Left inset) The nonlinear phase acquired by the test pulse upon propagating for 2.5 mm inside the laser cavity. (Right inset) The second derivative of the wave number with respect to the angular frequency (in units of ps$^2$/mm) as a measure af GVD. }  \label{fig:img03}
+				\end{center}	
+			\end{figure}
+			
+			
+			From the above analysis we can conclude that even in the absence of bulk or waveguide dispersion, the doubly peaked resonant nature of the transition will contribute to a significant dispersion in the cavity which is expected to deteriorate the comb performance. Here a question naturally arises: "How does the presence of strong chromatic dispersion impact the mode proliferation process?". If the multimode behaviour of free running QCLs is due to four wave mixing (FWM), as already suggested in refs. \cite{friedli2013four,khurgin2014coherent}, then one would intuitively expect that such a high GVD will violate the phase matching condition and thus yield this nonlinear process ineffective. However, from experiment \cite{burghoff2014terahertz,rosch2015octave}, multimode operation of both mid-infrared and THz QCLs could be observed, even in the presence of strong dispersion. To investigate further this question, we have to identify the nature of this mode generation mechanism and estimate the amount of phase mismatch induced by the resonant transition. 
+			
+			
+			\subsection{Four Wave Mixing}
+			\label{subsec:FWM}
+			
+			We conducted numerical experiments, similar to the THz-TDs technique, where we pumped the ring cavity laser, outlined above, with two frequencies $\omega_1$ and $\omega_2 (< \omega_1)$. For 50 round trips we collected the signal and calculated the resulting power spectrum. Figures \ref{fig:img04}b,c and d illustrate the results from these simulations when the seed frequencies $\omega_1$ and $\omega_2$ were varied. In Fig. \ref{fig:img04}b, we chose $\omega_1$ and $\omega_2$ to be separated by the free spectral range, $\Delta\omega = 2\pi c/nL$, and to reside within the high frequency lobe of the spectrum. We can clearly observe the formation of side-modes, separated by $\Delta \omega$, populating this whole frequency lobe. Similarly in Fig. \ref{fig:img04}c, our seed frequencies were chosen to be separated by $2\Delta \omega$ and again side-modes can be seen in the spectrum, however this time with mode spacing of $2\Delta \omega$. This kind of behaviour is a trademark for degenerate four wave mixing, i.e. the third order difference frequency generation \cite{butcher1991elements}, which is described by the susceptibilities $\chi(-\omega_a; \omega_1,-\omega_2,\omega_1)$  and $\chi(-\omega_s; \omega_2,-\omega_1,\omega_2)$, where the pump frequencies $\omega_1$ and $\omega_2$ mix to produce a signal at the anti-Stokes $\omega_a$ and Stokes $\omega_s$ frequencies, respectively. This process is schematically illustrated in Fig. \ref{fig:img04}a.
+			
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=0.8]{figs/FWM.eps}
+					\caption{\textbf{a}, Schematic representation of third order difference frequency generation \cite{butcher1991elements}, where two pump modes $\omega_1$,$\omega_2$ combine to produce sidebands at frequencies $\omega_a = 2\omega_1-\omega_2$ and $\omega_s=2\omega_2-\omega_1$. \textbf{b}, Optical spectrum obtained from THz-TDs simulations when the seed frequencies, $\omega_1$ and $\omega_2$, were separated by the free spectral range $\Delta \omega$. \textbf{c}, Same as \textbf{b}, however this time $\omega_1-\omega_2 = 2\Delta \omega$. \textbf{d}, Optical spectrum from simulations where the seed frequencies were distributed under both peaks of the spectral gain.} \label{fig:img04} 
+				\end{center}	
+			\end{figure}
+			
+			We note that there was no activation of modes under the low-frequency lobe part of the spectrum, in both experiments in Fig. \ref{fig:img04}b, c. The situation was equivalent when we pumped with $\omega_1,\omega_2$ distributed around 3.55 THz, i.e. we observed only mode proliferation around this frequency and no signal coming from the 4.21 THz lobe (not shown here). This means that in order for the four wave mixing process to start, some kind of seeding mechanism is necessary. Since in these experiments we considered a ring-cavity laser, multimode instabilities such as spatial hole burning \cite{gordon2008multimode} were not included and thus lasing in both spectral lobes failed to start, despite the comparable strengths of the gain. 
+			
+			Lastly, Fig. \ref{fig:img04}d shows simulation results when both pump modes were chosen to be in resonance with the corresponding peaks of the gain, and we again observe the familiar formation of side modes due to FWM.
+			
+			The phase mismatch for this third order difference frequency generation process, depicted in Fig.\ref{fig:img04}a, is given by \cite{butcher1991elements}:
+			\begin{equation}
+			\Delta k L = \left [2k(\omega_1) - k(\omega_2)-k(\omega_a) \right ]L. 
+			\end{equation}
+			Taylor-expanding around $\omega_1$ up to third order in $\Delta \omega $, and taking that $\omega_2 = \omega_1 - \Delta \omega$ and $\omega_a =2\omega_1-\omega_2 =\omega_1 + \Delta \omega$ yields:
+			\begin{align}
+			\Delta k L & = L\Delta \omega^2 \left.\frac{\p^2 k}{\p \omega^2}\right|_{\omega_1} + O(\Delta \omega^4) \nonumber \\
+			&\approx \frac{1}{L}\times \left(\frac{\pi c}{n}\right)^2\times GVD(\omega_1),
+			\end{align}
+			for a Fabry-Perot laser. Plugging in typical values for $L = 5$ mm, $n=3.6$ and maximal $GVD(\omega_1) \approx 2 $ ps$^2$/mm, we obtain a phase mismatch of $\Delta k L = 0.0274$ rad, which is negligible. This means that despite significant dispersion present in the cavity, under the favourable conditions of broadband gain, strong third order nonlinearity and some kind of multimode instability mechanism, such lasers can potentially emit a multitude of longitudinal modes even in a free running regime of operation, also reported in numerous experiments \cite{wienold2014evidence,burghoff2014terahertz,hugi2012mid,rosch2015octave}.
+			
+			\subsection{Long time simulations of free running THz QCLs}
+			\label{subsec:tdsims}
+			
+			\subsubsection{Frequency domain}
+			
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=.85]{figs/SPECTRA_EXPERIMENT.eps}
+					\caption{ Optical power spectra (left column) and beatnotes (right column) from experiment and simulations of the device in \cite{burghoff2014terahertz}. \textbf{a},\textbf{b} Experimental data for the dispersion compensated laser, at driving current of $0.9$ A. Simulation results without dispersion compensation (\textbf{c} and \textbf{d})  and with dispersion compensation (\textbf{e} and \textbf{f}). The experimentally detected beatnote in \textbf{b} has a FWHM of approx. 0.553MHz, whereas the simulated beatnote in \textbf{f} has a resolution limited FWHM of 1.55MHz. The peak in \textbf{d} has a FWHM of approximately twice the DFT resolution limit, i.e. 3.04 MHz.} \label{fig:img05}
+				\end{center}	
+			\end{figure}
+			
+			In this subsection we present results from simulations over thousands of round trips of the device in \cite{burghoff2014terahertz}. Here we consider a Fabry-Perot cavity of length $L = 5 $ mm and a model parameter set, extracted with the aid of our Schr{\"o}dinger-Poisson and Monte Carlo tools, when the bias was set a little below resonance, i.e. at 10.8 kV/cm. In appendix \ref{sec:numerics}, we also briefly discuss the numerical methods used throughout our simulations.
+			
+			In Fig. \ref{fig:img05}a-f, we compare the calculated spectra and beatnotes from simulations without dispersion compensation (Fig. \ref{fig:img05}c,d) and with dispersion compensation (Fig. \ref{fig:img05}e,f), to available experimental data (Fig. \ref{fig:img05}a,b). In both the dispersion compensated and uncompensated case, we observe very good agreement with the detected optical power spectra (Fig. \ref{fig:img05}a), however substantial differences arise when we consider the corresponding beatnotes. 
+			
+			
+			Let us first discuss the simulation results in Fig. \ref{fig:img05}c,d. While experimental data shows a strong and narrow beatnote with a linewidth of approximately 0.55 MHz (Fig. \ref{fig:img05}b), in  Fig. \ref{fig:img05}d we observe a multi-beatnote signal distributed around 8.14 GHz. In the radio frequency (RF) spectrum of Fig \ref{fig:img05}d, we can distinguish two peaks, one at 8.146 GHz and another at 8.153 GHz, both with an FWHM of approximately 3 MHz at a DFT resolution limit of 1.55 MHz (corresponding to averaging over 100000 round trips). From the group velocity delay plot in Fig. \ref{fig:img03} as well as from the spectra in Fig.\ref{fig:img05}c we can deduce that since the high frequency lobe's spectral components carry more power, and have lower group velocity ($v_g$), the stronger peak in the beatnote belongs namely to those frequency components, whereas the weaker one to the lower frequency longitudinal modes. This means that there ought to be two co-propagating pulses, albeit with a different $v_g$, which interfere in the beatnote measurement to produce the chaotic RF spectrum in Fig. \ref{fig:img05}d. The amount of noise in this non-comb regime of operation can be therefore traced mainly to the timing jitter induced by the difference in group velocities of those pulses. This will be elaborated further below, when we consider our results in the time domain. 
+			
+			The situation drastically changes when we employ dispersion compensation in our simulations. To cancel the accumulated nonlinear phase, during each iteration we Fourier-transform the envelope of the electric field and subtract from the resulting phasor a previously measured high order phase component. We then inverse Fourier-transform the result before beginning the next iteration. The phase of the so implemented filter, centred around the carrier frequency of $3.82$ THz, is the negative of $\Psi_{meas}$, depicted in the upper-left inset of Fig. \ref{fig:img03}. 
+			
+			Again, the simulation was performed until steady state was reached and the resulting spectral power density and RF spectra are plotted in Fig. \ref{fig:img05}e,f. We see that such a procedure equilibrates the difference in the group velocities of different lasing modes, which results in producing a single, strong and narrow beatnote. 
+			
+			\subsubsection{Time domain}
+			\label{sec:timedomain}
+			
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=1]{figs/TEMPHOLEBURNING_EXPERIMENT.eps}
+					\caption{ Time domain separation of the electric field into high and low frequency lobe components. \textbf{a} Experimental data from \cite{burghoff2015evaluating} for the same THz comb device as in \cite{burghoff2014terahertz}, driven with 0.9 A current. \textbf{b} Simulation results for a dispersion compensated QCL evolved for 10000 round trips. \textbf{c} Time domain behaviour of the dressed states (see appendix \ref{sec:biasdependence}) of the system during the same round trips as in \textbf{b}.} \label{fig:img06}
+				\end{center}	
+			\end{figure}	
+			
+			In \cite{burghoff2015evaluating} it was shown that the strong injector anticrossing leads to a splitting of the emitted comb spectra in frequency domain and to an effect which was coined as "temporal hole burning" in time domain. To compare our simulation results to experiment, we applied a low-pass and high-pass FIR filter to the simulated electric field, in order to separate respectively the low and high frequency lobe components of the signal. The smoothed instantaneous intensity (with smoothing length of 2 ps for the simulation data and 10 ps for experiment), obtained from the experimental data, as well as our simulation results from the dispersion compensated laser (with spectra in Fig. \ref{fig:img05}e and f), are depicted in Fig. \ref{fig:img06}a and b, respectively. 
+			
+			Experiment and simulation show very good qualitative agreement as both data demonstrate an interesting pulse switching behaviour between the high and low frequency lobe components of the spectra. Furthermore it is seen that the high-frequency lobe pulse (blue curve) has a longer time duration then the low lobe signal (red curve). This naturally comes from the difference in relative strengths of the corresponding spectral lobes, as the high lobe components experience more gain (Fig. \ref{fig:img03}). The dependence of the relative strengths of both lobes onto the bias around "injector" $\leftrightarrow$ "upper laser level" resonance has already been discussed in \cite{dupont2010simplified}, however its implications on the time domain behaviour of the laser were not considered in greater detail. 
+			
+			
+			To summarize the conclusions in \cite{dupont2010simplified}, the inclusion of a strong injector anticrossing leads to a splitting of the injector $\Ket{1'}$ and upper laser level $\Ket{3}$ into a doublet of the so called "dressed states", which we will denote by $\Ket{+}$ (also known as the "anti-symmetric" state) and $\Ket{-}$ (i.e. the "symmetric" state), with the former denoting the higher energy level and the later the lower energy one. These states are separated by approximately the anticrossing energy $2\hbar\Omega_{1'3}$ (depending on the detuning), which can be readily confirmed from experiment \cite{burghoff2014terahertz}. The relative strength of the radiative coupling between the symmetric and antisymmetric states with the lower laser level, depends on the detuning from resonance. It was shown that, assuming low intracavity intensity, below the resonant bias, i.e. when $\hbar\epsilon <0$, the high frequency lobe of the gain ought to dominate the transition, whereas above resonance the low lobe does. As our simulations and also experimental data show, this results in a more prolonged in time high frequency pulse. More formally, the dependence of the dominant transition on the bias is outlined in appendix \ref{sec:biasdependence}. 
+			
+			Fig. \ref{fig:img06}c superimposes (in time) the calculated density matrix elements of the dressed states $\rho_{++}$ and $\rho_{--}$ onto the time signal of the simulated electric field. We can clearly see that whenever the high frequency lobe lases, the anti-symmetric state gets more strongly depleted, whereas whenever the low lobe is switched on, the $\rho_{--}$ saturates. Furthermore, in simulations with "injector"$\leftrightarrow$ "upper laser level" resonance, whenever the high and low lobe transitions were equally likely, we observed the formation of pulses with comparable duration in time, accompanied by a complete population switching between $\rho_{++}$ and $\rho_{--}$ (results are not shown here for brevity). It is also worthwhile to mention that in Fig. \ref{fig:img06}c, the pulse switching is accompanied by dampened Rabi oscillations of the pair of the dressed states driven by the resonant tunneling transition. The period of these oscillations is measured at approximately 2.84 ps, which yields a frequency of 350 GHz $\approx |\Omega_{1'3}|/(2\pi)$, in accordance with the expected theoretical value \cite{callebaut2005importance}. 
+			\begin{figure}[h!]
+				\begin{center}
+					\includegraphics[scale=.9 ]{figs/TEMPHOLEBURNING.eps}
+					\caption{(Left column) High (blue) and low (red) frequency pulses computed over the last 35 out of 10000 simulated round trips for a numerically dispersion compensated THz QCL. (Right column) The same as the data in the left column, however this time from simulations of a dispersion uncompensated laser.  } \label{fig:img07}
+				\end{center}	
+			\end{figure}
+			
+			Lastly, to illustrate the implications of the existence of co-propagating high and low frequency lobe pulses in the presence of group velocity dispersion, let us compare the instantaneous intensities of both lobes from simulations with and without dispersion compensation. In both cases, illustrated in Fig. \ref{fig:img07}, the temporal hole burning, or pulse switching, is clearly present, however while in the simulations with dispersion compensation the periodicity is preserved over many round trips, in the presence of GVD the high and low frequency lobes seem to constantly compete with each other which leads to complex non-periodic temporal shape of the signal. Thus while the signal from a low GVD QCL has a minimal timing jitter, which results in a narrow and strong beatnote, the one from a dispersion uncompensated device operates in a multi-pulse regime with a complicated temporal and spectral profile, and thus never quite reaches a steady state.
+			
+			One can naturally extrapolate these conclusions to a situation where the effects of material and waveguide dispersion add to a much more complicated dispersion profile, as compared to the one in Fig. \ref{fig:img03}. In such a case, the competition between electric field signals propagating with various different group velocities, will lead to a chaotic and unstable beatnote, characteristic for multimode non-comb behaviour of QCLs, often observed in experiment \cite{wienold2014evidence,burghoff2014terahertz,rosch2015octave}.  
+			
+			\section{Conclusion}
+			We have presented a theoretical model suitable for the simulation of THz QCLs in comb and non-comb regimes of operation, based on the full numerical solution of the Maxwell-Bloch equations. We have shown that our approach correctly captures the complicated dynamics between four wave mixing, spectral gain splitting and spatial hole burning, as it delivers simulation results in good agreement with experimental data. We have also characterized, via numerical THz-TDS experiments, the shape and strength of the spectral gain, the corresponding group velocity delay and the dominant mode proliferation mechanism, captured by our model. In the time domain, we observed an interesting pulse switching behaviour, kind of a temporal hole burning, also reported in experiment, which could be a useful figure of merit for characterization of the comb performance.     
+			\newpage
+
+			\begin{appendices}
+				\section{Numerics}
+				\label{sec:numerics}
+				
+				Eqs. (\ref{eq:rtwave},\ref{eq:diagonaldm},\ref{eq:coherencesdm}) comprise a system of two partial and fourteen ordinary differential equations. As there is no known analytical solution for this system, we time step the latter numerically with the aid of carefully chosen schemes. 
+				
+				The field propagation equations, Eq. (\ref{eq:rtwave}), are a pair of inhomogeneous hyperbolic equations the accurate numerical solution of which is far from trivial. From the area of computational fluid dynamics \cite{wesseling2009principles}, it is known that a simple central differences discretization scheme for Eq. (\ref{eq:rtwave}) will be highly unstable due to the introduction of strong \emph{numerical} dispersion near sharp edges or discontinuities of the solution. A finite difference scheme that does not generate such spurious oscillations is called monotonicity preserving \cite{wesseling2009principles} and its usage is essential for the correct interpretation of simulation results, especially when one tries to quantify the amount of \emph{physical} dispersion present. Without getting too much into detail, we present a second order linear finite difference discretization scheme, possessing the monotonicity preserving property (in the case when $f_\pm \propto E_\pm$),  for the model equation
+				\begin{equation}
+				\label{eq:genericwave}
+				\frac{\partial E_{\pm}}{\partial t}  = \mp c\frac{\partial E_{\pm} }{\partial x} +f_{\pm}(x,t) + k E_{\pm}.
+				\end{equation}
+				We take an equidistant spatio-temporal grid with grid size $\Delta x$ and time step $\Delta t$ and set the values of the grid variables at spatial point $x_m=m \Delta x $  and time $t_n = n\Delta t$ as $E_{\pm}(m,n)$, where the $\pm$ index denotes the forward/backward propagating envelopes, respectively. The time stepping scheme we use is based on a second order upwind discretization, first introduced by Risken and Nummedal \cite{risken1968self}, and is given by
+				\begin{align}
+				\label{eq:riskennummedal}
+				E_{\pm}(m,n+1) &= E_{\pm}(m \mp 1,n) + \Delta t \big ( f_{\pm}(m,n) +k E_{\pm}(m,n) \big ) \nonumber \\ 
+				& + \frac{\Delta t^2} {2} \Bigg ( \left [  \frac{\partial f_{\pm} }{\partial t} \right]_m^n \mp  c \left [  \frac{\partial f_{\pm} }{\partial x} \right]_m^n 
+				\mp 2kc \left[ \frac{\partial E_{\pm} }{\partial x} \right]_m^n  + kf(m,n) + k^2 E_{\pm} (m,n) \Bigg ),
+				\end{align} 
+				where time step is chosen as $\Delta t = \Delta x n/c$, with $c/n$ the velocity of light in the medium. The evaluation of the time derivative of $f(t,x)$ can be computed analytically from the density matrix equations as $\p f_{\pm}/\p t \propto \p \eta_{32}^{\pm}/\p t$. As for the other terms in rectangular brackets, $\left [ \partial f_{\pm} /\partial x \right]_m^n$ and  $\left[ \partial E_{\pm}/\partial x \right]_m^n$, those can be computed via forward/backward finite differences, depending on the propagation direction of the field. 
+				
+				As for the density matrix equations, Eqs. (\ref{eq:diagonaldm}) and (\ref{eq:coherencesdm}), they form a system of ordinary differential equations and the usage of any out of the box numerical solver ought to suffice. In our experience a suitable method which is high-order accurate and also preserves the normalization property of the density matrix, i.e. $\Tr(\rho) = 1$, is given by the fifth order linear multi-step Adams-Bashforth method, calculating the update of the time dependent variable as a linear combination of several past time-steps
+				\begin{equation}
+				\label{eq:adams-bashforth}
+				y^{n+1} = y^{n} + \Delta t \sum\limits_{m = 0}^{k-1} c_m f(t_{n-m},y_{n-m}) \text{	,}
+				\end{equation}
+				where again we have assumed the model equation
+				\begin{equation}
+				\label{eq:adams-bashforth-model}
+				\dot{y}(t) =f(t,y)
+				\end{equation}
+				and $c_n$ are suitably chosen coefficients. 
+				
+				\section{Simulation parameters}
+				\label{sec:params}
+				In Table \ref{tab:table01} we summarize the parameter set used for our simulations and in Table \ref{tab:table02}, the calculated, with the aid of our ensemble Monte Carlo simulation code \cite{jirauschek2014modeling}, scattering rates between each pair of subbands of the active region. The code includes all relevant scattering mechanisms reported to play a role in quantum cascade lasers, which are: longitudinal and transverse optical phonons, acoustic phonons, interface roughness and impurity scattering as well as many body effects such as electron-electron scattering. The calculated rates are therefore the total rates, and are presented in units of THz.
+				
+				\begin{table}[H]
+					\centering
+					\footnotesize
+					\begin{tabular}{ p{35 mm} c c}	
+						\hline
+						\textbf{Parameter}  & \textbf{Symbol} & \textbf{Value}\\
+						\hline
+						Avg. carrier density & N & 5.6$\times10^{15}$ (cm$^{-3}$)  \\
+						Overlap factor & $\Gamma$ & 0.9 \\
+						Linear amplitude loss coeff. & $l_0$ & 11 (cm$^{-1}$) \\
+						Dipole matrix element &$\mu_{32}$& 4.0 (nm) $\times e$  \\
+						Refractive index  & $n$ & 3.6 \\
+						Diffusion constant & D & 46 (cm$^2$/sec)\\
+						Left/right mirror reflectivity & $ R_{L/R} $ & 0.8 \\
+						1'$\rightarrow$3 pure deph. time & $\tau_{1'3}^{pure}$ & 0.6 (ps)\\
+						3 $\rightarrow$2 pure deph. time & $\tau_{32}^{pure}$ & 1 (ps)\\
+						1'$\rightarrow$2 pure deph. time & $\tau_{1'2}^{pure}$ & 1 (ps)\\
+						3 $\leftrightarrow$ 2 resonance energy & $ \Delta_{32}$ &  15.82 meV\\
+						1'$\leftrightarrow$ 3 detuning energy & $\Delta_{1'3} $ &  -0.43 meV\\
+						1'$\leftrightarrow$ 3 anticrossing energy & $\hbar\Omega_{1'3}$ &  -1.3447 meV\\
+						\hline 
+					\end{tabular}
+					\caption[Table caption text]{ Simulation parameters for a ring cavity THz QCL, modelled after the device in \cite{burghoff2014terahertz}. The model overlap factor and the facet reflectivities are selected based on \cite{kohen2005electromagnetic} for a metal-metal waveguide with thickness 10 $\mu$m and width of 20 $\mu$m.}
+					\label{tab:table01}
+				\end{table}
+				\begin{table}[H]
+					\centering
+					\footnotesize
+					\begin{tabular}{ r | c c c c c c c}	
+						\hline
+						& \textbf{INJ1}  & 	\textbf{INJ2}& 	\textbf{ULL} & 	\textbf{LLL1} & 	\textbf{LLL2} & 	\textbf{DEP1} & 	\textbf{DEP2}\\
+						\hline
+						\textbf{INJ1}  & 0 &    0.8179 &    0.0200  &   0.0016   &  0.0007  &   0.0025 &    0.0029 \\
+						\textbf{INJ2}  & 0.4906      &    0 &    0.0451  &   0.0016 &    0.0007  &   0.0024 &    0.0031 \\
+						\textbf{ULL}  &    0.0471  &   0.0894   &       0 &    0.1252  &   0.1101 &    0.0503 &    0.0464  \\
+						\textbf{LLL1}  &   0.0329  &   0.0425  &   0.0794   &       0  &   0.4949  &   0.7787 &    0.6196 \\
+						\textbf{LLL2}  &0.0214   &  0.0280  &   0.0357  &   0.2810    &      0  &   1.0196 &    1.0960\\ 
+						\textbf{DEP1}  &   0.0026  &  0.0037  &   0.0029 &    0.0031 &    0.0042   &       0   &  0.8179  \\
+						\textbf{DEP2}  & 0.0017  &   0.0026  &   0.0018  &   0.0013   &  0.0042 &    0.4906    &      0\\
+						\hline 
+					\end{tabular}
+					\caption[Table caption text]{ Total scattering rates between each pair of relevant subbands of the device in \cite{burghoff2014terahertz} for bias set to 10.8 kV/cm. The rates are presented in THz and the diagonal elements are set to zero as they will depend on the periodic boundary conditions employed.}
+					\label{tab:table02}
+				\end{table}
+				
+				
+				\section{Dependence of the dominant transition on bias}
+				
+				As we have already shown in Sec. \ref{subsec:numthztds}, the introduction of the coupling energy $\hbar \Omega_{1'3}$ into the Hamiltonian of the system contributes to a splitting of the optical spectra into a high and a low frequency lobes. This is due to the fact that the extended system's Hamiltonian is non-diagonal in the tight binding basis. The new eigenstates, which diagonalize the Hamiltonian in Eq. (\ref{eq:vonNeumannmatrix}), are the so called dressed states \cite{callebaut2005importance,dupont2010simplified}, which are obtained from $\Ket{1'}$ and $\Ket{3}$ via the unitary transformation
+				\begin{align}
+				\label{eq:dressedstates}
+				\Ket{+} &= \cos\theta \Ket{1'} - \sin\theta \Ket{3}, \nonumber \\
+				\Ket{-} &= \sin\theta \Ket{1'} + \cos\theta \Ket{3}.
+				\end{align}
+				The corresponding energies are given by $E_\pm =\pm \hbar\sqrt{\epsilon^2+4\Omega_{1'3}^2}$, where the coefficients are computed from  
+				$
+				\tan \theta = -2\Omega_{1'3}/(\epsilon+\sqrt{\epsilon^2+4\Omega_{1'3}^2}).
+				$
+				Here we remind the reader that we have set the zero energy at $E_0 = (E_{1'} + E_{3})/2$ and that the detuning from $\Ket {1'}\leftrightarrow\Ket{3}$ resonance is given by $E_{1'} - E_{3} = \hbar\epsilon$. Following the results in \cite{dupont2010simplified}, we compute the ratio of the dipole matrix elements for the $\Ket{+}\leftrightarrow\Ket{2}$ and $\Ket{-}\leftrightarrow\Ket{2}$ transitions, which will determine the relative strength between the high and low frequency lobes of the gain. Thus
+				\begin{align}
+				\label{eq:dresseddipoles}
+				\left |\frac{\Bra{+}\hat{\mu}\Ket{2}}{\Bra{-}\hat{\mu}\Ket{2}}\right | \approx |\tan\theta| =  \frac{2|\Omega_{1'3}|}{|\epsilon+\sqrt{\epsilon^2+4\Omega_{1'3}^2}|},
+				\end{align}
+				where we assume that $\mu_{1'2} \approx 0$.
+				We now can easily see that at high biases, i.e. positive detunings $\epsilon >0$, $|\tan\theta|<1$ and thus the low frequency transition will have higher probability. On the other hand, for $\epsilon < 0 $ we get that $|\tan\theta| >1$ which will lead to lasing predominantly in the high frequency regime. This behaviour above and below resonant bias is schematically illustrated in Fig. \ref{fig:img08}, where $\hbar\omega_{LF} $ and $\hbar\omega_{HF}$ denote the energy of the low and high frequency transition respectively and the anticrossing energy is set at $\hbar \Omega_{1'3} = 1$ meV.  
+				
+				\label{sec:biasdependence}
+				\begin{figure}[h!]
+					\begin{center}
+						\includegraphics[scale=0.9]{figs/BIASDETUNING.eps}
+						\caption{ Schematic illustration of the dependence of the high and low frequency transitions on bias. (Left column) Plot of $\tan\theta$ as a function of detuning from resonance. (Middle and right columns) The relative oscillator strengths (thicker arrow represents higher value) when the laser is biased below and above resonance, respectively. } \label{fig:img08}
+					\end{center}	
+				\end{figure}
+			\end{appendices}
+%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{literature}
+\end{document}
+

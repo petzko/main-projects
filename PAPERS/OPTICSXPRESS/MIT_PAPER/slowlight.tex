@@ -1,0 +1,295 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                File: OpEx_temp.tex                  %
+%             Created: 2 September 2009               %
+%                Updated: 15 May 2015                 %
+%                                                     %
+%           LaTeX template file for use with          %
+%           OSA's journals Optics Express,            %
+%             Biomedical Optics Express,              %
+%            and Optical Materials Express            %
+%                                                     %
+%  send comments to Theresa Miller, tmiller@osa.org   %
+%                                                     %
+% This file requires style file, opex3.sty, under     %
+%              the LaTeX article class                %
+%                                                     %
+%   \documentclass[10pt,letterpaper]{article}         %
+%   \usepackage{opex3}                                %
+%                                                     %
+%                                                     %
+%       (c) 2015 Optical Society of America           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt,letterpaper]{article}
+\usepackage{opex3}
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\uline{\underline}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+
+%%%%%%%%%%%%%%%%%%%%%%% begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
+	\title{On the possibility of slow and suprerluminal THz light with quantum well heterostructures}
+	
+	\author{Petar Tzenov$^{1,*}$}
+	
+	\address{$^1$ Institute for Nanoelectronics, Technische Universit\''at M\''unchen, D-80333 Munich, Germany}
+	\address{$^2$ Somewhere in MIT, US}
+	
+	\email{$^*$petar.tzenov@tum.de} %% email address is required
+	
+	% \homepage{http:...} %% author's URL, if desired
+	
+	%%%%%%%%%%%%%%%%%%% abstract and OCIS codes %%%%%%%%%%%%%%%%
+	%% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
+	
+	\begin{abstract}
+		Slowing down THz and mid-IR light for all optical communication/information systems. Optical buffer design in Quantum Well heterostructures.
+	\end{abstract}
+	
+	\ocis{(000.0000) General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE, MINIMUM OF TWO; Avoid using the OCIS codes for Ã¢ÂÂGeneralÃ¢ÂÂ or Ã¢ÂÂGeneral scienceÃ¢ÂÂ whenever possible.
+	
+	%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{thebibliography}{99}
+		
+	\end{thebibliography}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Dispersion analysis:MBloch in RWA + SVEA. Ring cavity.}
+	
+	EOM for a 3 level system with a $\Ket{1'} \leftrightarrow \Ket{3}$ tunneling and a $\Ket{3}\leftrightarrow\Ket{2}$ radiative transition:
+	\begin{subequations}
+		\label{eq:threelevelmodel}
+		\begin{align}
+		&\frac{n}{c}\partial_t f + \partial_{x}f = -i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32} - \frac{l_0}{2} f \label{eq:rtwave} .\\
+		&\frac{d \rho_{1'1'}}{d t} = i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33} 
+		+ (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22} - \frac{\rho_{1'1'}}{\tau_{1'}} \\
+		&\frac{d \rho_{33}}{d t} = i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32}- c.c. \big )+ \frac{1}{\tau_{1'3}}\rho_{1'1'} +  \frac{1}{\tau_{23}}\rho_{22} - \frac{\rho_{33}}{\tau_{3}}  \\
+		&\frac{d \rho_{22}}{d t}  = -i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32} - c.c. \big ) + \frac{1}{\tau_{1'2}}\rho_{1'1'}  +  \frac{1}{\tau_{32}}\rho_{33} - \frac{\rho_{22}}{\tau_{21}} , \\
+		&\frac{d \rho_{1'3}}{d t}  = -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2}-\tau_{\parallel 1'3}^{-1} \rho_{1'3},  \\
+		&\frac{d \eta_{32}}{d t}   = i(\omega - \omega_{32})\eta_{32} +i \frac{\mu_{32}}{2\hbar}f(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} - \tau_{\parallel 32}^{-1}\eta_{32}, \\
+		&\frac{d \eta_{1'2}}{d t}  = i(\omega - \omega_{32}-\epsilon)\eta_{1'2} +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}.
+		\end{align}
+	\end{subequations}
+	In the above the anticrossing frequency (energy over $\hbar$) is denoted as $\Omega_{1'3}$ the 3-2 resonance is $\omega_{32}$ and the optical field's central frequency is $\omega$. The following ansatz has been made for the field and the coherence terms and the rotating wave and slowly varying envelope approximation have been employed. Also the negative sign in Eq. \ref{eq:rtwave} comes from the fact that we have taken $\mu_{32} = |e_0|\Bra{3}\hat{\mu}\Ket{2}$ instead of $\mu_{32} = -|e_0|\Bra{3}\hat{\mu}\Ket{2}$ .
+	
+	\begin{align}
+	E_z(x,t) &= \frac{1}{2}\left( f(x,t) e^{i(kx-\omega t)} + c.c. \right ), \\ 
+	\rho_{32}(x,t) &= \eta_{32}e^{i(kx-\omega t)}, \\ 
+	\rho_{1'2}(x,t) &= \eta_{1'2}e^{i(kx-\omega t)}.
+	\end{align}
+	To obtain the non-linear susceptibility we solve in steady state\\
+	
+	\noindent
+	Steady state solution for the cohrences:
+	\begin{align}
+	&\frac{d \rho_{1'3}}{d t}  = 0 =  -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2}-\tau_{\parallel 1'3}^{-1} \rho_{1'3},  \\
+	&\Rightarrow \nonumber \\
+	&\rho_{1'3} (\tau_{\parallel 1'3}^{-1}+i\epsilon) = i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \\
+	&\Rightarrow \nonumber \\
+	&\rho_{1'3}  =\frac{1}{(\epsilon-i\tau_{\parallel 1'3}^{-1})} \left( \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \right).
+	\end{align}
+	
+	\noindent
+	Now for the $1'-2$ coherence:
+	\begin{align}
+	&\frac{d \eta_{1'2}}{d t}  = 0 = i(\omega - \omega_{32}-\epsilon)\eta_{1'2} +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}. \\
+	&\Rightarrow \nonumber \\
+	&\eta_{1'2}(\tau_{\parallel 1'2}^{-1} -i(\omega - \omega_{32}-\epsilon)) =  +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32}  \\
+	&\Rightarrow \nonumber \\
+	&\eta_{1'2}=  \frac{1}{((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ) } \left(\Omega_{1'3}\eta_{32} - \frac{\mu_{32}}{2\hbar}f\rho_{1'3} \right)  \\
+	&\eta_{1'2}=  \frac{1}{((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ) } \left(\Omega_{1'3}\eta_{32} - \frac{\mu_{32}}{2\hbar}f\frac{1}{(\epsilon-i\tau_{\parallel 1'3}^{-1})} \left( \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2} \right) \right)
+	\end{align}
+	Setting
+	\begin{align}
+	\Gamma_{1'3} = (\epsilon-i\tau_{\parallel 1'3}^{-1}) \\
+	\Gamma_{1'2}(\omega) = ((\omega - \omega_{32}-\epsilon)+i\tau_{\parallel 1'2}^{-1} ),
+	\end{align}
+	we can write:
+	\begin{align}
+	&\eta_{1'2}=  \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})- \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2\times\eta_{1'2}
+	\end{align}
+	or also:
+	\begin{align}
+	&\eta_{1'2}\left(1+\frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2 \right)=  \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) \\ 
+	&\Rightarrow \\
+	&\eta_{1'2}= \left(1+\frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times|\frac{\mu_{32}}{2 \hbar}f|^2 \right)^{-1} \left\{ \frac{1}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{1}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \frac{\mu_{32}}{2 \hbar}f\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})\right\} 
+	\end{align}
+	Again abbreviating:
+	\begin{align}
+	& A(\omega) = \frac{\Gamma_{1'2}(\omega)\Gamma_{1'3}}{\Gamma_{1'2}(\omega)\Gamma_{1'3}+\Omega_{ph}^2},
+	\end{align}
+	where $\Omega_{ph}$ is the photon induced Rabi frequency, it then follows that:
+	\begin{align}
+	&\eta_{1'2}=  \frac{A(\omega)}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \Omega_{ph}\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})
+	\end{align}
+	Plugging into the equation for $\eta_{32}$ it therefore follows that:
+	\begin{align}
+	&\frac{d \eta_{32}}{d t}   = 0 = i(\omega - \omega_{32})\eta_{32} +i \Omega_{ph}(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} - \tau_{\parallel 32}^{-1}\eta_{32}, \\
+	&\Rightarrow \nonumber \\
+	&\eta_{32} (\tau_{\parallel 32}^{-1}-i(\omega - \omega_{32})) = i\Omega_{ph}(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} \\ 
+	&\Rightarrow \nonumber \\
+	&\eta_{32} = \frac{1}{\Gamma_{32}(\omega) }  \left(\Omega_{1'3}\eta_{1'2}-\Omega_{ph}(\rho_{33}-\rho_{22}) \right), \\ 
+	&\eta_{32} = \frac{1}{\Gamma_{32}(\omega) }  \left(\Omega_{1'3}\left(\frac{A(\omega)}{ \Gamma_{1'2} } \times \Omega_{1'3}\eta_{32} - \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{1'3}}\times \Omega_{ph}\times \Omega_{1'3}(\rho_{1'1'} - \rho_{33})\right)-\Omega_{ph}(\rho_{33}-\rho_{22}) \right), \\ 
+	&\eta_{32}(1-\frac{1}{\Gamma_{32}\Gamma_{1'2}}\times\Omega_{1'3}^2 \times A(\omega)) = -\left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]\times\Omega_{ph}
+	\end{align}
+	where $  \Gamma_{32}(\omega) = ((\omega - \omega_{32})+i\tau_{\parallel 32}^{-1}). $ Finally:
+	\begin{align}
+	&\eta_{32} =-(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}\Gamma_{1'2}})^{-1} \left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]\times\Omega_{ph}
+	\end{align}
+	
+	Susceptibility:
+	
+	Since we have:
+	$$
+	P(t,x=0) = \epsilon_0\chi E(t) = \epsilon_0 \chi \frac{1}{2} ( f(t)e^{-i\omega t} +f^*(t)e^{+i\omega t}= -N\Gamma\mu_{32}(\eta_{32}e^{-i\omega t}+\eta_{32}^*e^{i\omega t}),
+	$$
+	it therefore follows that 
+	$$
+	\epsilon_0 \chi = -2N\Gamma\mu_{32}\eta_{32}/f(t) = -N\Gamma\frac{\mu_{32}^2}{\hbar}\times -(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}\Gamma_{1'2}})^{-1} \left [ \frac{A}{\Gamma_{1'2}\Gamma_{32}\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}} \right]
+	$$
+	Adding a background polarization $\chi_0 = n^2-1$, the total susceptibility is:
+	$$
+	\chi = n^2-1+N\Gamma\frac{\mu_{32}^2}{\hbar\epsilon_0}G_{3lvl}(\omega),
+	$$
+	where $G_{3lvl}$ has the form:
+	$$
+	G_{3lvl}(\omega) =+
+	(1-\frac{\Omega_{1'3}^2  A(\omega)}{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)})^{-1} \left [ \frac{A(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{32}(\omega)\Gamma_{1'3}}\times \Omega_{1'3}^2\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}(\omega)} \right].
+	$$
+	If the optical field is weak, we get $A(\omega) \approx 1$ which gives 
+	\begin{align}
+	G_{3lvl}(\omega)&= 
+	\frac{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega) }{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)-\Omega_{1'3}^2} \left [ \frac{\Omega_{1'3}^2}{\Gamma_{1'2}(\omega)\Gamma_{32}(\omega)\Gamma_{1'3}}\times(\rho_{1'1'}-\rho_{33}) +\frac{\rho_{33}-\rho_{22}}{\Gamma_{32}(\omega)} \right] \\
+	&=  \frac{\Omega_{1'3}^2}{\Gamma_{1'3}\left[\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)-\Omega_{1'3}^2\right]}\times(\rho_{1'1'}-\rho_{33}) +\frac{\Gamma_{1'2}(\omega)}{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)-\Omega_{1'3}^2}\times(\rho_{33}-\rho_{22}) 
+	\end{align}
+	
+	At design bias, due to the string coherent coupling between levels $\rho_{1'1'}$ and $\rho_{33}$ we get $\rho_{1'1'} - \rho_{33}\approx {0}$, thus the lineshape is reduced to:
+	
+	\begin{align}
+	\Lambda_{3lvl}^{(1)}(\omega) &= 
+	\frac{\Gamma_{1'2}(\omega)}{\Gamma_{32}(\omega)\Gamma_{1'2}(\omega)-\Omega_{1'3}^2} 
+	\end{align}
+	
+	Giving us the total linear susceptibility:
+	\begin{align}
+	\chi_{3lvl}^{(1)} = n^2-1+\frac{\Delta N_{32}\Gamma\mu_{32}^2}{\hbar\epsilon_0}\times\frac{(\tilde{\omega}-\epsilon)+i\gamma_{1'2}}{(\tilde{\omega}+i\gamma_{32})(\tilde{\omega}-\epsilon+i\gamma_{1'2})-\Omega_{1'3}^2}, 
+	\end{align}
+	where $\tilde{\omega} = \omega - \omega_{32}$ and $\Delta N_{32} = N(\rho_{33}-\rho_{22})$ is the density of active electrons.  The complex refractive index is therefore:
+	$$
+	\uline{n} = n+\frac{1}{2n}\times \frac{\Delta N_{32}\Gamma \mu_{32}^2}{\hbar \epsilon_0} \Lambda_{3lvl}^{(1)}({\omega}) = n+\frac{3}{4}\times \frac{\Delta N_{32}\Gamma e^2f_{32}}{n\epsilon_0\omega_{32}m_e} \Lambda_{3lvl}^{(1)}({\omega}),
+	$$ 
+	
+	where $f_{32}$ is the oscillator strength. Defining the "modified" plasma frequency [Khurgin optical buffers] as: 
+	$$
+	\Omega_p = \frac{3}{4}\times \frac{\Delta N_{32}\Gamma e^2f_{32}}{n\epsilon_0\omega_{32}m_e}, 
+	$$
+	we get:
+	$$
+	\uline{n} = n+ \Omega_p \times \frac{(\tilde{\omega}-\epsilon+i\gamma_{1'2})}{(\tilde{\omega}+i\gamma_{32})(\tilde{\omega}-\epsilon+i\gamma_{1'2})-\Omega_{1'3}^2}.
+	$$ 
+	To simplify the above expression set the complex frequencies:
+	\begin{align}
+	\omega_1 &=\epsilon-i\gamma_{1'2}, \\
+	\omega_2 &=-i\gamma_{32}.
+	\end{align}
+	to get the complex refractive index: 
+	$$
+	\uline{n} = n+ \Omega_p \times \frac{\tilde{\omega}-\omega_1}{ (\tilde{\omega}-\omega_1)(\tilde\omega-\omega_2)-\Omega_{1'3}^2}.
+	$$ 	
+	Now, it becomes evident that the nonlinear part of the refractive index is given as:
+	$$
+	\uline{n}(\tilde\omega) =  \frac{\Omega_p}{2} \times \left[ \Lambda_+(\tilde\omega) + \Lambda_- ( \tilde \omega ) +d\Lambda(\tilde{\omega})\right],
+	$$ 	
+	,where the lineshape funcitons are given by:
+	$$
+	\Lambda_+(\tilde\omega)  = \frac{1}{\tilde \omega -\omega_+},
+	$$ 	
+	$$
+	\Lambda_-(\tilde\omega)  = \frac{1}{\tilde \omega -\omega_-},
+	$$ 	
+	$$
+	d\Lambda(\tilde\omega)  = \frac{\omega_2-\omega_1}{  (\tilde \omega -\omega_+)(\tilde \omega -\omega_-)},
+	$$ 	
+	with the frequencies: 
+	$$
+	\omega_\pm = \frac{\omega_1+\omega_2}{2}\pm\frac{1}{2}\sqrt{(\omega_1-\omega_2)^2+4\Omega_{1'3}^2}.
+	$$
+	Let us assume that at resonance $\omega_1 \approx \omega_2$ we thus get that the lineshape is a sum of two Lorenzians which is famous as the Autler-Townes splitting. 
+	
+	ToDo
+	1) calculate the derivative of the refractive index (i.e. calculate the group refractive index -> examine cases (parameters) when this is very large positive or negative! 
+	2) Is there a possibility for tunneling induced transparency for this system?  Check the case when we are not at exact resonance!
+	 
+	\section{Pump-probe modal expansion}
+	\begin{equation}
+	(\partial^2_{x} -\frac{n^2}{c^2}\partial^2_t) E_z = \frac{1}{\epsilon_0 c^2}\partial^2_t P_z, 
+	\label{eq:fullwave}
+	\end{equation}
+	 
+	\begin{subequations}
+		\label{subeq:DM}
+		\begin{align}
+		\frac{d \rho_{1'1'}}{d t} &= i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}}  + \frac{1}{\tau_{31}})\rho_{33} + (\frac{1}{\tau_{21'}}   +\frac{1}{\tau_{21}})\rho_{22} - \frac{\rho_{1'1'}}{\tau_{1'}} ,  \label{eq:vonNeumannexpandedstart}\\ 
+		\frac{d \rho_{33}}{d t}   &= i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32} E}{\hbar} (\rho_{32}-\rho_{23}) + \frac{ \rho_{1'1'}}{\tau_{1'3}} +
+		\frac{\rho_{22}}{\tau_{23}} - \frac{\rho_{33}}{\tau_{3}},  \\
+		\frac{d \rho_{22}}{d t}   &=- i\frac{\mu_{32} E}{\hbar} (\rho_{32}-\rho_{23}) +\frac{\rho_{1'1'}}{\tau_{1'2}}  + \frac{\rho_{33}}{\tau_{32}} - \frac{\rho_{22}}{\tau_{2}} , \\
+		\frac{d \rho_{1'3}}{d t}  &= -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}E}{\hbar}\rho_{1'2} -\tau_{\parallel 1'3}^{-1}\rho_{1'3}, \\
+		\frac{d \rho_{32}}{d t}   &= -i\omega_{0}\rho_{32} +i \frac{\mu_{32}E}{\hbar}(\rho_{33}-\rho_{22}) -i\Omega_{1'3}\rho_{1'2} -\tau_{\parallel 1'2}^{-1}\rho_{1'2},   \\
+		\frac{d \rho_{1'2}}{d t}  &= -i(\epsilon+\omega_0)\rho_{1'2} +i\frac{\mu_{32}E}{\hbar}\rho_{1'3} -i\Omega_{1'3}\rho_{32} -\tau_{\parallel 32}^{-1}\rho_{32} . \label{eq:vonNeumannexpandedend}
+		\end{align}
+	\end{subequations}
+	Assume that $E(x,t)$ largely consists of two modes, 
+	$$
+	E(x,t) = E_0e^{i((k_c+\delta_k )x -  (\omega_c+\delta_\omega)t)} +E_1e^{i((k_c-\delta_k )x -  (\omega_c-\delta_\omega)t)} + c.c.  
+	$$
+
+	\begin{subequations}
+		\label{eq:threelevelmodel}
+		\begin{align}
+		&\frac{n}{c}\partial_t f + \partial_{x}f = -i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32} - \frac{l_0}{2} f \label{eq:rtwave} .\\
+		&\frac{d \rho_{1'1'}}{d t} = i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33} 
+		+ (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22} - \frac{\rho_{1'1'}}{\tau_{1'}} \\
+		&\frac{d \rho_{33}}{d t} = i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32}- c.c. \big )+ \frac{1}{\tau_{1'3}}\rho_{1'1'} +  \frac{1}{\tau_{23}}\rho_{22} - \frac{\rho_{33}}{\tau_{3}}  \\
+		&\frac{d \rho_{22}}{d t}  = -i\frac{\mu_{32}}{2\hbar} \big (f^*\eta_{32} - c.c. \big ) + \frac{1}{\tau_{1'2}}\rho_{1'1'}  +  \frac{1}{\tau_{32}}\rho_{33} - \frac{\rho_{22}}{\tau_{21}} , \\
+		&\frac{d \rho_{1'3}}{d t}  = -i\epsilon\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2 \hbar}f^*\eta_{1'2}-\tau_{\parallel 1'3}^{-1} \rho_{1'3},  \\
+		&\frac{d \eta_{32}}{d t}   = i(\omega - \omega_{32})\eta_{32} +i \frac{\mu_{32}}{2\hbar}f(\rho_{33}-\rho_{22}) - i\Omega_{1'3}\eta_{1'2} - \tau_{\parallel 32}^{-1}\eta_{32}, \\
+		&\frac{d \eta_{1'2}}{d t}  = i(\omega - \omega_{32}-\epsilon)\eta_{1'2} +i \frac{\mu_{32}}{2\hbar}f\rho_{1'3} - i\Omega_{1'3}\eta_{32} - \tau_{\parallel 1'2}^{-1}\eta_{1'2}.
+		\end{align}
+	\end{subequations}
+	
+	
+	
+	
+	
+	
+\end{document}

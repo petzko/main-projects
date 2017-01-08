@@ -1,0 +1,152 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.4\textwidth]{#1}}
+%\captionsetup{width=.45\textwidth}
+
+
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+
+\title{Nonparabolicity effects in QCLs}%
+
+\author{Michael Rinderle}%
+\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+\author{Petar Tzenov}%
+\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+\author{Christian Jirauschek}%
+\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+\date{October 26, 2016}%
+\maketitle
+In order to investigate the amount of inhomogeneous broadening induced by the nonparabolicity effects, consider a generalization of the following formula for the gain in a two level medium \cite{jirauschek2014modeling}
+\begin{align}
+\label{eq:twolevelgain}
+g(\omega) = \frac{\pi Nq_0^2\omega}{\hbar\epsilon_0n_0c}|z_{12}|^2(\rho_{22}-\rho_{11})\times\mathcal{L}_{21}(\omega),
+\end{align}
+where $\mathcal{L}_{21}(\omega)$ is a Lorentzian line shape function taking the form
+\begin{align}
+\mathcal{L}_{21}(\omega) = \frac{1}{\pi}\frac{\gamma_{21}}{\gamma_{21}^2+(\omega-\omega_{21})^2}
+\end{align}
+and the rest of the parameters are as specified in Tab.~\ref{tab:table01}.
+
+\begin{table}[h!]
+	\centering
+	\footnotesize
+	\begin{tabular}{ | c | c c | }\hline
+		\textbf{Symbol} & \textbf{Parameter} & \textbf{Units} \\\hline
+		$N$ & carrier volume density & m$^{-3}$ \\
+		$q_0$ & elementary charge & Coulomb (C) \\
+		$\epsilon_0$ & permittivity of free space & F/m \\
+		$n_0$ & refractive index at central frequency & unitless \\
+		$c$ & velocity of light in vacuum& m/s \\
+		$\hbar$ & reduced Plank constant & J$\cdot$s \\
+		$\omega_{21}$ & 2$\leftrightarrow$1 transition angular frequency & s$^{-1}$ \\
+		$\gamma_{21}$ & 2$\leftrightarrow$ 1 dephasing rate & s$^{-1}$ \\
+		$\rho_{jj}$ & $j^{th}$ subband population density & unitless \\
+		\hline
+	\end{tabular} \quad 
+	\label{tab:table01}	
+\end{table}
+
+We can easily generalize Eq.~(\ref{eq:twolevelgain}) to arbitrary number of subbands, and further assuming $k-$dependence via the following sum over states formula
+\begin{align}
+\label{eq:generalgain}
+g(\omega) = \frac{\pi Nq_0^2\omega}{\hbar\epsilon_0n_0c}\sum_{\substack{i,j,k \\ E_i(k)>E_j(k)}}|z_{ij}(k)|^2(\rho_{ii}(k)-\rho_{jj}(k))\times\mathcal{L}_{ij}(\omega,k),
+\end{align}
+where we have assumed that only vertical (in $k-$space) transitions are possible and also summed over terms in the order such that $ E_i(k)>E_j(k)$. 
+
+For momentum-conserving transitions, the dipole matrix element $$z_{ij}(k) = \bra{i,k}q_0\hat{\bm r}\ket{j,k} = \bra{i}q_0\hat{z}\ket{j}$$ 
+is independent of the wave vector so we can take it out of the summation sign. The Lorentzian takes the modified form
+\begin{align}
+\label{eq:lorentzextended}
+\mathcal{L}_{ij}(\omega,k) &= \frac{1}{\pi} \frac{\gamma_{ij}}{\gamma_{ij}^2+(\omega-\omega_{ij}(k))^2} \nonumber \\
+			&=  \frac{1}{\pi} \frac{\gamma_{ij}}{\gamma_{ij}^2+(\omega-\omega_{ij} -\alpha_{ij}k^2/\hbar)^2},
+\end{align}
+where we have used that 
+$$
+\omega_{ij}(k) = \frac{E_i(k)-E_j(k)}{\hbar}=\omega_{ij}+\frac{1}{\hbar}\alpha_{ij}k^2,
+$$
+and $$\alpha_{ij} = \frac{\hbar^2}{2}(\frac{1}{{m_i}^*}-\frac{1}{{m_j}^*})$$
+
+We can Taylor expand Eq.~(\ref{eq:lorentzextended}) around $x = \alpha_{ij}k^2/\hbar \approx 0$, which is reasonable due to the small values of the nonparabolicity parameter. We obtain
+\begin{align}
+\label{eq:lorentztaylor}
+\mathcal{L}_{ij}(\omega,k) &= \frac{1}{\pi} \frac{\gamma_{ij}}{\gamma_{ij}^2+(\omega-\omega_{ij} -\alpha_{ij}k^2/\hbar)^2} \nonumber \\
+&\approx  \frac{\gamma_{ij}}{\pi}  \left[\frac{1}{\gamma_{ij}^2+(\omega-\omega_{ij})^2} + \frac{2(\omega-\omega_{ij})}{\big(\gamma_{ij}^2+(\omega-\omega_{ij})^2 \big)^2}\times\frac{\alpha_{ij}k^2}{\hbar} \right] \nonumber \\
+& = \mathcal{L}_{ij}^{(0)}(\omega) + \frac{\alpha_{ij}k^2}{\hbar}\times \mathcal{L}_{ij}^{(2)}(\omega),
+\end{align}
+where $\mathcal{L}_{ij}^{(0)}(\omega)$ is the usual Lorentzian and $\mathcal{L}_{ij}^{(2)}(\omega)$ is the lineshape contribution of the nonparabolicity effect (up to first order).
+
+Now plugging this into Eq.~(\ref{eq:generalgain}) and performing the summation over $k$
+\begin{align}
+g(\omega) &= \frac{\pi Nq_0^2\omega}{\hbar\epsilon_0n_0c}\sum_{i,j}|z_{ij}|^2(\rho_{ii}^{(0)}-\rho_{jj}^{(0)})\mathcal{L}_{ij}^{(0)}(\omega) \nonumber \\
+&+\frac{\alpha_{ij}}{\hbar}\times\frac{\pi Nq_0^2\omega}{\hbar\epsilon_0n_0c}\sum_{i,j}|z_{ij}|^2(\rho_{ii}^{(2)}-\rho_{jj}^{(2)})\mathcal{L}_{ij}^{(2)}(\omega).
+\end{align}
+By summing over $k-$space we have defined $\rho_{ii}^{(0)} = \sum_{k}\rho_{ii}(k)$ and $\rho_{ii}^{(2)} = \sum_{k}k^2\rho_{ii}(k)$.
+
+
+\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+\end{document}
+

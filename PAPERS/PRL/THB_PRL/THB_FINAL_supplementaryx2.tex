@@ -1,0 +1,216 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{xr}
+\externaldocument[MAIN-]{THB_FINAL}
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+\newcommand{\vspacec}{\vspace{-0.3cm}}
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.75\textwidth]{#1}}
+%\captionsetup{width=.45\textwidth}
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+	
+	\title{Temporal hole burning in lasers with an upper state doublet \\ (Supplementary material)}%
+
+	\author{Petar Tzenov}%
+	\email{petar.tzenov@tum.de}
+	\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+	\author{David Burghoff}
+	\affiliation{Department of Electrical Engineering
+		and Computer Science, Research Laboratory of Electronics, Massachusetts
+		Institute of Technology, Cambridge, Massachusetts 02139, USA}
+	\author{Qing Hu}
+	\affiliation{Department of Electrical Engineering
+		and Computer Science, Research Laboratory of Electronics, Massachusetts
+		Institute of Technology, Cambridge, Massachusetts 02139, USA}
+	\author{Christian Jirauschek}
+	\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+	\maketitle
+\section{Detailed derivation of the temporal hole burning model}
+
+As already suggested in the main body of the paper, the coupling of the injector and the upper laser states leads to their splitting into a doublet of anticrossed levels, spatially extending over the tunneling barrier. The original "tight-binding" states, i.e. $\ket{g}$, $\ket{l}$ and $\ket{r}$, are related to the delocalized basis states, i.e. $\ket{g}$, $\ket{-}$ and $\ket{+}$,  via the unitary transform 
+\begin{align}
+\ket{+} &= \cos\theta\ket{r}-\sin\theta\ket{l}, \\
+\ket{-} &= \sin\theta\ket{r}+\cos\theta\ket{l}, \\
+\ket{g} &=\ket{g},
+\end{align}
+where the expansion coefficients are obtained from $\tan\theta = -2\Omega_{lr}/[\epsilon+(\epsilon^2+4\Omega_{lr}^2)^{1/2}]$. Here $\epsilon$ is the resonant tunneling detuning angular frequency and $\Omega_{lr}$ the anticrossing strength. This will lead to a transfer of the transition dipole moment $d_{lg}=q_0\bra{l}\hat{z}\ket{g}$ onto the pair $d_{+}$ and $d_{-}$, defined as in the main body of the paper, which approximately satisfy the relation $d_{lg}^2=d_{+}^2+d_{-}^2$. In the $\{\ket{+},\ket{-},\ket{g}\}$ basis, the Hamiltonian takes the form
+\begin{align}
+H = \begin{bmatrix}
+\hbar\omega_+ & 0 & d_+E_z \\
+0 & \hbar\omega_- & d_-E_z \\
+d_+E_z & d_-E_z & 0
+\end{bmatrix},
+\end{align}
+which, when plugged into the von Neumann equation, leads to the system
+\begin{subequations}
+\label{eq:vonNeu_nonapprox}
+\begin{align}
+\frac{d \rho_{++}}{dt} &= i\frac{d_+E_z}{\hbar}(\rho_{+g}-\rho_{+g}^*), \\
+\frac{d \rho_{--}}{dt} &= i\frac{d_-E_z}{\hbar}(\rho_{-g}-\rho_{-g}^*), \\
+\frac{d \rho_{gg}}{dt} &= -i\frac{d_+E_z}{\hbar}(\rho_{+g}-\rho_{+g}^*)-i\frac{d_-E_z}{\hbar}(\rho_{-g}-\rho_{-g}^*), \\
+\frac{d \rho_{+-}}{dt} &= -i(\omega_+-\omega_-)\rho_{+-}-i\frac{d_{+}E_z}{\hbar}\rho_{g-}+i\frac{d_{-}E_z}{\hbar}\rho_{+g},\\
+\frac{d \rho_{+g}}{dt} &= -i\omega_+\rho_{+g}+i\frac{d_{+}E_z}{\hbar}(\rho_{++}-\rho_{gg})+i\frac{d_{-}E_z}{\hbar}\rho_{+-}, \\
+\frac{d \rho_{-g}}{dt} &= -i\omega_-\rho_{-g}+i\frac{d_{-}E_z}{\hbar}(\rho_{--}-\rho_{gg})+i\frac{d_{+}E_z}{\hbar}\rho_{-+}. 
+\end{align}
+\end{subequations}
+Now, to employ the rotating wave approximation \cite{weiner2011ultrafast}, we make the standard ansatz 
+\begin{align}
+E_z(x,t) &= \Re\{f(x,t)e^{i(k_0x-\omega_0t)}\}, \\
+\rho_{+g}(x,t) &= \eta_{+g}(x,t)e^{i(k_0x-\omega_0t)}, \\
+\rho_{-g}(x,t) &= \eta_{-g}(x,t)e^{i(k_0x-\omega_0t)},
+\end{align}
+where $\omega_0$ is the $\ket{l}\leftrightarrow\ket{g}$ transition frequency and $k_0$ the corresponding wave number.  We finally plug this ansatz into Eqs.~(\ref{eq:vonNeu_nonapprox}) and drop terms oscillating with $e^{\pm 2i\omega_0t}$. From this procedure we obtain the time evolution of $\rho^{\text{RWA}}$ as
+\begin{subequations}
+\label{eq:4eqns}
+\begin{align}
+\frac{d \rho_{++}}{dt} &= i\frac{d_{+}}{2\hbar}(f^*\eta_{+g}-f\eta_{+g}^*), \\
+\frac{d \rho_{--}}{dt} &= i\frac{d_{-}}{2\hbar}(f^*\eta_{-g}-f\eta_{-g}^*), \\
+\frac{d \rho_{gg}}{dt} &= - i\frac{d_{+}}{2\hbar}(f^*\eta_{+g}-f\eta_{+g}^*)-i\frac{d_{-}}{2\hbar}(f^*\eta_{-g}-f\eta_{-g}^*), \\
+\frac{d \rho_{+-}}{dt} &= -i(\omega_+-\omega_-)\rho_{+-}-i\frac{d_{+}f}{2\hbar}\eta_{g-}+i\frac{d_{-}f^*}{2\hbar}\eta_{+g},\\
+\frac{d \eta_{+g}}{dt} &= -i(\omega_+-\omega_{0})\eta_{+g}+i\frac{d_{+}}{2\hbar}f(\rho_{++}-\rho_{gg})+i\frac{d_{-}}{2\hbar}f\rho_{+-}, \label{eq:eta+g}\\
+\frac{d \eta_{-g}}{dt} &= -i(\omega_--\omega_{0})\eta_{-g}+i\frac{d_{-}}{2\hbar}f(\rho_{--}-\rho_{gg})+i\frac{d_{+}}{2\hbar}f\rho_{-+}. \label{eq:eta-g}. 
+\end{align}
+\end{subequations}
+We can cast Eqs. (\ref{eq:4eqns}) into their final form, i.e. Eqs. (\ref{MAIN-eq:4eqns}) from the main body of the article, via assuming that when resonance detuning is small, i.e. $\epsilon \approx  0$ , then the anticrossing splitting yields the energy difference $\omega_+-\omega_0 \approx \Omega_{lr}$, $\omega_--\omega_0\approx - \Omega_{lr}$ as well as $\omega_+-\omega_- \approx 2\Omega_{lr}$. Next we assume that the dipoles have the same algebraic value, i.e. $d_+ = d_- =d$, and that the optical field's Rabi frequency evolves as a real number, i.e. $\beta(x,t) = df(x,t)/2\hbar \in \mathbb{R}$. 
+
+Under these conditions we can decouple the system of ODEs in Eq. (\ref{eq:4eqns}) by setting $\eta = \eta_{+a}+\eta_{-a}^*$ and $w = \rho_{++}-\rho_{--}$ and deriving the time-evolution of these quantities. After some simple algebraic operations we obtain
+\begin{align}
+\frac{d w}{dt} &= i\beta(\eta-\eta^*), \label{eq:inv} \\
+\frac{d \eta}{dt} &= -i\Omega_{lr}\eta+i\beta w, \label{eq:eta}
+\end{align}
+as discussed in the main body of this paper. From the mathematical resemblance of Eqs. (\ref{eq:inv}) and (\ref{eq:eta})  to the equations of motion of a two level system, we can easily infer that the inversion $w(t)$ will undergo Rabi-oscillations upon interaction with the field quantity $\beta(t)$. Empirically, since $\beta$ couples the ground state to the doublet of upper levels $\ket{+}$ and $\ket{-}$, one can deduce that these Rabi-oscillations will be the by-product of the following electron transfer $\ket{+}\xrightarrow[]{e^-}\ket{g}\xrightarrow[]{e^-}\ket{-}$ and vice verse, i.e. $\ket{-}\xrightarrow[]{e^-}\ket{g}\xrightarrow[]{e^-}\ket{+}$, in all of which the occupancy of the ground state remains approximately constant. In the former process there will be a transfer of gain from the $\ket{+}\leftrightarrow\ket{g}$ transition to the $\ket{-}\leftrightarrow\ket{g}$ such, and in the latter case vice versa, which will naturally lead to the observed pulse switching behaviour. 
+When the dephasing time is sufficiently faster than the gain recovery time \cite{jirauschek2010monte} and we also neglect spontaneous emission and thermal photons, the time evolution of the modal intensities can be described by rate equations
+\begin{equation}
+\label{eq:intensity}
+\frac{n_0}{c}\frac{dI_\omega(t)}{dt} = (\Gamma g(\omega)-a)I_\omega,
+\end{equation}
+where $I_\omega$ and $g(\omega)$ denote the intensity and the gain at angular frequency $\omega$, respectively, $a$ denotes the total cavity losses and $\Gamma$ the overlap factor. The losses are assumed constant whereas the gain is approximated as the sum of two Lorentzian
+\begin{equation}
+\label{eq:gain}
+g(\omega) = \frac{\pi N\omega_0}{\hbar\epsilon_0 n_0 c} \times \sum_{j \in \{+,-\}} |d_j|^2(\rho_{jj}-\rho_{gg})\mathcal{L}_{j}(\omega).
+\end{equation}
+with two equally broad lineshape functions given by
+\begin{equation}
+\mathcal{L}_{j}(\omega) = \frac{1}{\pi}\frac{\gamma}{\gamma^2+(\omega-\omega_{jg})^2} , \quad j \in \{+,-\}.
+\end{equation}
+Substituting Eq. (\ref{eq:gain}) into Eq. (\ref{eq:intensity}) we get the time evolution of the intensity in each mode (when $d_+ = d_-$) 
+\begin{align}
+\frac{n_0}{c}\frac{dI_{\omega_+}(t)}{dt} &= \frac{\Gamma N\omega_0f|d|^2}{\hbar\epsilon_0 n_0  c}\left(\frac{\rho_{++}-\rho_{gg}}{\gamma} + \frac{\gamma}{\gamma^2+4\Omega_{lr}^2}(\rho_{--}-\rho_{gg})\right)I_{\omega_+} -aI_{\omega_+}, \\
+\frac{n_0}{c}\frac{dI_{\omega_-}(t)}{dt} &= \frac{\Gamma N\omega_0f|d|^2}{\hbar\epsilon_0 n_0  c}\left(\frac{\gamma}{\gamma^2+4\Omega_{lr}^2}(\rho_{++}-\rho_{gg})+\frac{\rho_{--}-\rho_{gg}}{\gamma} \right)I_{\omega_-} -aI_{\omega_-}.
+\end{align}
+
+
+\section{Validity of the temporal hole burning assumptions}
+A few comments on the assumptions made in the derivation of the quasi-Bloch equations are in order. 
+
+First of all, it will be interesting to consider when will the reality condition for the envelope $f(x,t) $  hold. To investigate that, let us take an input pulse $f_{in}(t_0) = f(x=0,t_0)$, with Fourier transform $F_{in}(\omega)$, entering the medium at the left facet, such that at $F_{in}(\omega)^* = F_{in}(-\omega)$, i.e. $f_{in}$ is real. After propagating a distance $L$ inside the cavity the pulse transforms according to \cite{weiner2011ultrafast}
+\begin{align}
+\label{eq:fout-expansion}
+f(x=L,t) &= \int_{-\infty}^{\infty} F(x=L,\omega)e^{-i\omega t}d\omega = \int_{-\infty}^{\infty} F_{in}(\omega)e^{-i\omega t}e^{g(\omega)L+i\Psi(\omega)}d\omega,
+\end{align}
+where $g(\omega)$ denotes the spectral gain per unit length and $\Psi(\omega)=k(\omega)L$, the acquired phase. In order for $f(x=L,t)$ to remain real, it is sufficient that $F(x=L,\omega)^*= F(x=L,-\omega)$. To find when this holds, we first expand the wave number $k(\omega)$ around $\omega=0$ up to fourth order to get  
+\begin{align}
+\label{eq:k-expansion}
+k(\omega) = \beta_1\omega + \frac{\beta_2}{2}\omega^2 + \frac{\beta_3}{6}\omega^3 + O(\omega^4), 
+\end{align}
+which is justified since, by virtue of the rotating wave approximation, we had centred the spectrum around zero and also subtracted out $\beta_0 = k_0$ as the wave number at the central frequency $\omega_0$. Now from Eqs. (\ref{eq:fout-expansion}) and (\ref{eq:k-expansion}), we can write (neglecting terms $\propto O(\omega^4)$)
+\begin{subequations}
+	\begin{align}
+	F(x=L,\omega)^* &\approx F_{in}(\omega)^* \exp\{g(\omega)L-i(\beta_1\omega + \frac{\beta_2}{2}\omega^2 + \frac{\beta_3}{6}\omega^3 )L\}, \\
+	F(x=L,-\omega) &\approx F_{in}(-\omega) \exp\{g(-\omega)L+i(-\beta_1\omega + \frac{\beta_2}{2}\omega^2 - \frac{\beta_3}{6}\omega^3 )L\},
+	\end{align}
+\end{subequations}
+which will be equal if
+\begin{subequations}
+	\begin{align}
+	g(-\omega) &= g(\omega), \label{eq:symmetric-gain}\\
+	\beta_2 = \beta_4 &= ... = \beta_{2n}=0. \label{eq:vanish-even-order-dispersion}
+	\end{align}
+\end{subequations}
+The symmetric gain condition, Eq. (\ref{eq:symmetric-gain}), will be satisfied when the device is biased at injector $\leftrightarrow$ upper laser level resonance. On the other hand Eq. (\ref{eq:vanish-even-order-dispersion}) requires vanishing even order dispersion, which is approximately satisfied in the tunneling resonance case as then the higher order phase $\Psi$ has equal in magnitude, but opposite in sign, components immediately below and above the central frequency $\omega_0$. For illustrative purposes, we plot the higher order phase, the amplitude gain and the field envelope, calculated with our model in Ref. \onlinecite{petz2016}, in the case when $\epsilon = 0$ (Fig. \ref{fig:dispersion-on-off-resonance}a) and when $\epsilon < 0$ (Fig. \ref{fig:dispersion-on-off-resonance}b). 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/dispersion-on-off-resonance.eps}
+		\caption{ \textbf{a} Higher order phase $\Psi$ and a third order polynomial fit $\Psi_{fit}$ to it, spectral gain  and the real and imaginary parts of $f$, i.e. $\Re\{f(t)\}$ and $\Im\{f(t)\}$, respectively when $\epsilon = 0$. \textbf{b} Same as \textbf{a}, but when $\epsilon <0$.  } \label{fig:dispersion-on-off-resonance}
+	\end{center}	
+\end{figure}
+
+\vspacec
+Considering the phase $\Psi$ for a second, we see that within the region of interest, i.e. from 3.5 THz to 4.2 THz, in both cases it can be described very well by a third order polynomial fit $\Psi_{fit}(\omega) = \beta_2\omega^2/2 + \beta_3\omega^3/6$ with vanishing $\beta_2$ coefficient in the symmetric case ($\epsilon = 0$) and non-negligible GVD coefficient in the asymmetric case $\epsilon <0$. Simulating the propagation of an initially real-valued Gaussian pulse $f_{in}(t)$ for several round trips, we see that when the symmetric gain and vanishing even order dispersion conditions are satisfied, the field envelope does evolve mainly within the domain of real numbers, as can be verified from the negligibly small imaginary part of $f(t)$ in Fig.~\ref{fig:dispersion-on-off-resonance}a. On the contrary, when the gain symmetry condition is violated, the initially real envelope evolves as a complex number, which is illustrated in Fig.~\ref{fig:dispersion-on-off-resonance}b.
+
+As for the experimental device in Ref. \onlinecite{burghoff2014terahertz}, we note that this laser probably approximately satisfies the $\beta_2 = 0$ condition, due to the incorporation of a dispersion compensation mechanism designed specifically to cancel this coefficient. 
+
+We also would like to mention that the temporal hole burning effect will be present in the assymetric regime, as verified by experiment \cite{burghoff2015evaluating}, however only the perfectly symmetric configuration is subject to the simple theoretical treatment presented in this work. For a more realistic interpretation, it is essential to also consider the effects of detuning onto the pulse switching behaviour, which unfortunately is out of the scope of this publication.
+
+Lastly, the second assumption we made was that the dipole moments have equal algebraic value, i.e. $d_{+} = d_{-} = d$. What if they have opposite signs, i.e. $d_{+} = -d_{-} = d$? It is very easy to show that one can derive an equivalent quasi-two level system, but this time with the coherence set as $\eta = \eta_{+g}-\eta_{-g}^*$, instead of the substitution made above. In this case, the interpretation of the pulse switching behaviour remains the same, as the reader can readily verify by him/her-self.
+
+
+\bibliographystyle{ieeetr}
+
+	
+	
+	
+	
+\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+\end{document}
+

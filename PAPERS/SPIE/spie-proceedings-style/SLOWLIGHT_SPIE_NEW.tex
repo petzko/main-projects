@@ -1,0 +1,261 @@
+\documentclass[]{spie}  %>>> use for US letter paper
+%\documentclass[a4paper]{spie}  %>>> use this instead for A4 paper
+%\documentclass[nocompress]{spie}  %>>> to avoid compression of citations
+
+\renewcommand{\baselinestretch}{1.0} % Change to 1.65 for double spacing
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\newcommand{\mb}[1]{\bm{#1}}
+
+
+\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.8\textwidth]{#1}}
+\newcommand{\includegraphicsXM}[1]{\includegraphics[width = 0.7\textwidth]{#1}}
+\newcommand{\includegraphicsXS}[1]{\includegraphics[width = 0.5\textwidth]{#1}}
+\captionsetup{width=.85\textwidth}
+\captionsetup{labelsep=period}
+
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+
+
+\title{Slow terahertz light via resonant tunneling induced transparency in quantum well heterostructures}
+
+\author{Petar Tzenov$^*$}
+\author{Christian Jirauschek}
+\affil{Institute for Nanoelectronics, Technical University of Munich,
+	D-80333 Munich, Germany}
+
+
+\authorinfo{$^*$E-mail: petar.tzenov@tum.de}
+% Option to view page numbers
+\pagestyle{empty} % change to \pagestyle{plain} for page numbers   
+\setcounter{page}{301} % Set start page numbering at e.g. 301
+ 
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+We present a theoretical and computational investigation of the possibility of achieving slow terahertz light by exploiting the tunneling induced transparency (TIT) effect in suitably engineered quantum well heterostructure devices. We design such a meta-material and show how TIT could lead to large values of the group refractive index, unfortunately at the cost of strong field attenuation due to decoherence. As a suitable alternative, we propose a grating, consisting of a buffer and a quantum cascade amplifier regions, arranged in such a way as to achieve slow light and simultaneously compensate for the large signal losses. Our calculations show that a binary message could be reliably transmitted through this system, with non-critical reduction of the signal to noise ratio, as we achieve a slow-down factor of more than 70.
+\end{abstract}
+
+% Include a list of keywords after the abstract 
+\keywords{Quantum wells, slow light, tunneling induced transparency;}
+ \section{Introduction}
+It has been known for a long time that optical resonances can modify the group velocity ($v_g$) of light, leading to smaller or larger values than its speed in vacuum, $c$, and in the extreme case even to negative such. These effects are hard to detect experimentally due to the inherently strong absorption of the incident probe field. The first laboratory observation of the electromagnetically induced transparency (EIT) phenomenon \cite{boller1991observation}, in which a control laser is used to introduce a transparent region in the absorption spectra of the material \cite{kasapi1995electromagnetically}, has spawned a very intensive and fruitful research on that topic \cite{fleischhauer2005electromagnetically}. Probably one of the highlights of this collective effort is the reduction of $v_g$ to a mere 17 m/s~\cite{hau1999light} in ultra-cold atomic vapour. Possible applications include the construction of optical buffers \cite{khurgin2005optical},  imaging \cite{camacho2007all,firstenberg2009elimination} and quantum memory \cite{lukin2003colloquium}. In view of the potential commercialization of these technologies, it is very important to be able to implement the desired optical properties on a chip \cite{wu2010slow}, and preferably with solid state media \cite{turukhin2001observation}. Furthermore, with the rapid development of semiconductor growth and processing technology, it has become even more tempting to realize slow or ultrafast light with suitably engineered quantum wells or quantum dots. 
+
+Tunneling induced transparency is an effect similar to EIT, with the difference that the reduction in the absorption spectrum is induced by a strong tunneling coupling between a pair of quantum states, rather than a control electric field. Both quantum well \cite{ginzburg2006slow} and quantum dot \cite{borges2012tunneling} configurations have been suggested as possible implementations of TIT, but unfortunately experimental success seems to be limited to the observation of Fano-interference in quantum well heterostructures \cite{faist1997controlling,schmidt1997tunneling}, which suggests that more accurate theoretical modelling is needed. In this work, we demonstrate the possibility of achieving slow light in such semiconductor meta-materials, with a slow-down factor of 70 and this with minimal pulse attenuation. Our approach is based on self-consistent simulations, involving heterostructure design via our Schrödinger-Poisson (SP) solver \cite{2009IJQE451059J}, and parameter study, with the aid of our ensemble Monte-Carlo (EMC) code~\cite{jirauschek2014modeling,jirauschek2009monte
+	,jirauschek2010monte} , as well as full time-domain simulations of the field propagation inside the optically active material, via the Maxwell-Bloch (MB) laser equations \cite{jirauschek2014modeling,wang2007coherent,vukovic2016multimode,petz2016	}.
+	 
+This paper is organized as follows: In Sec.~\ref{sec:thmodel} we outline the theoretical model and the equations involved. In Sec. \ref{sec:coherent-3lvl-sys} we present a prototypical heterostructure design and perform a parameter analysis to demonstrate that it yields group index values as large as 140, however at the cost of a large signal attenuation. Lastly, in Sec. \ref{sec:gain_compensated}, we suggest a possible solution of the strong absorption problem, via incorporating an amplifying element in our design.  
+\section{Theoretical model}
+\label{sec:thmodel}
+Our model is based on a three level $\Lambda$-type system, realized by bound states in the conduction band of a quantum well heterostructure, where a pair of states, which we call $\ket{g}$ for the ground and $\ket{e}$ for the excited state, is coupled via a signal field $E_z$ oscillating with the central frequency  $\omega_c$, which is approximately in resonance with the $g\leftrightarrow e$ transition frequency $\omega_0$. On the other hand, we assume an additional "spin" state \cite{fleischhauer2005electromagnetically}, coupled to $\ket{e}$ via the tunneling coupling energy $\hslash\Omega_{se}$. A thick barrier separates the states $\ket{e}$ and $\ket{s}$ in space, and its width or the applied voltage can be adjusted to control the coupling strength. A schematic representation of the envisioned system is illustrated in Fig.~\ref{fig:model}. 
+ \begin{figure}[h!]
+ 	\begin{center}
+ 		\includegraphicsXS{IMGS/SLOWLIGHT_MODEL.eps}
+ 		\caption{Schematic illustration of a $\Lambda$ 3-level model, consisting of an excited and ground state, $\ket{e}$ and $\ket{g}$ respectively, separated via a thick barrier from a third level $\ket{s}$. The states $\ket{g}$ and $\ket{e}$ are coupled via the signal field $E_z$, while $\ket{e}$ and $\ket{s}$ via the tunneling coupling energy $\hslash\Omega_{se}$.}\label{fig:model}
+ 	\end{center}	
+ \end{figure}
+ 
+To capture the light-matter interaction dynamics, we employ a density matrix approach to describe the statistical behaviour of the atomic ensemble in our system, coupled to the classical Maxwell's equations via a polarization term, i.e. we solve the widely used Maxwell-Bloch equations. Including space dependence and employing the slowly varying envelope and rotating wave approximations, we can write down the following system
+ 		\begin{subequations}
+ 			\label{eq:threelevelmodel}
+ 			\begin{align}
+ 			\frac{n}{c}\partial_t f &+ \partial_{x}f= -i\frac{N \Gamma q_0d_{eg} k_c}{\epsilon_0 n^2} \eta_{eg} \label{eq:rtwave}, \\
+ 			\frac{d \rho_{ss}}{d t} 	&= i\Omega_{se} (\rho_{se} - \rho_{es})+ \Gamma_{es}\rho_{ee} + \Gamma_{gs}\rho_{gg}  -\Gamma_s\rho_{ss}, \\
+ 			\frac{d \rho_{ee}}{d t}	& = i\Omega_{se} (\rho_{es} - \rho_{se}) + i\frac{q_0d_{eg}}{2\hbar} \big (f^*\eta_{eg}- c.c. \big ), 
+ 			+\Gamma_{se}\rho_{ss} + \Gamma_{ge}\rho_{gg} - \Gamma_e \rho_{ee},  \\
+ 			\frac{d \rho_{gg}}{d t}  &= -i\frac{q_0d_{eg}}{2\hbar} \big (f^*\eta_{eg} - c.c. \big )  + \Gamma_{sg}\rho_{ss}  +  \Gamma_{eg}\rho_{ee} - \Gamma_{gg}\rho_{gg} , \\
+ 			\frac{d \rho_{se}}{d t}  &= -i\epsilon\rho_{se} +i \Omega_{se}(\rho_{ss} - \rho_{ee}) +i\frac{q_0d_{eg}}{2 \hbar}f^*\eta_{sg}- \Gamma_{\parallel se} \rho_{se},  \\
+ 			\frac{d \eta_{eg}}{d t}   &= i(\omega_c - \omega_0)\eta_{eg} + i \frac{q_0d_{eg}}{2\hbar}f(\rho_{ee}-\rho_{gg})  - i\Omega_{se}\eta_{sg} - \Gamma_{\parallel eg}\eta_{eg}, \\
+ 			\frac{d \eta_{sg}}{d t} &= i(\omega_c - \omega_0-\epsilon)\eta_{sg} +i \frac{q_0d_{eg}}{2\hbar}f\rho_{se} - i\Omega_{se}\eta_{eg} - \Gamma_{\parallel sg}\eta_{sg}.
+ 			\end{align}
+ 		\end{subequations} 		
+ In Eqs. (\ref{eq:threelevelmodel}), we have made the "rotating wave approximation"\cite{boyd2003nonlinear} assumptions
+ \begin{align}
+ E_z(x,t) &= \frac{1}{2} \left[f(x,t) e^{i(k_cx-\omega_c t)}+c.c.\right],\\
+ \rho_{eg} &= \eta_{eg}e^{i(k_cx-\omega_c t)}, \\
+ \rho_{sg} &= \eta_{sg}e^{i(k_cx-\omega_c t)}, 
+ \end{align}
+ decomposing the electric field and the coherences into a product of slowly varying envelopes and a carrier wave with angular frequency $\omega_c$ and wave number $k_c = n\omega_c/c$, where  $n$ is the background refractive index and $c$ is the velocity of light in vacuum. Also,  $\Gamma_{ij} $ are the scattering rates from state $\ket{i}$ to state $\ket{j}$, $\Gamma_k = \sum_{j \neq k}\Gamma_{kj}$ is the total out-scattering rate from level $\ket{k}$ and $\Gamma_{\parallel ij} = \frac{1}{2}(\Gamma_{i} + \Gamma_j)$ is the dephasing rate for the transition $i\rightarrow j$. Lastly, $N$ denotes the average carrier concentration per unit volume, $d_{eg}$ the dipole moment and $q_0$ the elementary charge.
+  \subsection{Group index derivation}
+ Based on the density matrix model in Eq.~(\ref{eq:threelevelmodel}), we can extract an analytical formula for the group refractive index. We consider the  linear polarization, given by
+ \begin{align}
+ P(x,t) &=\epsilon_0 \chi^{(1)} E_z(x,t) = \epsilon_0 \chi^{(1)} \frac{1}{2}\left[ f(x,t) e^{i(k_cx-\omega_c t)}+c.c.\right]   
+ = -N\Gamma q_0d_{eg}\left[\eta_{eg}(x,t)e^{i(k_cx-\omega_c t)} + c.c.\right],
+ \end{align}
+ and then derive the expression for the linear susceptibility
+ \begin{align}
+ \chi^{(1)} &= -2\frac{N\Gamma q_0d_{eg}}{\epsilon_0 } \eta_{eg}(x,t)/f(x,t).
+ \end{align}
+ The steady state solution of $\eta_{eg}$ is directly computed from Eq. (\ref{eq:threelevelmodel}), and in the weak field limit (i.e. $|q_0d_{eg}f/\hbar| \ll |\Omega_{se}|$) we obtain
+ \begin{align}
+ \eta_{eg}  &= -[ \frac{\Omega_{se}^2}{ \gamma_{se} \big(\gamma_{sg}\gamma_{eg} -\Omega_{se}^2\big ) }\times (\rho_{ss}-\rho_{ee})  + \frac{\gamma_{sg}}{\big(\gamma_{sg}\gamma_{eg} -\Omega_{se}^2\big ) }\times (\rho_{ee}-\rho_{gg}) ]\times \frac{q_0d_{eg}}{2\hbar}f(x,t),  \label{eq:n_eg}
+ \end{align}
+ where we have defined $\gamma_{sg} =(\delta\omega - \epsilon + i\Gamma_{\parallel sg}) $, $\gamma_{eg} =(\delta\omega + i\Gamma_{\parallel eg})$, $\gamma_{se} = \epsilon - i\Gamma_{\parallel se}$, and $\delta\omega = \omega_c-\omega_0$ as the detuning of the probe field from resonance. We assume that the populations of $\ket{s}$ and $\ket{e}$ are almost equal and therefore $\chi^{(1)}$ simplifies to
+ \begin{align}
+ \chi^{(1)} &= \frac{N\Gamma q_0^2d_{eg}^2}{\epsilon_0 \hbar}  \times \frac{\gamma_{sg}}{\gamma_{sg}\gamma_{eg} -\Omega_{se}^2  }\times (\rho_{ee}-\rho_{gg}),
+ \end{align}
+ which is the standard expression for the linear susceptibility of the 3 level $\Lambda$-system, familiar from the theory of electromagnetically induced transparency\cite{khurgin2005optical,kasapi1995electromagnetically}. Note that the term  we dropped in Eq.~(\ref{eq:n_eg}) can be associated with the so called Raman gain in the system~\cite{dupont2010simplified} and could be exploited for gain assisted slow light~\cite{sun2008slow} or inversion-less lasing~\cite{kocharovskaya1992inversionless}.
+
+ Let us also assume a background susceptibility $\chi_0 = n^2-1$, taken to be constant for narrow frequencies around the central carrier frequency. Then the total (complex) refractive index $\underline{n}=n'+in''$ is given by
+ $
+ \underline{n}^2 = n^2+\chi^{(1)},
+ $
+ which can be Taylor expanded to yield 
+ \begin{equation}
+ \label{eq:n_ref}
+ \underline{n} = n+\frac{1}{2n}\chi^{(1)}= n(1+r\Omega_p\times \frac{\gamma_{sg}}{\gamma_{sg}\gamma_{eg} -\Omega_{se}^2  }).
+ \end{equation}
+ In Eq.~(\ref{eq:n_ref}), $r = (\rho_{ee} - \rho_{gg}) \approx -1$ is the population inversion factor and $\Omega_p = N\Gamma q_0^2d_{eg}^2/2n^2\epsilon_0\hbar > 0$ is the modified plasma frequency. Assuming $\epsilon \approx 0$, the group refractive index is finally given by 
+ \begin{align}
+ \label{eq:ngroup}
+ n_g &= n +\omega_c  \left .\Re\{\frac{\p \underline{n}}{\p \delta\omega} \}\right |_{\delta \omega = 0}  = n\Big (1-r\omega_c\Omega_p \times \frac{\Omega_{se}^2 -\Gamma_{\parallel sg}^2} {[\Omega_{se}^2 +\Gamma_{\parallel sg}\Gamma_{\parallel eg}]^2}  \Big).
+ \end{align}
+
+ \subsection{Transparency under decoherence}
+ The power transmission coefficient over propagation length $dL$ is simply
+ \begin{align}
+ T(\omega) = \exp(-2\omega c^{-1} \Im \{\underline{n}(\omega)\}dL),
+ \end{align}
+ where $n''=\Im \{\underline{n}(\omega)\} $ denotes the imaginary part of the refractive index. Calculating $n''$ from Eq.~(\ref{eq:n_ref}), one can quickly see that absorption will vanish in case of $\Gamma_{\parallel sg} =0 $ and $\dw =(\omega-\omega_0)=0$, which is exactly what is termed as tunneling induced transparency \cite{borges2012tunneling}. Unfortunately, the relatively small coherence times, i.e. large $\Gamma_{\parallel sg} $, in solid state materials present a great obstacle in realizing slow light in such non-gaseous media. 
+ 
+Here, we tackle this problem in two different ways. First of all, in Sec.~\ref{sec:coherent-3lvl-sys}, 
+we present a quantum well heterostructure, designed in order to minimize the decoherence between the spin and the ground state of Fig.~\ref{fig:model}, and simultaneously maximize the value of the group index. We see, however, that reasonable values of $n_g$ can be only achieved at the cost of a considerable electric field attenuation. Therefore, in Sec.~\ref{sec:gain_compensated} we present a prototype system, incorporating an amplifying element, as means to compensate for this defect in the optical buffer. 
+
+\subsection{Coherent three well system}
+\label{sec:coherent-3lvl-sys}
+We used our Schrödinger-Poisson solver, coupled to the ensemble Monte Carlo simulation code, in order to engineer a quantum well heterostructure corresponding to the model in Fig.~\ref{fig:model}. We the aid of the SP solver, we calculated the eigenstates and with the EMC code we evaluated the scattering rates at a fixed temperature of 10 K. The resulting structure and the corresponding system parameters are plotted in Fig. \ref{fig:threewell} and Table \ref{tab:table01} (Appendix \ref{sec:params}), respectively.
+ \begin{figure}[h!]
+ 	\begin{center}
+ 		\includegraphicsXL{IMGS/threewell.eps}
+ 		\caption{\textbf{a} The three well design calculated with our SP solver. The assumed barrier/well material is Al$_{15}$GaAs$_{0.85}$/GaAs, and the heterostructure has the following thicknesses (with the barriers in boldface): \textbf{100}/90/\textbf{10}/90/\textbf{90}/90/\textbf{100} in 10$^{-10}$ m. Shown is the calculated real refractive index, \textbf{b}, group index, \textbf{c}, and transmission coefficient, \textbf{d}, centred at the $e\leftrightarrow g$ resonance frequency $\omega_0$.} \label{fig:threewell}
+ 	\end{center}	
+ \end{figure}
+The structure consists of three quantum wells per period where the left pair of wells is separated by a thick 9 nm barrier from the third well, confining the $\ket{s}$ state. At a bias of approximately 4.4 kV/cm, there is a strong repulsion between the states $\ket{s}$ and $\ket{e}$, which leads their splitting by twice the coupling energy $2\hbar\Omega_{se} $. From the plots in Figs.~\ref{fig:threewell}b--\ref{fig:threewell}d, we see that around $\dw=0$ the real refractive index $n'$ has a very steep slope, which results in a group refractive index of approximately $n_g=136$, Fig.~\ref{fig:threewell}b, when calculated with Eq.~(\ref{eq:ngroup}). On the other hand, decoherence of $\Gamma_{\parallel sg} = 0.018 $ THz yields a very strong absorption coefficient ($\alpha \approx $165 cm$^{-1}$), which results in only 20\% of the incident light being transmitted through a 0.1 mm long medium. In the next section, we present a possible	solution to this problem, based on the construction of a grating structure, consisting of alternating slow-light and amplification regions. 
+ 
+\subsection{Gain compensated slow light system}
+\label{sec:gain_compensated}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXM{IMGS/pattern.eps}
+		\caption{Schematic diagram of the buffer/amplification grating structure. The buffer consists of $M$ slow-light regions (blue), each of length $dA$, with loss coefficient and group index $l^A$ and $n_g^A$, respectively. The amplifier consists of $N_G$ short gain media (white), each of which has a length of $dG$, a small signal gain $g^G$ and a group index $n_g^G$. } \label{fig:pattern}
+	\end{center}	
+\end{figure}
+A rather obvious remedy for the strong absorption of the signal field is to try to compensate for the attenuated light with a quantum cascade amplifier~\cite{ren2014single} with some desired properties. What would those be though? To answer this question, let us start off by assuming a patterned grating consisting of $M$ of the quantum well heterostructures from our model in Fig.~\ref{fig:threewell}a, 
+ alternating with $N_G$ quantum cascade amplifier regions, as illustrated in Fig.~\ref{fig:pattern}. Let us assume that each slow light region has length $dA$ and each amplifier region length $dG$, then the total length is $L_A=MdA$ for the buffer region, and $L_G=N_GdG$ for the amplifier. We specify the slow-down factor $S$ as the ratio of the light's traversal time of the active region in Fig.~\ref{fig:pattern} versus its traversal time of a cold cavity of length L. Then $S$ is
+\begin{align}
+\label{eq:slowdown}
+S = \left(\frac{L_A n_g^A}{c}+\frac{L_G n_g^G}{c}\right)\times \frac{c}{L} = \frac{L_A n_g^A}{L} +(1-\frac{L_A}{L})n_g^G \approx \frac{L_A n_g^A}{L},
+\end{align}
+where we have taken that $n_g^A \gg n_g^G$. On the other hand, any input intensity, $I_{in}$, will be attenuated and amplified upon propagation through this composite material. At the output facet, the intensity will thus be given by
+\begin{equation}
+\label{eq:attenutatin}
+I_{out} = I_{in} \exp\{g^GL_G-\alpha L^A\},
+\end{equation}
+where $g^G$ is the power gain coefficient of the amplifier and $\alpha$ is the absorption coefficient in the optical buffer. To achieve transparent pulse propagation, we need to satisfy $g^GL_G = \alpha L^A$, which combined with Eq.~(\ref{eq:slowdown}) yields the relation
+$
+	g^GL_G = \alpha S\times L/n_g^A.
+$
+For the old parameter values $n_g^A = 136$, $\alpha$ = 165 $\text{cm}^{-1}$ and gain region length $L_G=L/2$, we obtain $g^G=36.3971$ cm$^{-1}$, for a desired slow-down factor of 60. Such values for $g^G$ are perfectly reasonable for state of the art technology. 
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXM{IMGS/binarymessage.eps}
+		\caption{Simulation results from a binary message sent through a grating structure of length $L=2$~mm. The blue curve shows the input bits (10111110) and the red one the output bits.} \label{fig:binarymessage}
+	\end{center}	
+\end{figure}
+
+
+Another point worth mentioning here is that none of Eqs.~(\ref{eq:slowdown})
+and (\ref{eq:attenutatin}) require that the slow-light and gain regions in Fig.~\ref{fig:pattern} should be alternating. So why did we make that choice? This point becomes important when one considers the highly nonlinear dispersion of the slow-light material, depicted in Fig.~\ref{fig:threewell}b. Significant pulse distortion will occur if the propagation length in the medium is longer than the corresponding dispersion length~\cite{progOptics}, and therefore we try to prevent this by adequately choosing the length $dA$ and distributing the slow-light/gain regions in alternating fashion.
+
+To illustrate that the above schematic can be used for implementation of optical buffers, we simulated the transmission of a binary message, i.e. the number $(125)_{10}=(10111110)_2$, though a grating structure of total length $L=2$ mm. The gain medium was simulated as a two-level Maxwell-Bloch system \cite{jirauschek2014modeling}, amplifying at the central frequency $\omega_c$ with the rest of the parameters specified in Table~\ref{tab:table01}.
+
+Figure~\ref{fig:binarymessage} shows the results of this simulation, where the input message (blue) is superposed in time with the output signal (red). We immediately see that  each bit takes around 470 ps to traverse the 2 mm cavity, which gives us a total slow-down factor of $S\approx70.45$. Furthermore, our calculations reveal that the signal to noise ratio has been deteriorated due to dispersion, but not to a such an extend as to make the message unreadable. The input signal is composed of Gaussian pulses with intensity full width at half maximum (FWHM) of 30 ps, yielding a spectral bandwidth of  14.6 GHz at FWHM, which is within the transparency region induced by the tunneling splitting, Fig.~\ref{fig:threewell}c. 
+
+Lastly, Fig.~\ref{fig:cavitypropagation} illustrates a snapshot from our simulations when two of the input bits are simultaneously present inside the cavity. The green-shaded regions denote the slow-light media, whereas in the white areas are located the quantum cascade amplifiers. For this simulation we have chosen both regions' lengths to be equal, i.e. $L_G=L_A=1$ mm, and have injected the input bits from the left facet.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXM{IMGS/cavitypropagation.eps}
+		\caption{Signal propagation inside the cavity. The shaded area delineates the slow-light regions whereas the transparent area indicates the amplifying material. For this simulation we have $M=100$ and $L_G=L_A=1$ mm. } \label{fig:cavitypropagation}
+	\end{center}	
+\end{figure}
+
+\section{Conclusion}
+In this paper we considered the usage of quantum well heterostructures for slowing down terahertz light, by harnessing the tunneling induced transparency effect. Such an approach offers the possibility to electrically control the optical properties of the system via simply varying the applied bias, however it suffers from the drawback that the inherently short coherence times in these media lead to a significant absorption of the signal field. As a possible solution, we proposed the construction of a buffer/amplifier composite grating structure, intended to compensate for the strong attenuation in the slow-light region. We believe that the outlined technique could be promising, due to the ever improving fine level of control in the growth and processing of quantum well heterostructures, especially within the quantum cascade laser community. Some of the most obvious drawbacks of our approach are that such a schematic could be constrained to work under only very low temperatures and also that there might be reflections at the buffer/amplifier interfaces. 
+\begin{appendices}
+	\section{Parameters}
+	\label{sec:params}
+	The following tables list the parameters for the slow-light region model as well as the amplifier medium.
+	\begin{table}[h!]
+		\centering
+		\footnotesize
+		\begin{tabular}{ | l | c c | }\hline
+			\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\\hline
+			$\Gamma_{\parallel se}$ & 0.2145 & THz \\
+			$\Gamma_{\parallel eg}$ & 0.2038 & THz \\
+			$\Gamma_{\parallel sg}$ & 0.0180 & THz \\
+			$d_{eg}$ & 4.6 & nm \\
+			$\Omega_{se}$ & 0.0587$\times 2 \pi$ & THz \\
+			$\omega_{c}$ & 5.0433$\times 2 \pi$ & THz \\
+			$N$ & 7.89$\times 10^{21}$ & m$^{-3}$ \\
+			\hline
+		\end{tabular} \quad 
+		\begin{tabular}{ | l | c c | }\hline
+			\textbf{Parameter} & \textbf{Value} & \textbf{Units} \\\hline
+			Gain recovery time  & 10 & ps \\
+			Dephasing time & 2.35 & ps \\
+			Steady state inversion ($w_0$) & 1 &   \\
+			Waveguide losses ($l_0$) & 10 & cm$^{-1}$ \\
+			$d_{eg}$ & 4.6 & nm \\
+			$\omega_{c}$ & 5.0433$\times 2 \pi$ & THz \\
+			$N$ & 5.2$\times 10^{20}$ & m$^{-3}$ \\
+			\hline
+		\end{tabular} \caption[Table caption text]{Parameter values for the slow-light region (left) of Fig.~\ref{fig:threewell}a and for the amplifying medium (right) modelled as a two-level system \cite{jirauschek2014modeling}.}  
+		\label{tab:table01}	
+	\end{table}
+\end{appendices}
+ \section*{Funding}
+ This work was supported by the German Research Foundation (DFG) within the Heisenberg program (JI 115/4-1) and under DFG Grant No. JI 115/9-1.
+ 
+\bibliographystyle{spiebib}
+\bibliography{../../literature/bib_resources}
+\end{document} 

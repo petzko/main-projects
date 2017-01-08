@@ -1,0 +1,385 @@
+%% This document created by Scientific Word (R) Version 3.5
+\documentclass[10pt,english,fleqn]{article}%
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{color}
+%\usepackage{algorithm2e}
+%\newcommand{\mb}[1]{\mathbf{#1}} % undergraduate algebra version
+%\newcommand{\mb}[1]{#1} % pure math version
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+\begin{document}
+\section{Outline}
+\label{sec:intro}
+In the following I will derive the Maxwell-Bloch equations for a 3 level quantum cascade laser with one optical transition and resonant tunneling transport effects included. In general, we will assume a resonant phonon design QCL with 3 relevant levels per period, $\Ket{3} , \Ket{2}, \Ket{1}$, where the levels are (in the same order) 
+the upper laser level, the lower laser level and the depopulation/injector level of the next period. We will also assume a strong anticrossing energy between the injector level ($\Ket{1'}$) of the previous period and the upper laser level ( level $\Ket{3}$ ) of the current period, $\hbar \Omega_{1'3}$. See laser active region and corresponding energy level schematic on Fig. \ref{fig:laser_schematic}.
+\begin{figure}[h!]
+\label{fig:laser_schematic}
+\includegraphics[scale=0.5]{laser_schematic} \caption{The active region of the laser (left) under investigation (with the wavefunctions in the tight binding approximation) and corresponding energy levels schematic (right)}
+\end{figure}
+\noindent
+Taking a periodic rate equation approach (i.e. not including explicitly the input current density) we will reduce the 4 level system: 
+$$\{\Ket{1'}, \hbar \omega_{1'} \} ,\{\Ket{3}, \hbar \omega_{3} \} ,\{\Ket{2}, \hbar \omega_{2} \} ,\{\Ket{1}, \hbar \omega_{1} \}$$
+to a 3 level system 
+$$\{\Ket{1'}, \hbar \omega_{1'} \} ,\{\Ket{3}, \hbar \omega_{3} \} ,\{\Ket{2}, \hbar \omega_{2} \}.$$
+Notice that by employing periodic boundary conditions, we automatically ensure current continuity (see Sec. \ref{sec:relaxation-terms}). 
+
+Following the standard derivation procedures of the MB equations we will employ a density matrix approach to describe the evolution of our statistical ensemble of electrons, coupled via a polarization term to a classical wave propagation equation. 
+
+Within the density matrix formalism, we can write the equations of motion for the ensemble of electrons as follows:
+\begin{align}
+ \label{eq:luiville-eqn}
+ i\hbar \frac{d \rho}{dt} = [H;\rho] ,
+\end{align}
+where $\rho$ is the density matrix: 
+\begin{align}
+ \label{eq:dmatrix-define}
+\rho = \begin{bmatrix}
+\rho_{1'1'}& \rho_{1'3} & \rho_{1'2} \\
+\rho_{31'} & \rho_{33} & \rho_{32} \\
+\rho_{21'} & \rho_{23} & \rho_{22}
+\end{bmatrix} , 
+\end{align}
+$H = H_0 + H_{RT} + H_I$ is the Hamiltonian of the system, consisting of 3 different components corresponding to the unperturbed Hamiltonian,
+the resonant tunneling interaction Hamiltonian and the perturbation energy due to the electric field, respectively. 
+\begin{align}
+ \label{eq:hamiltonians}
+H_0 &= 
+\begin{bmatrix}
+\hbar\omega_{1'} & 0 & 0 \\
+0  & \hbar\omega_{3} &  0 \\
+0  & 0  & \hbar\omega_{2}   
+\end{bmatrix} , \nonumber \\
+H_{RT} &= \begin{bmatrix}
+0  & \hbar\Omega_{1'3}  &  0 \\
+\hbar\Omega_{1'3}  & 0  & 0 \\
+0  & 0  & 0    
+\end{bmatrix} , \nonumber \\ 
+H_{I} &=  \begin{bmatrix}
+0  & 0  &  0 \\
+0 &  0  & E\mu_{32} \\
+0  & E\mu_{23} &  0     
+\end{bmatrix}, 
+\end{align}
+where $\mu_{ij} = e\Bra{i} \mb{r} \ket{j}$ is the dipole interaction between electrons in the $i^{\text{th}}$ and  $j^{\text{th}}$ sub-bands. Notice that we have represented the dipole moment $\mu_{32}$ with a negative sign with respect to the usual convention. We have chosen to do so for convenience, since the - sign of the electron charge cancels with the negative sign, conventionally put in front of the potential energy term of an electric dipole.
+\\
+Other perturbations due to spontaneous emission, LO-phonon scattering, electron-electron scattering etc., the so called collision terms, will be included phenomenologically with the aid of relaxation terms  (see Sec. \ref{sec:relaxation-terms} ). 
+\\\\
+In this context, the density matrix equation (Eq. \ref{eq:luiville-eqn}) reads: 
+\begin{align}
+\frac{d \rho_{1'1'}}{d t} &= i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + coll_{1'1'} \\ 
+\frac{d \rho_{33}}{d t}   &= i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32} E}{\hbar} (\rho_{32}-\rho_{23}) + coll_{33} \\
+\frac{d \rho_{22}}{d t}   &= i\frac{\mu_{32} E}{\hbar} (\rho_{23}-\rho_{32}) + coll_{22} \\
+\frac{d \rho_{1'3}}{d t}  &= -i\omega_{1'3}\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}E}{\hbar}\rho_{1'2} +coll_{1'3}  \\
+\frac{d \rho_{32}}{d t}   &= -i\omega_{32}\rho_{32} +i \frac{\mu_{32}E}{\hbar}(\rho_{33}-\rho_{22}) -i\Omega_{1'3}\rho_{1'2} +coll_{32}  \\
+\frac{d \rho_{1'2}}{d t}  &= -i\omega_{1'2}\rho_{1'2} +i\frac{\mu_{32}E}{\hbar}\rho_{1'3} -i\Omega_{1'3}\rho_{32} +coll_{1'2} 
+\end{align}
+Lastly, we write down the polarization as the expectation of the electric dipole moment, i.e. :
+\begin{equation} 
+P(x,t) = -N\Gamma Tr\{\mb\rho \mb\mu\} = -N\Gamma(\mu_{32}\rho_{32} + \mu_{23}\rho_{23}).
+\end{equation}
+ Here, one must not forget the minus sign carried by the negative electron charge and the fact that we have taken $\mb{\mu} = e\mb{r}$ instead of $\mb{\mu} = -e\mb{r}$.
+Then, the wave equation is written as follows:
+\begin{equation}
+(\partial^2_{x} -\frac{n^2}{c^2}\partial^2_t) E = \frac{1}{\epsilon_0 c^2}\partial^2_t P,
+\end{equation}
+
+\section{Relaxation Terms}
+\label{sec:relaxation-terms}
+\begin{figure}[h!]
+\label{fig:rate_equations}
+\includegraphics[scale=0.5]{rate_equations} \caption{Illustration of the periodic rate equation approach. For our model, $ \Ket {R}$  and $\Ket{B}$ correspond to the injector and depopulation levels, respectively, and the channel levels ( $\Ket{N} \cdots \Ket{1}$ ) to the upper and lower laser levels.  }
+\end{figure}
+
+One has to make sure to observe certain constraints when including the physical relaxation rates, or also known as collision terms. As it was already mentioned in Sec.\ref{sec:outline}, we model our resonant-phonon design as a four level system with 3 relevant levels from the same period coupled to an additional "injector level" ($\Ket{1'}$)  rom the previous period. When the structure is biased close to $1'-3$ resonance, electrons in state $\Ket{1'}$ tunnel through the injection barrier into the upper
+laser level $\Ket{3}$. From there they scatter radiatively to the lower laser level ($\Ket{2}$) and hopefully quickly de-excite to the depopulation level 1, via 
+optical phonon relaxation mechanisms. Due to the periodicity of the structure, this depopulation level is in fact the injector level of the next period and again 
+the same procedure is repeated until the current is extracted out of the heterostructure. As a typical QCL active region consists of many (80-100) 
+periods it becomes impractical to model these in a self consistent manner. An alternative way is to take one 3 level system and impose on it periodic 
+boundary conditions, and namely $\rho_{1'1'}(t) = \rho_{11}(t)$, for each time $t$ (see Fig. \ref{fig:rate_equations}). This renders one of the levels (the depopulation level) obsolete and allows us to greatly reduce the complexity of our equations. This strategy is implemented through the collision terms of the diagonal elements (i.e. populations) of the density matrix, and namely:
+\begin{align}
+ coll_{1'1'} &= (\frac{1}{\tau_{31'}}  + \frac{1}{\tau_{31}})\rho_{33} + (\frac{1}{\tau_{21'}}  + \frac{1}{\tau_{21}})\rho_{22}
+ - (\frac{1}{\tau_{1'3}}  + \frac{1}{\tau_{1'2}} )\rho_{1'1'}, \\
+ coll_{33} &= \frac{1}{\tau_{1'3}} \rho_{1'1'} + \frac{1}{\tau_{23}}\rho_{22}
+ - (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{32}} + \frac{1}{\tau_{31}} )\rho_{33}, \\
+ coll_{22} &= \frac{1}{\tau_{1'2}} \rho_{1'1'} + \frac{1}{\tau_{32}}\rho_{33}
+ - (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{23}} + \frac{1}{\tau_{21}} )\rho_{22}, 
+\end{align}
+where we have included the relaxation rates to and from level $\Ket{1}$, to ensure that the trace of $\rho$ will be preserved throughout the simulation.
+To incorporate the relaxation terms for the off-diagonal elements $\rho_{ij}$ with $i \neq j$, we can write: 
+\begin{align}
+coll_{ij} = \gamma_{ij} \rho_{ij} , \text{ where } i \neq j \text{ and } \gamma_{ij} = \frac{1}{2} \big( \frac{1}{\tau_i} + 
+\frac{1}{\tau_j} \big) + \frac{1}{\tau_{deph}}
+\end{align}
+
+Finally our system of equations becomes:  
+\begin{align}
+\label{eq:mblochbase-start}
+\frac{d \rho_{1'1'}}{d t} &= i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33}  \\ 
+& + (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22} - (\frac{1}{\tau_{1'3}} + \frac{1}{\tau_{1'2}} )\rho_{1'1'} \\
+\frac{d \rho_{33}}{d t}   &= i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32} E}{\hbar} (\rho_{32}-\rho_{23})+ \frac{1}{\tau_{1'3}} \rho_{1'1'} \nonumber \\ 
+& +  \frac{1}{\tau_{23}}\rho_{22} - (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{32}} + \frac{1}{\tau_{31}}) \rho_{33} \\
+\frac{d \rho_{22}}{d t}   &= i\frac{\mu_{32} E}{\hbar} (\rho_{23}-\rho_{32}) + \frac{1}{\tau_{1'2}} \rho_{1'1'} \\ 
+& +  \frac{1}{\tau_{32}}\rho_{33} - (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{23}} + \frac{1}{\tau_{21}}) \rho_{22} \\
+\frac{d \rho_{1'3}}{d t}  &= -i\omega_{1'3}\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}E}{\hbar}\rho_{1'2} -\gamma_{1'3}\rho_{1'3} \\
+\frac{d \rho_{32}}{d t}   &= -i\omega_{32}\rho_{32} +i \frac{\mu_{32}E}{\hbar}(\rho_{33}-\rho_{22}) -i\Omega_{1'3}\rho_{1'2} - \gamma_{32}\rho_{32} \\
+\frac{d \rho_{1'2}}{d t}  &= -i\omega_{1'2}\rho_{1'2} +i\frac{\mu_{32}E}{\hbar}\rho_{1'3} -i\Omega_{1'3}\rho_{32} -\gamma_{1'2}\rho_{1'2} 
+\label{eq:mblochbase-end}
+\end{align}
+
+\section{Rotating Wave Approximation}
+
+To simplify the calculations involved we assume the rotating wave and slowly varying amplitude approximations. For the RWA we set: 
+\begin{align}
+  E(x,t) &= \frac{1}{2} \big ( f(x,t) e^{i(k_c x - \omega_c t )} + f^*(x,t)   e^{-i(k_c x - \omega_c  t )} \big ) \nonumber \\ 
+  \rho_{32}(x,t)  &= \eta_{32}(x,t) e^{i(k_c x - \omega_c t ) } \nonumber \\
+  \rho_{1'2}(x,t) &= \eta_{1'2}(x,t) e^{i(k_c x - \omega_c t) }, \\
+\end{align}
+in order to separate out the slowly varying parts of the electric field and the coherence terms. Substituting into the electric field and DM equations, and 
+eliminating the fast oscillating components we get: 
+
+\begin{align}
+\partial_{x}f &+\frac{n}{c}\partial_t f = -i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32} - \frac{l_0}{2} f \label{eq:rtwaveq} \\
+\frac{d \rho_{1'1'}}{d t} &= i\Omega_{1'3} (\rho_{1'3} - \rho_{31'}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33} \nonumber \\ 
+& + (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22} - (\frac{1}{\tau_{1'3}} + \frac{1}{\tau_{1'2}})\rho_{1'1'} \\
+\frac{d \rho_{33}}{d t}   &= i\Omega_{1'3} (\rho_{31'} - \rho_{1'3}) + i\frac{\mu_{32} }{2 \hbar} (f^* \eta_{32}-f\eta_{32}^*)+ \frac{1}{\tau_{1'3}} \rho_{1'1'} \nonumber \\ 
+& +  \frac{1}{\tau_{23}}\rho_{22} - (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{32}} + \frac{1}{\tau_{31}}) \rho_{33} \\
+\frac{d \rho_{22}}{d t}   &= -i\frac{\mu_{32} }{2 \hbar} (f^* \eta_{32}-f\eta_{32}^*) + \frac{1}{\tau_{1'2}}\rho_{1'1'} \nonumber \\ 
+& +  \frac{1}{\tau_{32}}\rho_{33} - (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{23}} + \frac{1}{\tau_{21}}) \rho_{22} \\
+\frac{d \rho_{1'3}}{d t}  &= -i\omega_{1'3}\rho_{1'3} +i \Omega_{1'3}(\rho_{1'1'} - \rho_{33}) +i\frac{\mu_{32}}{2\hbar}f^*\eta_{1'2} -\gamma_{1'3}\rho_{1'3} \\
+\frac{d \eta_{32}}{d t}   &= i(\omega_c - \omega_{32})\eta_{32} +i \frac{\mu_{32}}{2\hbar}f(\rho_{33}-\rho_{22}) -i\Omega_{1'3}\eta_{1'2} - \gamma_{32}\eta_{32} \\
+\frac{d \eta_{1'2}}{d t}  &= i(\omega_c - \omega_{1'2})\eta_{1'2} +i\frac{\mu_{32}}{2\hbar}f\rho_{1'3} -i\Omega_{1'3}\eta_{32} -\gamma_{1'2}\eta_{1'2} 
+\end{align}
+   
+
+
+\section{Fabry-Perot Cavity} 
+
+To derive the equations for a Fabry-Perrot type resonator, we will assume the following ansatz:
+
+\begin{itemize}
+ \item {Electric field ansatz: 
+    \begin{align}
+	E(x,t) &= \frac{1}{2} \big ( f_{+} e^{i(k_c x-\omega_c t)} + f_{-} e^{-i(k_c x+\omega_c t)} + c.c \big )
+    \end{align}}
+ \item {Population terms ansatz: 
+    \begin{align}
+       \rho_{ii}(x,t) = \rho_{ii}^0 + \rho_{ii}^+ e^{2ik_c x} + \rho_{ii}^-e^{-2ik_c x}
+    \end{align} , where $\rho_{ii}^0 \in \mathbb{R} $  and  $\rho_{ii}^+ = (\rho_{ii}^-)^*$ .  }
+  \item {Coherence terms ansatz:
+    \begin{align}
+      \rho_{32} &= \eta_{32}^{+}e^{i(k_cx-\omega_ct)} + \eta_{32}^{-}e^{-i(k_c x+\omega_c t)} \nonumber \\
+      \rho_{1'2} &= \eta_{1'2}^{+}e^{i(k_c x - \omega_c t)} + \eta_{1'2}^{-}e^{-i(k_c x+\omega_c t)} \nonumber \\
+      \rho_{1'3} &= \rho_{1'3}^0 + \rho_{1'3}^{+} e^{2ik_cx} +  \rho_{1'3}^{-} e^{-2ik_cx} 
+    \end{align}.
+    }
+\end{itemize}
+
+In the following framework, using the RWA, the Maxwell-Bloch equations (\ref{eq:mblochbase-start} - \ref{eq:mblochbase-end}) read: 
+
+
+\textbf{Populations}
+\begin{align*}
+&\frac{d \rho_{1'1'}}{d t}^{0} = i\Omega_{1'3} (\rho_{1'3}^{0} - \rho_{31'}^{0}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33}^{0}  \nonumber \\ 
+& + (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22}^{0} - (\frac{1}{\tau_{1'3}}  + \frac{1}{\tau_{1'2}} )\rho_{1'1'}^{0} \\
+&\frac{d \rho_{1'1'}}{d t}^{\pm} = i\Omega_{1'3} (\rho_{1'3}^{\pm} - \rho_{31'}^{\pm}) + (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{31}})\rho_{33}^{\pm}  \nonumber \\ 
+& + (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{21}})\rho_{22}^{\pm} - (\frac{1}{\tau_{1'3}} + \frac{1}{\tau_{1'2}} +4k_c^2D )\rho_{1'1'}^{\pm} \\
+&\frac{d \rho_{33}}{d t}^0 = i\Omega_{1'3} (\rho_{31'}^0 - \rho_{1'3}^0) + i\frac{\mu_{32}}{2\hbar} \big ((f_{-})^*\eta_{32}^{-}+(f_{+})^*\eta_{32}^{+} - c.c. \big )+ \frac{1}{\tau_{1'3}} 
+\rho_{1'1'}^0 \nonumber \\ 
+& +  \frac{1}{\tau_{23}}\rho_{22}^0 - (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{32}} + \frac{1}{\tau_{31}}) \rho_{33}^0 \\
+&\frac{d \rho_{33}}{d t}^{+}   = i\Omega_{1'3} (\rho_{31'}^{+} - \rho_{1'3}^{+}) + i\frac{\mu_{32}}{2\hbar}\big ( (f_{-})^*\eta_{32}^{+}-f_{+}(\eta_{32}^{-})^* \big ) 
++ \frac{1}{\tau_{1'3}}\rho_{1'1'}^+ \nonumber \\ 
+& +  \frac{1}{\tau_{23}}\rho_{22}^+ - (\frac{1}{\tau_{31'}} + \frac{1}{\tau_{32}} + \frac{1}{\tau_{31}} +4k_c^2D) \rho_{33}^+ \\
+&\frac{d \rho_{22}}{d t}^{0}  = -i\frac{\mu_{32}}{2\hbar} \big ((f_{-})^*\eta_{32}^{-}+(f_{+})^*\eta_{32}^{+} - c.c. \big ) + \frac{1}{\tau_{1'2}}\rho_{1'1'}^0 \\ 
+& +  \frac{1}{\tau_{32}}\rho_{33}^{0} - (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{23}} + \frac{1}{\tau_{21}}) \rho_{22}^0 \\
+&\frac{d \rho_{22}}{d t}^{+}   = - i\frac{\mu_{32}}{2\hbar}\big ( (f_{-})^*\eta_{32}^{+}-f_{+}(\eta_{32}^{-})^* \big )  + \frac{1}{\tau_{1'2}}\rho_{1'1'}^+ \\ 
+& +  \frac{1}{\tau_{32}}\rho_{33}^+ - (\frac{1}{\tau_{21'}} + \frac{1}{\tau_{23}} + \frac{1}{\tau_{21}} +4k_c^2D) \rho_{22}^+ \\
+\end{align*}
+
+\textbf{Coherence Terms}
+\begin{align*}
+&\frac{d \rho_{1'3}}{d t}^0  = -i\omega_{1'3}\rho_{1'3}^0 +i \Omega_{1'3}(\rho_{1'1'}^{0} - \rho_{33}^{0}) +i\frac{\mu_{32}}{2 \hbar}\big ((f_{+})^*\eta_{1'2}^{+}+(f_{-})^*\eta_{1'2}^{-} \big ) -\gamma_{1'3}\rho_{1'3}^{0} \\
+&\frac{d \rho_{1'3}}{d t} ^\pm = -i\omega_{1'3}\rho_{1'3}^\pm  +i\Omega_{1'3}(\rho_{1'1'}^{\pm} - \rho_{33}^{\pm}) +i \frac{\mu_{32}}{2 \hbar} (f_{\mp})^* \eta_{1'2}^{\pm} 
+- \gamma_{1'3} \rho_{1'3}^{\pm}\\
+&\frac{d \eta_{32}^{\pm}}{d t}   = i(\omega_c - \omega_{32})\eta_{32}^{\pm} +i \frac{\mu_{32}}{2\hbar}(  f_{\pm}\Delta_{32}^{0} + f_{\mp}\Delta_{32}^{\pm} ) - i\Omega_{1'3}\eta_{1'2}^{\pm}
+- \gamma_{32}\eta_{32}^\pm \\
+&\frac{d \eta_{1'2}^\pm}{d t}  = i(\omega_c - \omega_{1'2})\eta_{1'2}^{\pm} +i \frac{\mu_{32}}{2\hbar}(f_{\pm }\rho_{1'3}^0 + f_{\mp} \rho_{1'3}^{\pm}) -  i\Omega_{1'3}\eta_{32}^{\pm}
+- \gamma_{1'2}\eta_{1'2}^\pm
+\end{align*}
+
+\textbf{Field equations:}
+$$
+\frac{n}{c}\partial_t f_{\pm} \pm \partial_{x}f_{\pm} = -i\frac{N \Gamma \mu_{32} k_c}{\epsilon_0 n^2} \eta_{32}^{\pm} - \frac{l_0}{2} f_{\pm} \label{eq:rtwaveq} \\
+$$
+Where we have assumed that in the RWA the following expressions are valid:
+\begin{align}
+  	&E\rho_{1'2} \approx \frac{1}{2} \Big(  ((f_{+})^*\eta_{1'2}^{+}+(f_{-})^*\eta_{1'2}^{-} ) + (f_{-})^* \eta_{1'2}^{+}e^{2ik_cx} + (f_{+})^* \eta_{1'2}^{-}e^{-2ik_cx} \Big) \nonumber \\
+  	& E (\rho_{32}-\rho_{23}) \approx \frac{1}{2 }\Big (  \big ((f_{-})^*\eta_{32}^{-}+(f_{+})^*\eta_{32}^{+} - c.c. \big ) + \big ( (f_{-})^*\eta_{32}^{+}-f_{+}(\eta_{32}^{-})^* \big )e^{2ik_c zx} \nonumber \\ 
+  	& + \big( (f_{+})^{*}\eta_{32}^{-}-f_{-}(\eta_{32}^{+})^{*} \big)e^{-2ik_cx} \Big )  \nonumber \\
+	&E \big( \rho_{33}-\rho_{22} \big ) e^{-i (k_c x- \omega_c t ) } \approx \frac{1}{2} \Big (  f_{+}\Delta_{32}^{0}+f_{-}\Delta_{32}^{+}\Big ) \nonumber \\
+	&E \big( \rho_{33}-\rho_{22} \big ) e^{+i (k_c x+ \omega_c t ) } \approx \frac{1}{2} \Big (  f_{-}\Delta_{32}^{0}+f_{+}\Delta_{32}^{-}\Big ) \nonumber \\
+	&E \rho_{1'3} e^{-i (k_c x- \omega_c t ) } \approx \frac{1}{2} \Big (  f_{+}\rho_{1'3}^{0}+f_{-}\rho_{1'3}^{+}\Big ) \nonumber \\
+	&E \rho_{1'3} e^{+i (k_c x+ \omega_c t ) } \approx \frac{1}{2} \Big (  f_{-}\rho_{1'3}^{0}+f_{+}\rho_{1'3}^{-}\Big ) \nonumber \\
+\end{align}
+In the above expressions we have simply substituted the rotating wave ansatz into von Neumann's equations and neglected terms proportional to $e^{\pm 2i\omega_c t}$ and also terms in the expressions for $E \big( \rho_{33}-\rho_{22} \big )$ and $E \rho_{1'3} $ which are proportional to $e^{\pm 2ik_c x},e^{\pm 4ik_c x} $.
+
+\section{Dispersion analysis}
+In the following section, we will outline a formal dispersion analysis of the 3-level system in the weak field limit when the Rabi frequency $\frac{\mu_{32}}{\hbar}E << \Omega_{1'3}$. 
+
+\noindent
+Let us begin by renaming the resonance frequencies of the three level system as follows:
+$$
+\omega_{1'3} = \epsilon \quad \omega_{32} = \omega_c \quad \Rightarrow \omega_{1'2} = \epsilon+\omega_c,
+$$
+where $\epsilon$ is the detuning from resonance between the injector and the upper laser levels and $\omega_c$ is the central  frequency and also we assume that  the field is in resonance with the $3\rightarrow 2$ transition. Using the Fourier differentiation theorem, we can write down the equations for the coherence terms in Fourier domain as:
+\begin{align*}
+-i\omega R_{1'3}&= -i\epsilon R_{1'3} +i \Omega_{1'3}(R_{1'1'} -R_{33}) +i\frac{\mu_{32}}{2\hbar}F^**N_{1'2} -\gamma_{1'3}R_{1'3}. \\
+-i\omega N_{32}   &= i \frac{\mu_{32}}{2\hbar}F*(R_{33}-R_{22}) -i\Omega_{1'3}N_{1'2} - \gamma_{32}N_{32}, \\
+-i\omega N_{1'2}  &= -i \epsilon N_{1'2} +i\frac{\mu_{32}}{2\hbar}F*R_{1'3} -i\Omega_{1'3}
+N_{32} -\gamma_{1'2}N_{1'2}, 
+\end{align*}
+where the new quantities are defined as follows:
+\begin{align*}
+& F(\omega) = \mathbb{F}\{ f \}(\omega) = \frac{1}{2\pi} \int {f} e^{i\omega t} dt \\
+& R_{ij}(\omega) = \mathbb{F}\{ \rho_{ij} \}(\omega) = \frac{1}{2\pi} \int {\rho_{ij}} e^{i\omega t} dt \\
+& N_{ij}(\omega) = \mathbb{F}\{ \eta_{ij} \}(\omega) = \frac{1}{2\pi} \int {\eta_{ij}} e^{i\omega t} dt \\
+\end{align*}
+and the $A*B$ denotes convolution. Solving for $N_{1'2}$ yields:
+$$
+N_{1'2} = \frac{1}{\omega - \epsilon+i\gamma_{1'2} } \Big ( \Omega_{1'3}N_{32} - \frac{\mu_{32}}{2\hbar}F*R_{1'3} \Big).
+$$
+Again, in the weak field limit we take $ |\frac{\mu_{32}}{2\hbar}F*R_{1'3} |<< |\Omega_{1'3}N_{32} |$ and thus we can neglect the field convolution to simplify:
+$$
+N_{1'2} = \frac{1}{\omega - \epsilon+i\gamma_{1'2} } \Omega_{1'3}N_{32}.
+$$
+Plugging into the equation for $N_{32}$ yields:
+$$
+N_{32} = \frac{1}{\omega + i\gamma_{32} } \Big ( \Omega_{1'3}N_{1'2} - \frac{\mu_{32}}{2\hbar}F*\Delta_{32} \Big).
+$$
+Naming $\Gamma_{1'2}(\omega) = \omega - \epsilon +i\gamma_{1'2}$ and $\Gamma_{32}(\omega) = \omega + i \gamma_{32} $ we finally get:
+$$
+N_{32} = - \left [ 1-\frac{\Omega_{1'3}^2}{\Gamma_{32}\Gamma_{1'2}} \right ]^{-1}  \Big(  \frac{\mu_{32}}{2\hbar}\frac{1}{\Gamma_{32}}F*\Delta_{32} \Big ) 
+$$
+Let us also assume that the population inversion $\rho_{33} - \rho_{22} $ oscillates around some mean value $\Delta n^0$ with angular frequency $\omega_{pop}$ and amplitude $m_{pop}$ as:
+$$
+\rho_{33}-\rho_{22} = \Delta n^0 +m_{pop} \cos(\omega_{pop}t).
+$$
+The fourier transform will then be:
+$$
+\Big (R_{33}-R_{22} \Big )(\omega) = \Delta_{32}(\omega) = \Delta n^0\delta(\omega) +\frac{m_{pop}}{2} \Big ( \delta(\omega-\omega_{pop} )+ \delta(\omega+\omega_{pop}) \Big ). 
+$$
+The convolution with $F(\omega')$ is therefore:
+$$
+F* \Delta_{32}(\omega) = \Delta n^0 F(\omega) +\frac{m_{pop}}{2} \Big ( F(\omega-\omega_{pop} )+ F(\omega+\omega_{pop}) \Big ). 
+$$ 
+Thus plugging everything in the expression for $N_{32}$ and simplifying yields:
+\begin{align}
+N_{32} &=  -\Big ( \frac{\Gamma_{1'2}}{\Gamma_{1'2}\Gamma_{32} - \Omega_{1'3}^2}\Big )    \frac{\mu_{32}}{2\hbar} \Big (\Delta n^0 F(\omega) +\frac{m_{pop}}{2}  ( F(\omega-\omega_{pop} )+ F(\omega+\omega_{pop}) \Big) \nonumber \\
+&= -\mathcal{L} (\omega) \frac{\mu_{32}}{2\hbar}\Big (\Delta n^0 F(\omega) +\frac{m_{pop}}{2}  ( F(\omega-\omega_{pop} )+ F(\omega+\omega_{pop}) \Big)
+\end{align}
+
+\noindent
+Let us take a closer look at the lineshape funciton $\mathcal{L}(\omega)$:
+\begin{align}
+ \mathcal{L} (\omega) &=  \frac{\Gamma_{1'2}(\omega)}{\Gamma_{1'2}(\omega)\Gamma_{32}(\omega) - \Omega_{1'3}^2} = \frac{\omega - \epsilon +i\gamma_{1'2}}{(\omega + i\gamma_{32})(\omega -\epsilon + i\gamma_{1'2}) -\Omega_{1'3}^2}
+\end{align}
+Under the assumptions that $ |\gamma_{1'2}-\gamma_{32}| << 1$ and $\epsilon << \Omega_{1'3}$ we can significantly simplify the expression as:
+\begin{align}
+ \mathcal{L} (\omega) &=  \frac{1}{2(\omega - \omega_{+})} + \frac{1}{2(\omega - \omega_{-})}  - \frac{\epsilon +i (\gamma_{32}-\gamma_{1'2})}{2(\omega - \omega_{+})(\omega-\omega_{-})}, 
+\end{align}
+where:
+$$
+\omega_{\pm} = \frac{\epsilon}{2} +i \frac{\gamma_{1'2}+\gamma_{32}}{2} \pm  \frac{1}{2}\sqrt{ (\epsilon -i(\gamma_{1'2}-\gamma_{32}) )^2+4\Omega_{1'3}^2}.
+$$
+Again taking the assumption that $ |\gamma_{1'2}-\gamma_{32}| << 1$ and $\epsilon << \Omega_{1'3}$ we get:
+$$
+ \mathcal{L} (\omega) \approx  \frac{1}{2(\omega - \omega_{+})}\big(1 - \frac{\epsilon}{2\Omega_{1'3}}\big) + \frac{1}{2(\omega - \omega_{-})}\big(1 + \frac{\epsilon}{2\Omega_{1'3}}\big)   
+$$
+We have just seen how the complex lineshape can be decomposed into the sum of two Lorenzians with equal linewidth, one  at 
+$$
+\omega_{+} = \frac{\epsilon}{2} +i \Gamma + \frac{1}{2}\sqrt{ (\epsilon -i(\gamma_{1'2}-\gamma_{32}) )^2+4\Omega_{1'3}^2} \approx  \frac{\epsilon}{2} +i \Gamma +\Omega_{1'3},
+$$ 
+and another at:
+$$
+\omega_{-} = \frac{\epsilon}{2} +i \Gamma - \frac{1}{2}\sqrt{ (\epsilon -i(\gamma_{1'2}-\gamma_{32}) )^2+4\Omega_{1'3}^2} \approx  \frac{\epsilon}{2} +i \Gamma -\Omega_{1'3}.
+$$ 
+The linewidth is $\Gamma = \frac{\gamma_{1'2}+\gamma_{32}}{2}$ and the distance between both maxima, i.e. $\omega_{+}-\omega_{-} = 2\Omega_{1'3}$. Thus the strong anticrossing energy between the levels $1'$ and $3$ induces a splitting of the spectrum with distance $2\Omega_{1'3}$. Furthermore, the  sign of the $1'\rightarrow 3$ resonance energy, $\epsilon$, determines which component of the lineshape function shall be dominating according to:
+\begin{enumerate} 
+	\item{if $\epsilon > 0$, i.e. the upper laser level is below the injector level, the lower frequency lobe dominates ($\omega_{-}$)} 
+	\item{if $\epsilon < 0$, i.e. the upper laser level is above  the injector level, the higher frequency lobe dominates ($\omega_{+}$)}
+	\item{At $1'\rightarrow 3$ resonance, i.e. $\epsilon \approx 0$, we have equally strong contribution of the high and low frequancy lobes.}
+\end{enumerate}
+
+Let us now go back to our original formula for $N_{32}$ and use it to derive the expression for the complex susceptibility. Since we have the relation:
+$$
+P(\omega) = \varepsilon_0 \chi_e(\omega) E(\omega) =\frac{\varepsilon_0 \chi_e(\omega)}{2} F(\omega-\omega_c) +c.c.   
+$$
+and furthermore:
+$$
+P(\omega) = - N\Gamma\mu_{32}\big (R_{32}(\omega)+c.c.) = - N\Gamma\mu_{32}\big (R_{32}(\omega)+c.c.) =  - N\Gamma\mu_{32}\big (N_{32}(\omega-\omega_c)+c.c.) ,
+$$
+equating both expressions we get the complex susceptibility 
+$$
+\chi_e(\omega) = -\frac{2 N\Gamma \mu_{32}}{\varepsilon_0} \frac{N_{32}(\omega-\omega_c)}{F(\omega-\omega_c)} 
+$$
+or 
+$$
+\chi_e(\omega+\omega_c) = -\frac{2 N\Gamma \mu_{32}}{\varepsilon_0} \frac{N_{32}(\omega)}{F(\omega)} 
+$$
+Separating the complex and the real part $\Rightarrow \chi_e = \chi_e^{'} +i \chi_e^{''}$. The gain coefficient can then be written as:
+$$
+\chi_e(\omega+\omega_c) = -\frac{2 N\Gamma \mu_{32}}{\varepsilon_0} \frac{N_{32}(\omega)}{F(\omega)} 
+$$
+Let us take for convenience the frequency shifted susceptibility, i.e. $\tilde{\chi}_e(\omega) = \chi_e(\omega-\omega_c)$. Dropping the tilde's and expanding the previous expression we get:
+$$
+\chi_e(\omega) = \frac{2 N\Gamma \mu_{32}}{\varepsilon_0} \mathcal{L}(\omega)  \frac{\mu_{32}}{2\hbar}\Big (\Delta n^0  +\frac{m_{pop}}{2}  ( F(\omega-\omega_{pop} )+ F(\omega+\omega_{pop}))/F(\omega) \Big)
+$$ 
+We can ignore for a second the beating terms $F(\omega \pm \omega_{pop})/F(\omega)$ since in the weak field limit they could be taken as small to finally get the induced susceptibility:
+$$
+\chi_e(\omega) = \frac{\Delta n^0 N\Gamma \mu_{32}^2}{\varepsilon_0\hbar} \mathcal{L}(\omega)
+$$ 
+Adding a background polarization $\chi_0 = n_r^2-1$ the total susceptibility is:
+$$
+\chi(\omega) = n_r^2 +  \frac{\Delta n^0 N\Gamma \mu_{32}^2}{\varepsilon_0\hbar} \mathcal{L}(\omega) -1.
+$$ 
+The complex dielectric function is thus:
+$$
+\varepsilon_r(\omega) = 1+\chi(\omega) = n_r^2 +  \frac{\Delta n^0 N\Gamma \mu_{32}^2}{\varepsilon_0\hbar}\mathcal{L}(\omega).
+$$ 
+We will use this expressions to plot the real and imaginary part of the complex refractive index and thus gain a little more insight into the dispersion characteristics of the model.
+
+In the normalized maxwell bloch equations we use:
+$$
+\tilde{\rho_{ii}} = \frac{N\Gamma\mu_{32}^2 k_c }{\varepsilon_0 n_r^2\hbar}\rho_{ii}.
+$$ 
+Thus in normalized quantities one can readily check that the complex dielectric function is given by:
+$$
+\varepsilon_r(\omega) = n_r^2(1 +  \frac{\Delta \tilde{n}^0}{k_c}\mathcal{L}(\omega)).
+$$ 
+where $\Delta \tilde{n}^0 = \tilde{\rho}_{33} - \tilde{\rho}_{22}$ is the normalized population inversion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

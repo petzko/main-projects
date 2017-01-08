@@ -1,0 +1,18 @@
+\tocdepth@munge 
+\contentsline {section}{\numberline {}Contents}{1}{}
+\tocdepth@restore 
+\contentsline {section}{\numberline {I}Introduction}{1}{}
+\contentsline {section}{\numberline {II}Theoretical Model}{1}{}
+\contentsline {subsection}{\numberline {II.1}Maxwell-Bloch equations for a Fabry-Perot resonator}{3}{}
+\contentsline {section}{\numberline {III}Applications}{4}{}
+\contentsline {subsection}{\numberline {III.1}Self-consistent simulations of LO-phonon terahertz QCLs}{4}{}
+\contentsline {subsection}{\numberline {III.2}Gain and dispersion characterization}{5}{}
+\contentsline {subsection}{\numberline {III.3}Four Wave Mixing}{6}{}
+\contentsline {subsection}{\numberline {III.4}Long time simulations of free running THz QCLs}{7}{}
+\contentsline {subsubsection}{\numberline {III.4.1}Frequency domain}{7}{}
+\contentsline {subsubsection}{\numberline {III.4.2}Time domain}{8}{}
+\contentsline {section}{\numberline {IV}Conclusion}{9}{}
+\contentsline {section}{Appendix \numberline {A}Numerics}{9}{}
+\contentsline {section}{Appendix \numberline {B}Simulation parameters}{10}{}
+\contentsline {section}{Appendix \numberline {C}Dependence of the dominant transition on bias}{10}{}
+\contentsline {section}{\numberline {}References}{10}{}

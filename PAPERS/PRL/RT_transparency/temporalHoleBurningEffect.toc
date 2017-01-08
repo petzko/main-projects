@@ -1,0 +1,9 @@
+\contentsline {title}{Spectral and Temporal Hole Burning in Quantum Cascade Lasers with Strong Injector Anticrossing}{1}{}
+\tocdepth@munge 
+\contentsline {section}{\numberline {}Contents}{2}{}
+\tocdepth@restore 
+\contentsline {section}{\numberline {I}Introduction}{2}{}
+\contentsline {section}{\numberline {II}Spectral hole burning due to strong injector anticrossing}{6}{}
+\contentsline {section}{\numberline {III}Temporal hole burning due to strong injector anticrossing - 01}{7}{}
+\contentsline {section}{\numberline {IV}Temporal hole burning due to strong injector anticrossing -02 - no time dependence}{9}{}
+\contentsline {section}{\numberline {V}Temporal hole burning due to strong injector anticrossing - 03 - series expansion}{10}{}

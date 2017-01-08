@@ -1,0 +1,132 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.4\textwidth]{#1}}
+%\captionsetup{width=.45\textwidth}
+
+
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+
+\section{Derivation of the two level field propagation equations}
+
+Note that, for convenience,  I have changed the notation from the powerpoint slides and used the symbol $f(x,t)$ to denote the electric field \emph{envelope}, whereas the letter $E$ is reserved for the ELECTRIC FILED.
+
+
+For active atoms embedded in a passive medium the total polarization comprises of two terms
+\begin{equation}
+P_{tot} = P+P_0 = P+\epsilon_0\chi_0E
+\end{equation}
+where the first term is the polarization contributed by the active atoms and $P_0$ is the background polarization as a linear reaction to the EM field due to the constant background susceptibility $\chi_0$. The background refractive index can be written as 
+$n_{THz}^2 = 1+\chi_0$ which yields the wave equation 
+\begin{align}
+\label{eq:waveqn}
+\underbrace{\left [\frac{c^2}{n_{THz}^2} \frac{\p^2}{\p x^2} -\frac{\p^2}{\p t^2} \right ] E}_{LHS} =\overbrace{\frac{1}{\epsilon_0 n_{THz}^2}\frac{\p^2}{\p t^2}P}^{RHS}  
+\end{align}
+
+The incident light is assumed linear polarized in z-direction and slowly varying:
+\begin{equation}
+E(x,t) =\frac{1}{2}f(x,t)e^{i(k_0x-\omega_0t)}+c.c.,  
+\end{equation}
+where $f(x,t)$ is the slowly varying envelope, $\omega_0$ is the central frequency and we also \emph{assume} that $k_0=\omega_0 n_{THz}/c$ is the corresponding wave number. 
+The polarization $P$ takes the form 
+\begin{equation}
+P(x,t) =  -N\Gamma\mu (\rho_{12}+\rho_{21}),  
+\end{equation}
+which is obtained by calculating the expectation value of the dipole moment operator in the two level system. $N\Gamma$ is the 
+"effective" active carriers' volume density and $\mu$ is the optical transition's dipole moment (in units of $C\cdot m$). We have taken a minus sign due to the fact that in our convention $\mu = e\bra{2}\hat{z}\ket{1}$, where $e$ is the \emph{positive} elementary charge. 
+
+We decompose $\rho_{21}=\eta_{21}e^{i(k_0x-\omega_0t)}$, perform the differentiation in the wave equation and use that, within the slowly varying envelope approximation (SVEA), it holds
+\begin{align}
+\label{eq:SVEA}
+\left |\frac{\p^2 f}{\p t^2}\right | \ll \omega_0\left|\frac{\p f}{\p t}\right| \quad \text{, } \left |\frac{\p^2 f}{\p x^2}\right | \ll k_0\left|\frac{\p f}{\p x}\right| \quad \text{, } \left |\frac{\p^2 \eta}{\p t^2}\right | \ll \omega_0^2 \left| \eta_{21}\right| \quad \text{, } \omega_0 \left| \frac{\p \eta_{21}}{\p t}\right| \ll  \omega_0^2\left|\eta_{21}\right|.
+\end{align}
+Expanding Eq. (\ref{eq:waveqn}) we obtain
+\begin{align}
+LHS &= \frac{1}{2} \frac{c^2}{n_{THz}^2} \left(\frac{\p^2 f}{\p x^2} +2ik_0 \frac{\p f}{\p x} -k_0^2 f\right)e^{i(k_0x-\omega_0t)} - \frac{1}{2}\left(\frac{\p^2 f}{\p t^2} -2i\omega_0 \frac{\p f}{\p t} -\omega_0^2 f\right)e^{i(k_0x-\omega_0t)} + c.c. \nonumber \\
+RHS &= -\frac{N\Gamma\mu}{\epsilon_0 n_{THz}^2} \left(\frac{\p^2 \eta_{21}}{\p t^2} -2i\omega_0 \frac{\p \eta_{21}}{\p t} -\omega_0^2. \eta_{21}\right)e^{i(k_0x-\omega_0t)}+c.c.
+\end{align}
+Now, if we apply the SVEA approximation, i.e. Eq. (\ref{eq:SVEA}), and compare the coefficients in front of the exponents we get
+\begin{align}
+\label{eq:almostdone}
+\frac{c^2}{n_{THz}^2}ik_0 \frac{\p f}{\p x}+i\omega_0 \frac{\p f}{\p t} = \frac{N\Gamma\mu\omega_0^2}{\epsilon_0 n_{THz}^2}\eta_{21}.
+\end{align}
+Lastly, we divide Eq. (\ref{eq:almostdone}) by $i\omega_0$ and acknowledge that we have set $k_0 = \omega_0 n_{THz}/c$ to get
+\begin{align}
+\label{eq:almostdone2}
+\frac{c}{n_{THz}} \frac{\p f}{\p x}+ \frac{\p f}{\p t} = -i\frac{N\Gamma\mu\omega_0}{\epsilon_0 n_{THz}^2}\eta_{21},
+\end{align}
+or equivalently
+\begin{align}
+\label{eq:almostdone3}
+\frac{\p f}{\p x}+ \frac{n_{THz}}{c} \frac{\p f}{\p t} = -i\frac{N\Gamma\mu\omega_0}{\epsilon_0 c n_{THz}}\eta_{21}.
+\end{align}
+
+
+
+
+\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+\end{document}
+

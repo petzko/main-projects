@@ -1,0 +1,217 @@
+\documentclass[]{spie}  %>>> use for US letter paper
+%\documentclass[a4paper]{spie}  %>>> use this instead for A4 paper
+%\documentclass[nocompress]{spie}  %>>> to avoid compression of citations
+
+\renewcommand{\baselinestretch}{1.0} % Change to 1.65 for double spacing
+ 
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{cite}
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\newcommand{\mb}[1]{\bm{#1}}
+
+\renewcommand\citeform[1]{[#1]}
+
+\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.7\textwidth]{#1}}
+\captionsetup{width=.85\textwidth}
+
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+
+
+\title{Temporal Dynamics of THz Quantum Cascade Laser
+	Frequency Combs with Strong Injector Anticrossing}
+
+\author[a]{$^*$Petar Tzenov}
+\author[b]{David Burghoff}
+\author[b]{Qing Hu}
+\author[a]{Christian Jirauschek}
+\affil[a]{Institute for Nanoelectronics, Technical University of Munich,
+	D-80333 Munich, Germany}
+\affil[b]{Department of Electrical Engineering
+	and Computer Science, Research Laboratory of Electronics, Massachusetts
+	Institute of Technology, Cambridge, Massachusetts 02139, USA}
+
+
+\authorinfo{$^*$E-mail: petar.tzenov@tum.de}
+
+% Option to view page numbers
+\pagestyle{empty} % change to \pagestyle{plain} for page numbers   
+\setcounter{page}{301} % Set start page numbering at e.g. 301
+ 
+\begin{document} 
+\maketitle
+\begin{abstract}
+ Due to their broad spectral bandwidth and superior temperature performance, resonant phonon quantum cascade laser (QCL) designs have become the active-region of choice for many of the leading groups in terahertz (THz) QCL research. These gain media can vary substantially in the number of wells and barriers as well as their corresponding thicknesses, but all such structures employ a common resonant phonon lower laser level depopulation scheme and a resonant tunneling mechanism for efficient current injection into the upper laser level. The presence of a strong anticrossing between the injector and upper laser level leads, under the right conditions, to a pronounced splitting of the emission spectra into high and low frequency lobe components around some central transition frequency. This spectral hole burning effect also manifests itself in the time domain as a form of pulse switching between signals corresponding to the two lobes of the split gain, as it has  already been experimentally observed. This process was termed as a form of temporal hole burning (THB), which next to spectral and spatial hole burning, completes the plethora of dynamic "hole burning" phenomena encountered in QCLs. In this work, we investigate the temporal dynamics of THz QCLs with a strong injector anticrossing via numerical solution of the Maxwell-Bloch laser equations. Our simulation results show remarkable agreement with experiment and we further outline the development of a theoretical model which intuitively explains this effect.
+\end{abstract}
+
+% Include a list of keywords after the abstract 
+
+
+\section{Introduction}
+
+Quantum cascade lasers (QCLs) are a relatively new semiconductor type of lasers based on electron transitions inside a multiple quantum well active region heterostructure. The lasing
+frequencies in these devices are determined by active region design, and not by the band-gap of the material, which makes them a promising source of mid- and far- infrared radiation. Furthermore, stemming from their intrinsicly broad bandwidth, QCLs have shown great potential as a compact and cheap source of frequency combs in these spectral regions \cite{burghoff2014terahertz,hugi2012mid,rosch2015octave}. This has opened up a variety of exciting new applications of QCLs, such as high precision optical spectroscopy and metrology, chemical fingerprint detection and others, due to the fact that many important molecules have ro-vibrational eigenmodes in the THz as well as the mid-infrared. Already several "proof-of-concept" frequency comb utilization experiments have been demonstrated, based on the so called "dual comb" spectroscopy technique \cite{villares2014dual,yang2016terahertz}.
+
+In \citen{burghoff2014terahertz} a THz QCL frequency comb was demonstrated, consisting of more than 70 equidistantly-spaced longitudinal modes, spanning approximately 14\% of the central frequency. Apart from the obvious interest in this device due to its superior comb performance, it also exhibited other very intriguing properties which deserve a more detailed study. For example, a hole was observed in the signal's spectrum, which separated the lasing frequencies into components distributed around 3.4 THz and 3.8 THz, to which we will refer  as the low and high frequency lobes, respectively. Such a spectral hole burning was attributed and later confirmed by simulation \cite{petz2016} to be due to the strong tunneling coupling between injector and upper laser level of the active region. Furthermore, a subsequent detailed experimental analysis \cite{burghoff2015evaluating} showed that the prevalent frequency lobe strongly depends on the applied injection current, with the low and high frequency transitions dominating respectively at low and high current densities \cite{burghoff2015evaluating}. Additionally, a Monte-Carlo based algorithm in combination with a novel comb coherence detection technique, the so called shifted wave interference Fourier transform spectroscopy or SWIFTS \cite{burghoff2014broadband}, was used in order to reconstruct the instantaneous intensity and frequency of the signal \cite{burghoff2015evaluating}. The results displayed an intriguing pulse switching behaviour, which was termed "temporal hole burning" (THB) by the authors, and is at the main focus of this article. 
+
+The observed THB effect can be characterized by a transient switching between signals corresponding to the high and low frequency lobes. In Fig. \ref{fig:exper_0p9A} we have plotted  the measured optical spectrum, the smoothed out instantaneous intensity, $I(t)$, and instantaneous frequency, $\nu(t)$, of the low and high frequency lobes. The data was obtained via the method described in \citen{burghoff2015evaluating} at 0.9 A injection current, where the laser was shown to operate in a stable comb regime \cite{burghoff2014terahertz}. The lines in Figs. \ref{fig:exper_0p9A}b and \ref{fig:exper_0p9A}c denote the time-averaged values over a window of 10ps, whereas the shaded areas delineate regions at a single standard deviation from the corresponding mean.  
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/exper_0p9A.eps}
+		\caption{ Measured \textbf{a} Intensity spectrum, \textbf{b} instantaneous intensity and \textbf{c} instantaneous frequency, emitted by the device in \citen{burghoff2014terahertz}, at an injection current of 0.9A.} \label{fig:exper_0p9A}
+	\end{center}	
+\end{figure}
+
+
+The difference in both signals' time duration can be easily explained by looking at the spectrum and remembering Parseval's theorem: the blue lobe contains more modes and hence it stores more energy which, under the condition that both pulses have approximately the same peak intensity, requires it to have more prolonged temporal shape. Useful information about the nature of those signals can be extracted from the plots of the instantaneous frequency. It has already been noted \cite{burghoff2015evaluating} that while $\nu(t)$  is approximately constant for the red pulse, which indicates that the signal is transform limited, the instantaneous frequency of the blue lobe looks much more strongly modulated, which is a feature of a frequency modulated signal. An interesting question to consider is: "Why is the difference between the optical spectra of the high and low frequency lobe manifest in the pulse duration rather than the amplitude?". We believe that this might be due to the balance between the ultrafast gain recovery dynamics of the device and the Four Wave Mixing (FWM) processes which produce the multimode spectrum. In Refs. \citen{khurgin2014coherent,hugi2013single,villares2015quantum} it has been confirmed by theory that FWM in lasers with fast gain recovery and low dispersion could produce a comb, which contains most of the spectral information in the variation of its phase rather than the amplitude. In the ideal case, this would mean that the device will operate as a frequency modulated laser producing almost constant instantaneous intensity, but a periodically varying instantaneous frequency. 
+
+\section{Simulation results}
+In order to investigate the temporal hole burning effect, we model the laser in \citen{burghoff2014terahertz} by coupling the Schr\"odinger-Poisson/ensemble Monte Carlo method with a Maxwell-Bloch simulation code \cite{petz2016}. The gain medium is a 5-well resonant phonon THz QCL, employing resonant tunneling for current injection. With the aim to introduce some notation, consider a prototypical THz QCL design, schematically illustrated in Fig. \ref{fig:basis_compare}a. In this configuration, the injector state is denoted as $\ket{c}$, the upper laser level as $\ket{b}$ and the lower laser level as $\ket{a}$. Due to the close energetic alignment of $\ket{b}$ and $\ket{c}$, which we will assume to be $\hslash\epsilon \ll 1$ meV, the states anticross with coupling energy $\hslash\Omega_{cb}$. We also assume that the energy of the optical, i.e. $a\leftrightarrow b$, transition is equal to $\hbar \omega_0$. The strong coupling between injector and upper laser level leads to a level splitting of the states $\ket{b}$ and $\ket{c}$ into a doublet of dressed or delocalized states $\ket{+}$ and $\ket{-}$, which span the intramodule barrier, Fig. \ref{fig:basis_compare}b, and are separated by the detuning energy $\delta E = \hslash\sqrt{\epsilon^2 + 4\Omega_{cb}^2}$, which could be well in the range of hundreds of GHz.  
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/basis_compare.eps}
+		\caption{ \textbf{a} Schematic representation of a three level resonant tunneling system in the tight-binding basis. \textbf{b} Schematic representation of the system in \textbf{a} in the delocalized, i.e. extended, basis.} \label{fig:basis_compare}
+	\end{center}	
+\end{figure}
+
+The dipole moment of the states $\ket{b}$ and $\ket{a}$ in the tight binding basis is transferred to a dipole interaction between both dressed states, $\ket{\pm},$ and $\ket{a}$, in essence producing a doublet of upper laser levels, Fig. \ref{fig:basis_compare}b. If the splitting energy $\delta E$ is sufficiently large and the linewidth of the $b\leftrightarrow a$ transition is sufficiently narrow, this leads to a splitting of the gain into a low and a high frequency lobe, with angular frequencies $\omega_{LF}$ and $\omega_{HF}$, symmetrically distributed around $\omega_0$ \cite{dupont2010simplified}. We will start by introducing the equations of motion (EOM) in the tight-binding picture, which provides the framework for our simulation model \cite{petz2016}.
+
+Neglecting for the time being all phenomenological terms and including the interaction with the electric field within the electric dipole approximation, as well as the resonant tunneling coupling via the energy $\hslash\Omega_{cb}$, the generator of time evolution of the system, depicted in Fig. \ref{fig:basis_compare}a, is the Hamiltonian operator
+\begin{align}
+\label{eq:hamiltonian-operatorform}
+\h{H} &= \hbar(\epsilon+\omega_0)  \h\sigma_{c,c} +\hbar\omega_0 \h\sigma_{b,b} + (\hbar\Omega_{cb}\h\sigma_{c,b} + q_0d_{ba}E_z \h\sigma_{b,a}+H.c.).
+\end{align}
+ We have implicitly assumed that the semiconductor growth direction of the QCL is along the z-axis and thus $E_z$ is the only component of the field coupling to the atomic system. The symbol $d_{ba} = \bra{b}\h{z}\ket{a} $ denotes the dipole matrix element between states $\ket{b}$ and $\ket{a}$, where $\h{z}$ is the z-component of the position operator. Also $\h \sigma_{i,j} =\ket{i}\bra{j}$ is the atomic projection operators, "$H.c$" the Hermitian conjugate and we have set the zero energy to be equal to the energy of the lower level $E_a = 0$.
+
+Within the Markovian approximation \cite{knezevic2013time}, the time evolution of the density operator $\h{\rho}$ is governed by the von Neumann equation with phenomenologically included dissipation term $G(\h{\rho})$ and is given by
+\begin{equation}
+\label{eq:vonNeumann}
+\frac{d \h\rho}{dt} = -\frac{i}{\hbar}[\h H;\h\rho] + G(\h{\rho}),
+\end{equation}
+where $[\cdot;\cdot]$ is the usual quantum mechanical commutator. Here the term $G(\h{\rho})$ is included to model the loss of coherence of the system due to interaction with the environment and is written within a standard scattering rates approach \cite{iotti2005microscopic}. In our simulations, those rates are not taken as empirical values, but they are rather calculated with our ensemble Monte Carlo code \cite{jirauschek2014modeling}, which incorporates all incoherent scattering mechanisms shown to be relevant for quantum cascade lasers \cite{jirauschek2009monte,jirauschek2010monte,jirauschek2010monte_2}. 
+
+All simulation parameters, are as in Ref. \citen{petz2016}, with the exception of the pure dephasing time for the lasing transition, which was chosen to be 2 ps, i.e. twice the value in Ref. \citen{petz2016}, in order to produce results with more pronounced spectral splitting. Also, we have evolved the system for 1200 round trips. To extract the high and low frequency signals, we applied a high and low pass finite impulse response (FIR) filters of sufficiently high order, respectively, onto the total \emph{real} electric field. Then, we used the Hilbert transform onto the result and, finally, from the calculated analytic signals, we extracted the envelopes and instantaneous frequencies. The simulation results are plotted in Fig. \ref{fig:sim_10p8}.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/sim_10p8.eps}
+		\caption{ \textbf{a} Intensity spectrum, \textbf{b} instantaneous intensity, \textbf{c} instantaneous frequency and \textbf{d} level populations from simulations at 10.8 kV/cm applied bias.} \label{fig:sim_10p8}
+	\end{center}	
+\end{figure}
+
+We see that our simulations qualitatively reproduce the experimental results in Fig. \ref{fig:exper_0p9A} quite well. We do observe the clear pulse switching behaviour as well as the periodic variation in the instantaneous frequency $\nu(t)$. For the latter, we see that whenever either lobe is transiently switched off, the corresponding $\nu(t)$ is very noisy as it contains large uncertainty and is practically ill-defined \cite{burghoff2014broadband}. We also notice that in exact agreement with experiment the high frequency lobe's time signal has longer duration as compared to the low frequency lobe's signal. The additional substructure present in the blue lobe of Fig. \ref{fig:exper_0p9A}b is however absent in our simulations. We are still unable to trace its origin. 
+
+Another important observation worth discussing is the apparent depletion of the carrier density in the $\ket{+}$ and $\ket{-}$ states, i.e. $\rho_{++}$ and $\rho_{--}$, whenever the high and low frequency lobes, respectively, are lasing. At the same time the total number of electrons in the pair of delocalized states remains approximately constant, as can be seen from the plots. In Sec. \ref{sec:theoretical-explaination-pulse-switching} we will show that this is due to the fact that, under ideal conditions, the three level system, schematically represented in Fig. \ref{fig:basis_compare}b, can be reduced to a two level such involving only the population densities of the anticrossed states. 
+
+\section{The quasi-two-level system}
+\label{sec:theoretical-explaination-pulse-switching}
+The fact that the original system's Hamiltonian is non-diagonal in the tight binding basis, introduces a new set of eigenstates with split eigenvalues corresponding to the high and low frequency lobes. One can obtain the delocalized basis states $\ket{+}$ and $\ket{-}$ from the tight binding states via the unitary transform
+\begin{align}
+\label{eq:dressedstates}
+\Ket{+} &= \cos\theta \Ket{c} - \sin\theta \Ket{b}, \nonumber \\
+\Ket{-} &= \sin\theta \Ket{c} + \cos\theta \Ket{b}.
+\end{align}
+The eigenenergies are given by
+$
+E_\pm =\hslash \omega_{\pm} =\hbar(\omega_0 +\epsilon/2) \pm \hbar \sqrt{\epsilon^2+4\Omega_{cb}^2 }/2,
+$
+and the expansion coefficients are computed from  
+$
+\tan \theta = -2\Omega_{cb}/[\epsilon+(\epsilon^2+4\Omega_{cb}^2)^{1/2}].
+$
+
+Within the delocalized basis picture the observed pulse switching behaviour has a very intuitive and simple explanation. If we apply the unitary transform given by Eq. (\ref{eq:dressedstates}) onto the tight binding Hamiltonian in Eq. (\ref{eq:hamiltonian-operatorform}) and also employ the rotating wave approximation, the Hamiltonian and the statistical operator can be cast in the form
+\begin{equation}
+H^{\text{RWA}} = \begin{bmatrix}
+\hbar (\omega_+-\omega_0) & 0 & q_0d_{+a}f/2 \\
+0 & \hbar (\omega_--\omega_0) & q_0d_{-a}f/2 \\
+q_0d_{+a}f^*/2 & q_0d_{-a}f^*/2 & 0 \\
+\end{bmatrix},\quad \rho^{\text{RWA}} = \begin{pmatrix}
+\rho_{++} & \rho_{+-} & \eta_{+a} \\ 
+\rho_{-+} & \rho_{--} & \eta_{-a} \\ 
+\eta_{a+} & \eta_{a-} & \rho_{aa} \\ 
+\end{pmatrix}. \label{eq:deloclaized_hamiltonian}
+\end{equation}
+In Eq. (\ref{eq:deloclaized_hamiltonian}) we have made the familiar ansatz decomposing the electric field (assuming unidirectional propagation) $E_z(x,t) = \Re\{f(x,t) e^{i(k_0x-\omega_0 t)}\}$ into the product of an envelope function $f(x,t)$ and a carrier wave with central angular frequency $\omega_0$ and wave number $k_0 = n_0\omega_0/c_0$, where $n_0$ is the refractive index at the central frequency and $c_0$ the velocity of light in vacuum. The symbols $d_{+a} = \Bra{+}\hat{z}\Ket{a} = -\sin\theta d_{ba}  $ and $d_{-a} = \Bra{-}\hat{z}\Ket{a} = \cos\theta d_{ba}$, denote the corresponding dipole moments, $ \eta_{\pm a} = \rho_{\pm a}e^{-i(k_0x-\omega_0 t)}$ are the slowly varying coherences and $f^*$ denotes the complex conjugate of the envelope.
+
+In this basis, the von Neumann equation reads (neglecting dissipation terms)
+\begin{subequations}
+\begin{align}
+\frac{d \rho_{++}}{dt} &= i\frac{q_0d_{+a}}{2\hbar}(f^*\eta_{+a}-f\eta_{+a}^*), \\
+\frac{d \rho_{--}}{dt} &= i\frac{q_0d_{-a}}{2\hbar}(f^*\eta_{-a}-f\eta_{-a}^*), \\
+\frac{d \rho_{aa}}{dt} &= -i\frac{q_0d_{+a}}{2\hbar}(f^*\eta_{+a}-f\eta_{+a}^*)-i\frac{q_0d_{-a}}{2\hbar}(f^*\eta_{-a}-f\eta_{-a}^*), \\
+\frac{d \rho_{+-}}{dt} &= -i(\omega_+-\omega_-)\rho_{+-}-i\frac{q_0d_{+a}}{2\hbar}f\eta_{a-}+i\frac{q_0d_{-a}}{2\hbar}f^*\eta_{+a},\\
+\frac{d \eta_{+a}}{dt} &= -i(\omega_+-\omega_0)\eta_{+a}+i\frac{q_0d_{+a}}{2\hbar}f(\rho_{++}-\rho_{aa})+i\frac{q_0d_{-a}}{2\hbar}f\rho_{+-}, \label{eq:eta+a}\\
+\frac{d \eta_{-a}}{dt} &= -i(\omega_--\omega_0)\eta_{-a}+i\frac{q_0d_{-a}}{2\hbar}f(\rho_{--}-\rho_{aa})+i\frac{q_0d_{+a}}{2\hbar}f\rho_{-+}. \label{eq:eta-a}
+\end{align}
+\end{subequations}
+Now, if we assume that $f = f^*$, i.e. the total envelope is real,  $\epsilon \approx 0$ and also that $d_{+a}\approx d_{-a} = d$, it turns out that we can reduce the $3-$level delocalized state system into a quasi-2-level such, by setting  $\eta = \eta_{+a}+(\eta_{-a})^*$ and deriving the time evolution of this quantity. Adding Eq. (\ref{eq:eta+a}) with the complex conjugate of Eq. (\ref{eq:eta-a}), we obtain
+\begin{equation}
+\label{eq:coherence_quasi2lvl}
+\frac{d \eta}{dt} = -i\Omega_{cb} \eta + i\frac{q_0d}{2\hbar}fw, 
+\end{equation}
+where $w = \rho_{++}-\rho_{--}$ denotes the inversion between the delocalized states, which	 evolves according to 
+\begin{align}
+\label{eq:inversion_quasi2lvl}
+\frac{d w }{dt}	&=  i\frac{q_0d}{2\hbar}f(\eta-\eta^*).
+\end{align}
+We thus see that under the above idealized assumptions, we have reduced the three level system into an effective two level such. In fact, this is a "quasi" two level system due to the presence of a factor of 2 in the denominator of Eq. (\ref{eq:inversion_quasi2lvl}), which distinguishes it from the standard Bloch equations \cite{boyd2003nonlinear}.
+
+To see why Eqs. (\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) could lead to a pulse switching behaviour we need to include the optical field propagation equation into the model. For classical fields, absence of free electric charges and weak inhomogeneities, the electric field envelope (within the slowly varying amplitude approximation) obeys the equation \cite{jirauschek2014modeling}
+\begin{align}
+	\frac{n_0}{c} \p_t f - \p_x f = -i\frac{N \Gamma q_0d k_0}{\epsilon_0 n_0^2}(\eta_{+a}+\eta_{-a}),
+\end{align}
+where $\epsilon_0$ is the permittivity of free space, $N$ is the average carrier density per unit volume and $\Gamma$ is the overlap factor. Now, if we decompose the polarization envelopes, $\eta_{+a}$ and $\eta_{-a}$ into their real and imaginary parts, i.e. $\eta_{+a} = u_{+}+iv_{+}$ and $\eta_{-a} = u_{-}+iv_{-}$, and plug those into the propagation equation, we obtain that
+\begin{align}
+\label{eq:field_propagation}
+\frac{n_0}{c} \p_t f - \p_x f = -i\frac{N \Gamma q_0d k_0}{\epsilon_0 n_0^2}(u_{+}+u{-}) + \frac{N \Gamma q_0d k_0}{\epsilon_0 n_0^2}(v_{+}+v_{-}).
+\end{align}
+The right hand side of Eq. (\ref{eq:field_propagation}) has a straightforward interpretation. While the real part of the polarization contributes to frequency dependent change in the real part of the refractive index, i.e. dispersion, the imaginary part captures the electric field loss/gain due to the resonant transition. On the other hand, from the quasi-2-level system, Eq. (\ref{eq:inversion_quasi2lvl}), we see that the \emph{difference} of the imaginary parts of the coherences, i.e. $v_{+}-v_{-} = \Im\{\eta\}$, has the same time evolution. This means that the high frequency transition's ($\ket{+}\leftrightarrow\ket{a}$) gain and low frequency transition's ($\ket{-}\leftrightarrow\ket{a}$) loss form a co-propagating quasi-particle and vice versa. This intuitively explains how the coherent time evolution of the quasi-2-level system would lead to a pulse switching behaviour, which has already been observed by experiment\cite{burghoff2015evaluating} and also captured by our simulations.
+
+\section{Conclusion}
+We have discussed the appearance of a transient pulse switching phenomenon, named temporal hole burning, in terahertz quantum cascade lasers with strong injector anticrossing, and showed that this effect is susceptible to a very intuitive explanation within the framework of density matrix theory. The simplest possible system that captures the THB effect is a three level system with one tunneling and one optical transition, the dynamics of which is governed by the von Neumann equation. We have shown how under the right conditions, this three level system can be reduced into a quasi-2-level such, modelling the time evolution of the anticrossed states. 
+
+\section*{Funding}
+This work was supported by the German Research Foundation (DFG) within the Heisenberg program (JI 115/4-1) and under DFG Grant No. JI 115/9-1.
+% References
+\bibliographystyle{spiebib}
+\bibliography{bib_resources}
+
+
+\end{document} 
