@@ -1,0 +1,346 @@
+%% This document created by Scientific Word (R) Version 3.5
+
+\documentclass[a4paper]{spie}%
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{amsmath}%
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{LastRevised=Thursday, January 05, 2017 13:58:26}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+\renewcommand{\baselinestretch}{1.0} 
+\title
+{Simulation and analysis of quantum cascade lasers}
+\author{Christian Jirauschek}
+\affil
+{Institute for Nanoelectronics, Technical University of Munich (TUM), Arcisstr. 21, D-80333 Munich, Germany}
+\authorinfo
+{Further author information: (Send correspondence to C.J.)\\C.J.: E-mail: jirauschek@tum.de, Telephone: +49 (0)89 289 25300}
+\pagestyle{empty} 
+\setcounter{page}{301} 
+
+
+\begin{document}
+
+\title{Simulation and analysis of quantum cascade lasers}
+\maketitle%
+
+%TCIMACRO{\TeXButton{abstract}{\begin{abstract}
+%In quantum cascade lasers (QCLs), both the spectral gain characteristics and
+%the nonlinear optical properties can be custom-tailored through quantum
+%engineering. This enables mid-infrared and terahertz generation, and
+%applications such as frequency combs. For the further development of QCL
+%sources, suitable modeling approaches are required. Here we review various
+%methods, ranging from semiclassical to quantum transport techniques. A focus
+%will be on the adequate implementation of carrier-light interaction based on multi-domain simulation approaches to
+%describe the actual lasing process and nonlinear optical effects. We
+%demonstrate that by combining different models, we can exploit their
+%corresponding strengths to significantly improve the performance of the
+%simulation tool.
+%\end{abstract}%
+%}}%
+%BeginExpansion
+\begin{abstract}
+In quantum cascade lasers (QCLs), both the spectral gain characteristics and
+the nonlinear optical properties can be custom-tailored through quantum
+engineering. This enables mid-infrared and terahertz generation, and
+applications such as frequency combs. For the further development of QCL
+sources, suitable modeling approaches are required. Here we review various
+methods, ranging from semiclassical to quantum transport techniques. A focus
+will be on the adequate implementation of carrier-light interaction based on multi-domain simulation approaches to
+describe the actual lasing process and nonlinear optical effects. We
+demonstrate that by combining different models, we can exploit their
+corresponding strengths to significantly improve the performance of the
+simulation tool.
+\end{abstract}%
+%EndExpansion%
+
+%TCIMACRO{\TeXButton{TeX field}{\keywords
+%{Quantum cascade laser,terahertz, frequency comb, ensemble Monte Carlo,Maxwell-Bloch,quantum transport,difference frequency generation,density matrix}%
+%}}%
+%BeginExpansion
+\keywords
+{Quantum cascade laser,terahertz, frequency comb, ensemble Monte Carlo,Maxwell-Bloch,quantum transport,difference frequency generation,density matrix}%
+%EndExpansion
+
+%Include a list of keywords after the abstract 
+
+\section{INTRODUCTION}
+
+\label{sec:intro}
+%\label{} allows reference to this section
+
+The quantum cascade laser (QCL) is a unipolar device where the lasing
+transitions occur between quantized electron states in the conduction band of
+a multi-quantum-well semiconductor structure~\cite{1994Sci...264..553F}. By
+periodic repetition of the basic structure, a single electron can generate
+multiple photons, increasing the quantum efficiency. Here, the lasing
+wavelength does not primarily depend on the used material system, but rather
+on the quantum design, i.e., the barrier and well widths. In this way,
+arbitrary wavelengths in the mid-infrared (MIR) and terahertz (THz) regions
+can be accessed. Even broadband optical gain can be obtained by combining
+different quantum-well active region
+designs~\cite{gmachl2002ultra,rosch2015octave}. Besides the spectral gain
+characteristics, also the nonlinear optical properties of the active region
+can be custom-tailored through quantum engineering of the electronic energy
+states. The design of giant optical nonlinearities enables applications such
+as the generation of frequency combs
+\cite{2012Natur.492..229H,burghoff2014terahertz,wienold2014evidence,rosch2015octave}
+and ultrashort pulses~\cite{wang2009mode,barbieri2011coherent,revin2016active}%
+, or the realization of widely tunable room temperature THz sources by
+frequency mixing
+\cite{belkin2008room,lu2012widely,vijayraghavan2013broadly,lu2014continuous}.
+
+For the further development of QCL sources, modeling approaches are required
+which capture the intricate interplay of the different physical effects
+involved. Various modeling techniques have been employed
+\cite{jirauschek2014modeling}, ranging from semiclassical approaches for the
+carrier transport, such as the ensemble Monte Carlo (EMC) method
+\cite{2000ApPhL..76.2265I,2004ApPhL..84..645C,2006ApPhL..88f1119L,2007JAP...101f3101G,2009JAP...105l3102J,2005JAP....97d3702B,ezhov2016influence}%
+, to quantum transport models, including the density matrix (DM)
+\cite{2001PhRvL..87n6603I,2009PhRvB..79p5322W,iotti2016electronic,lindskog2014comparative}
+and nonequilibrium Green's function (NEGF)
+\cite{2002PhRvB..66h5326W,2009PhRvB..79s5323K,2009ApPhL..95w1111S,Kubis_assess,Kolek_openQCL,Wacker_JSTQE,grange2015contrasting}
+approaches. While the quantum transport approaches consider quantum coherence
+effects such as resonant tunneling and are thus more accurate, their
+computational load exceeds that of semiclassical methods by
+far~\cite{2010PhyE...42.2628M}. We demonstrate that by combining various
+modeling techniques, we can take advantage of their corresponding strengths to
+significantly improve the reliability and computational efficiency of the
+simulation tool. In addition to the carrier transport, also the optical cavity
+field dynamics can play an important role. A simulation of the coupled
+transport and optical effects can be achieved in a multi-domain approach. As
+illustrative examples, we discuss simulation schemes and results for high
+temperature THz QCLs as well as QCL-based frequency comb sources.
+
+\section{CARRIER TRANSPORT MODELING TECHNIQUES}
+
+\label{sec:carr}
+
+For quantum well systems, quantized electron states are obtained in the
+confinement direction. These so-called subbands are characterized by their
+eigenenergies $E_{i}$, where $i$ is the subband index. Additionally, the
+kinetic electron motion in the transverse xy-plane is considered by the
+transverse wave vector $\mathbf{k}=[k_{x},k_{y}]^{\mathrm{T}}$, where
+$\mathrm{T}$\ denotes the transpose. Advanced carrier transport approaches
+evaluate the scattering events self-consistently based on the corresponding
+Hamiltonian, taking into account the involved subbands as well as the
+transverse wave vectors of the initial and final states $\left|
+i,\mathbf{k}\right\rangle $ and $\left|  i^{\prime},\mathbf{k}^{\prime
+}\right\rangle $, respectively.
+
+\begin{figure}[th]
+\begin{center}%
+\begin{tabular}
+[c]{c}%
+\includegraphics[width=17cm]{Record_laser_I(V).eps}%
+\end{tabular}
+\end{center}
+\caption[example]{Current-voltage characteristics of a THz QCL at
+$10\,\mathrm{K}$. Simulation results with (+) and without (X) lasing included
+are compared to experimental data taken from Ref.$\,$\citenum
+{fathololoumi2012terahertz} (---).}%
+\label{fig:QCL}%
+\end{figure}
+
+As mentioned in Section \ref{sec:intro}, such advanced approaches include
+semiclassical methods and quantum transport techniques. The most widely used
+semiclassical carrier transport approach for QCLs is EMC, which is based on a
+stochastic evaluation of the Boltzmann equation%
+\begin{equation}
+\mathrm{d}_{t}f_{i\mathbf{k}}=\sum_{i^{\prime},\mathbf{k}^{\prime}}\left(
+W_{i^{\prime}\mathbf{k}^{\prime},i\mathbf{k}}f_{i^{\prime}\mathbf{k}^{\prime}%
+}-W_{i\mathbf{k},i^{\prime}\mathbf{k}^{\prime}}f_{i\mathbf{k}}\right)
+.\label{eq:boltz}%
+\end{equation}
+The carrier distribution function $f_{i\mathbf{k}}\left(  t\right)  $ gives
+the probability of the state $\left|  i,\mathbf{k}\right\rangle $ being
+occupied at time $t$. $W_{i\mathbf{k},i^{\prime}\mathbf{k}^{\prime}}=\sum
+_{m}W_{i\mathbf{k},i^{\prime}\mathbf{k}^{\prime}}^{\left(  m\right)  }$ are
+the scattering rates, where the index $m$ denotes the different scattering
+mechanisms. In EMC, these are self-consistently evaluated based on Fermi`s
+golden rule. Here we consider electron-electron interaction
+\cite{2010JAP...107a3104J} and longitudinal-optical phonon
+\cite{ezhov2016influence}, acoustic phonon, impurity and interface roughness
+scattering, as well as photon-induced transitions
+\cite{2010ApPhL..96a1103J,jirauschek2010monte}. Notably, most implementations
+of carrier transport methods neglect the interaction of the electrons with the
+optical field in the resonator. However, for the simulation of the actual
+lasing action, and also for the modeling of nonlinear optical processes in QCL
+structures as discussed in Section \ref{sec:nonl}, an inclusion of the optical
+cavity field is required.
+
+In Fig.\thinspace\ref{fig:QCL}, the current-voltage characteristics obtained
+by EMC for a high temperature THz QCL are compared to available experimental
+data \cite{fathololoumi2012terahertz}. It can clearly be seen from
+Fig.\thinspace\ref{fig:QCL} that the omission of lasing in the simulation
+leads to a greatly underestimated current density in the lasing region, since
+the photon-induced contribution to the electron transport is ignored
+\cite{matyas2011photon}.
+
+As mentioned in Section \ref{sec:intro}, EMC and other semiclassical methods
+do not account for quantum transport effects such as incoherent tunneling
+transport across barriers \cite{2005JAP....98j4505C}, resulting from tunnel
+coupling between pairs of states \cite{2009PhRvB..79p5322W}. While EMC is in
+good agreement with experiment for most bias points considered in
+Fig.\thinspace\ref{fig:QCL}, an artificial current spike emerges at around
+$9\,\mathrm{kV}/\mathrm{cm}$ where a narrow anticrossing between two coupled
+states occurs. Here, the semiclassical approximation breaks down since
+resonant tunneling is dampened by dephasing processes, which are not included
+in the semiclassical picture \cite{2005JAP....98j4505C}. While quantum
+transport approaches naturally account for such effects, they intrinsically
+have a significantly higher numerical complexity, impeding the design and
+optimization of QCL structures. A promising way to overcome this problem is to
+include certain features of quantum transport into semiclassical approaches,
+combining improved reliability and versatility with an acceptable numerical
+load. In this context, supplementing EMC by certain elements of the DM
+approach has proven to be a suitable strategy
+\cite{2005JAP....98j4505C,2012ApPhL.100a1108B,freeman2016self}, since the DM
+formalism is closely related to the Boltzmann transport model, Eq.\thinspace
+\ref{eq:boltz} \cite{2001PhRvL..87n6603I}. Here, the carrier distribution
+function corresponds to the diagonal DM elements, $f_{i\mathbf{k}}%
+=\rho_{i\mathbf{k},i\mathbf{k}}$, while the off-diagonal elements
+$\rho_{i\mathbf{k},i^{\prime}\mathbf{k}^{\prime}}$ describe quantum
+correlations between the states which are not contained in the semiclassical
+formalism. In particular, an adequate description of incoherent tunneling can
+be achieved by introducing a tight-binding basis and using the DM formalism
+for tunneling between coupled states with narrow anticrossings
+\cite{2005JAP....98j4505C,2012ApPhL.100a1108B,freeman2016self}. Quantum
+mechanical dephasing is in the DM approach typically described by rates, where
+often empirical values are used \cite{2005JAP....98j4505C}. To obtain a fully
+self-consistent approach, dephasing should be computed based on the scattering
+Hamiltonian, rather than using empirical values. Employing this strategy, we
+have developed an DM-EMC approach building upon our well-proven EMC simulation
+tool, where Ando's theory has been used to model the dephasing rates
+\cite{ando1985line,freeman2016self}. In Fig.\thinspace\ref{fig:QCL}, the
+obtained simulation result is shown for $9\,\mathrm{kV}/\mathrm{cm}$,
+demonstrating that DM-EMC avoids artificial current spikes by correctly
+describing incoherent tunneling transport. A further deviation of EMC from the
+experimental data is observed for low biases, where the simulation
+underestimates the current density. In this context, the implementation of
+Lorentzian broadening of the energy states has been discussed as another
+example of DM-based corrections to the semiclassical EMC method
+\cite{2013ApPhL.102a1101M}.
+
+An alternative strategy aiming at accuracy and numerical efficiency, which has
+also been successfully used for the simulation of QCLs, is to start with a
+general quantum transport method such as NEGF and introduce simplifications to
+reduce the computational load. This includes for example the constant $k$
+approximation which neglects the dependence of the scattering self-energies on
+the in-plane wave vector \cite{Kubis_assess,Wacker_JSTQE}, and the replacement
+of self-energies by quasi-equilibrium expressions \cite{greck2015efficient}.
+
+\section{SIMULATION OF QCL STRUCTURES WITH OPTICAL NONLINEARITIES}
+
+\label{sec:nonl}
+
+Recently, the implementation of giant optical nonlinearities into QCL\ designs
+has been exploited to obtain novel functionalities. This includes frequency
+conversion, which has especially been utilized for the realization of widely
+tunable room temperature THz sources
+\cite{belkin2008room,lu2012widely,vijayraghavan2013broadly,lu2014continuous}.
+Another example is the coherent nonlinear interaction between the optical
+field and the electrons, enabling the generation of ultrashort
+pulses~\cite{wang2009mode,barbieri2011coherent,revin2016active} as well as
+frequency combs
+\cite{2012Natur.492..229H,burghoff2014terahertz,wienold2014evidence,rosch2015octave}%
+.
+
+\begin{figure}[th]
+\begin{center}%
+\begin{tabular}
+[c]{c}%
+\includegraphics[width=17cm]{multidomain.eps}%
+\end{tabular}
+\end{center}
+\caption[example]{Schematic illustration of a multi-domain simulation approach
+for QCL frequency comb structures.}%
+\label{fig:scheme}%
+\end{figure}
+
+A detailed, self-consistent simulation approach for such devices requires
+careful modeling of both the electron transport and the optical dynamics. This
+is naturally achieved by a multi-domain simulation framework. We have
+developed such an approach for the modeling of frequency comb QCL\ structures
+\cite{tzenov2016time}, as illustrated in Fig.\thinspace\ref{fig:scheme}. The
+carrier transport is here evaluated by an EMC or DM-EMC simulation approach,
+coupled to a Schr\"{o}dinger-Poisson solver providing the quantized state
+wavefunctions and eigenenergies of the QCL\ design. The coherent nonlinear
+interaction between the electrons and the optical cavity field is captured by
+the Bloch equations, coupled to Maxwell's equations describing the field
+propagation \cite{2007PhRvA..75c1802W}. The Bloch equations include the
+electron transport in terms of scattering-induced transition and dephasing
+rates, which are extracted from the carrier transport simulations. Besides
+capturing the coherent carrier-light interaction, the main advantage of the
+Maxwell-Bloch equation system is its modest numerical complexity, allowing for
+a full spatiotemporal treatment as required for modeling the frequency comb
+dynamics. The computational burden associated with the EMC or DM-EMC approach
+impedes spatiotemporally resolved carrier transport simulations. However,
+since the transition and dephasing rates can be treated as constant in good
+approximation, they can be extracted from stationary carrier transport
+simulations using effective resonator parameters. In this way, the main
+drawback of the Maxwell-Bloch equation model, i.e., its dependence on
+empirical rates, can be avoided, and a fully self-consistent numerical
+approach is obtained. This multi-domain simulation strategy can be adapted to
+different kinds of QCL structures with optical nonlinearities. For example, a
+similar approach has been developed for the modeling of THz difference
+frequency generation in QCL\ structures
+\cite{jirauschek2013monte,jirauschek2015monte}.
+
+\begin{figure}[th]
+\begin{center}%
+\begin{tabular}
+[c]{c}%
+\includegraphics[width=17cm]{comb.eps}%
+\end{tabular}
+\end{center}
+\caption[example]{Optical power spectrum of the QCL frequency comb source: (a)
+Experimental data from Ref.$\,$\citenum{burghoff2015evaluating} and (b)
+simulation.}%
+\label{fig:comb}%
+\end{figure}
+
+In Fig.\thinspace\ref{fig:comb}, the experimentally measured power spectrum of
+a THz frequency comb QCL source \cite{burghoff2015evaluating} is compared to
+simulation data from a multi-domain modeling approach as described above. Good
+agreement is found; especially the splitting of the spectrum into a high and
+low frequency lobe is well reproduced in the simulation.
+
+\section{CONCLUSION}
+
+\label{sec:concl}
+
+We have discussed advanced techniques for modeling the carrier transport in
+QCLs, ranging from semiclassical methods to fully quantum mechanical
+approaches. Combining a semiclassical technique such as ensemble Monte Carlo
+with certain aspects of quantum transport, as for example described by the
+density matrix approach, can yield improved accuracy and reliability while
+keeping the numerical load acceptable. For the simulation of QCL operation in
+the lasing regime, the inclusion of the optical cavity field is crucial to
+obtain good agreement with experiment since the photon-induced carrier
+transport can play a significant role. In particular, if we want to model the
+actual lasing action or nonlinear optical effects in the QCL\ structure, the
+optical field must be considered.
+
+In nonlinear optical QCL devices, the complex carrier-light interaction calls
+for a multi-domain simulation approach, treating the carrier transport and
+optical cavity field on an equal footing and allowing for self-consistent
+simulations without empirical parameters. We have illustrated such an approach
+for the modeling of QCL-based frequency comb sources and demonstrated good
+agreement with experimental results.
+
+\acknowledgments
+%equivalent to \section*{ACKNOWLEDGMENTS}       
+
+This work was supported by the German Research Foundation (DFG) within the
+Heisenberg program (JI 115/4-1) and under DFG Grant No. JI 115/9-1.%
+
+%TCIMACRO{\TeXButton{spiebib}{\bibliography{qcl}
+%\bibliographystyle{spiebib} }}%
+%BeginExpansion
+\bibliography{qcl}
+\bibliographystyle{spiebib}
+%EndExpansion
+\end{document}
