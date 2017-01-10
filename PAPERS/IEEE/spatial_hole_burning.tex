@@ -1,0 +1,142 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+\newcommand{\vspacec}{\vspace{-0.3cm}}
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.40\textwidth]{#1}}
+%\captionsetup{width=.45\textwidth}
+
+
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+
+\title{Nonparabolicity effects in QCLs}%
+
+
+\author{Petar Tzenov}%
+\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+\begin{abstract}
+	I will investigate the effect of spatial hole burning onto the multimode dynamics of homogeneously broadened solid state lasers. In particular I will model the light-matter interaction within a semi-classical approach via the Maxwell-Bloch equations and treat the spatial hole burning effect from physical principles. The end goal is to derive expressions for the onset of multimode phase and amplitude instabilities in quantum cascade lasers. 
+\end{abstract}
+\maketitle
+For a linear Fabry-Perot cavity of length $l$ there will be a forward and backward propagating components of each lasing longitudinal mode. Assuming a single mode laser, traversing the cavity along the $x-$direction with forward and backward components of the intensity, respectively $I_1^+$ and $I_1^-$ (assumed constant for simplicity), one obtains for the total intensity 
+\begin{equation}
+I(x) = I_1^+ + I_1^-+2\sqrt{I_1^+I_1^-}\cos(2\beta_1 x+\theta_1), 
+\end{equation} 
+where $\beta_1$ and $\theta_1$ are the wave number and the phase difference of the propagating field, respectively, and they generally depend on the geometry of the cavity. Above and in what follows, subscript index 1 will denote quantities related to the primary mode, 2 such of the secondary mode and so on. 
+
+For a cavity with equal facet reflectivities, i.e. $r_L = r_R = r$, generally the forward and backward components of the wave ought to have the same amplitude and thus intensity so the above expression simplifies as 
+\begin{equation}
+\label{eq:interference}
+I_1(x) =4I_1\cos^2(\beta_1 x+\theta_1'),
+\end{equation} 
+where $I_1^+=I_1^-=I_1$ and $\theta_1'= \theta_1/2$.
+During lasing, the net gain of the mode will be equal to the round trip losses, giving us the condition 
+\begin{equation}
+\label{eq:balance}
+\sigma_1\int_{0}^{l} N(x)I_1(x)dx = r^2\int_{0}^{l}I_1(x)e^{-ax}dx,
+\end{equation} 
+where the left hand expression gives us the gain: $\sigma$ is the gain cross section at that particular frequency, $N(x) = N_0/(1+I_1(x)/I_{sat})$ is the space-dependent population inversion of the active region ($N_0$ is the sub-threshold inversion and $I_{sat}$ is the saturation intensity of the material \cite{siegman1986lasers}),  and $a$ is the linear loss of the material. 
+
+Plugging in Eq. (\ref{eq:interference}) into the rhs of Eq. (\ref{eq:balance}), we obtain 
+
+\begin{align}
+\label{eq:losses}
+r^2\int_{0}^{l}I_1(x)e^{-ax}dx &= 4r^2I_1\int_{0}^{l}e^{-ax}\cos^2(\beta_1 x+\theta_1')dx \nonumber \\ 
+&=  2r^2I_1\left(\int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx\right) = 2r^2\gamma(\beta_1,\theta_1) I_1,
+\end{align}
+where 
+\begin{equation}
+\label{eq:gamma-beta-teta}
+\gamma(\beta_1,\theta_1) = \int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx
+\end{equation}
+are the phase and wave number dependent losses. 
+
+On the other hand the same mode will experience the following overall gain
+\begin{align}
+\label{eq:gain}
+\sigma_1\int_{0}^{l} N(x)I_1(x)dx &= \sigma_1 N_0 \int_{0}^{l}\frac{4I_1\cos^2(\beta_1 x+\theta_1')}{1+4\frac{I_1}{I_{sat}}\cos^2(\beta_1 x+\theta_1')}dx \nonumber \\ 
+&= 4\sigma N_0I_1 \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta\cos^2(\beta_1 x+\theta_1')} dx  =4\sigma N_0 I_1 \xi(\beta_1,\theta_1,I_1),
+\end{align}
+where $\delta_1 = 4I_1/I_{sat}$ and
+\begin{equation}
+\label{eq:xi-beta-teta-I}
+\xi(\beta_1,\theta_1,I_1) = \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta_1\cos^2(\beta_1 x+\theta_1')} dx.
+\end{equation}
+Now, using Eqs. (\ref{eq:gain}) and (\ref{eq:losses}), the balance condition in Eq. (\ref{eq:balance}) imposes 
+\begin{equation}
+\label{eq:balance-02}
+\xi(\beta_1,\theta_1,I_1) = \frac{r^2}{2\sigma N_0} \times \gamma(\beta_1,\theta_1).
+\end{equation}
+Maintaining $\beta_1$ and $\theta_1$ fixed, the above relation gives us the average intensity $I_1$ inside the cavity of the primary mode.
+
+Questions to be answered:
+\begin{enumerate}
+	\item Which mode will start fist?
+	\item Given that a single mode is already lasing, what will be the condition for a second lasing mode to start?
+	\item Can I use Eq. (\ref{eq:balance-02}) or any of the other relations above, to determine the onset of phase instabilities in the spectrum. Specifically, check if SHB induces phase instabilities prior to inducing any amplitude such! Assume that $I_1$ and $\beta_1$ are fixed. Check how many solutions does this above relation have. More specifically investigate the stability around a particular solution $\theta_1 \rightarrow \theta_1+\delta\theta$ and linearizing $$.
+\end{enumerate}
+
+\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+\end{document}
+
