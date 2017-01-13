@@ -124,9 +124,43 @@ or equivalently
 \frac{\p f}{\p x}+ \frac{n_{THz}}{c} \frac{\p f}{\p t} = -i\frac{N\Gamma\mu\omega_0}{\epsilon_0 c n_{THz}}\eta_{21}.
 \end{align}
 
+\section{Discretization}
 
+Equation (\ref{eq:almostdone3}) is a first order hyperbolic partial differential equation which, although might seem easy at first sight, is non-trivial to solve numerically. From the area of computational fluid dynamics
+\cite{wesseling2009principles}, it is known that a simple central differences
+discretization scheme for Eq. (\ref{eq:almostdone3}) will be highly unstable due to
+the introduction of strong \emph{numerical} dispersion near sharp edges or
+discontinuities of the solution. A finite difference scheme that does not
+generate such spurious oscillations is called monotonicity preserving
+\cite{wesseling2009principles} and its usage is essential for the correct
+interpretation of simulation results, especially when one tries to quantify
+the amount of \emph{physical} dispersion present. Without getting too much
+into detail, we present a second order linear finite difference discretization
+scheme, possessing the monotonicity preserving property, for the model equation
+\begin{equation}
+\label{eq:model-equation}
+\frac{\partial F}{\partial t}+ \frac{c}{n_{THz}}\frac{\partial F}{\partial
+	x}=\eta(x,t)+kF,%
+\end{equation}
+where $k<0$ can incorporate arbitrary losses, and the rest of the terms can be renormalized in a straightforward way to obtain Eq. (\ref{eq:almostdone3}).
 
-
-\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+We take an equidistant spatio-temporal grid with grid size $\Delta x$ and time
+step $\Delta t$ and set the values of the grid variables at spatial point
+$x_{m}=m\Delta x$ and time $t_{n}=n\Delta t$ as $F(m,n)$ and $\eta(m,n)$ denotes the corresponding source term. The time stepping scheme we use is based on a second order upwind discretization, first introduced by Risken and Nummedal \cite{risken1968self}, and is given by
+\begin{align}
+\label{eq:numerics}
+F(m,n+1) &  =F(m-1,n)+\Delta t\left[ \eta(m,n)+kF(m,n)\right]  \nonumber\\
+&  +\frac{\Delta t^{2}}{2}\left\{  \left[  \frac{\partial \eta}{\partial
+	t}\right]_{m}^{n}- \frac{c}{n_{THz}}\left[  \frac{\partial \eta}{\partial x}\right]
+_{m}^{n}-2k\frac{c}{n_{THz}}\left[  \frac{\partial F}{\partial x}\right]_{m}%
+^{n}+k\eta(m,n)+k^{2}F(m,n)\right\}  ,
+\end{align}
+where the \textbf{time step is chosen as $\Delta t=\Delta xn_{THz}/c$}, with $c/n_{THz}$
+being the velocity of light in the medium. The evaluation of the time
+derivative of $\eta(x,t)$ can be computed analytically from the density matrix
+equations. The terms in rectangular brackets, $\left[
+\partial \eta/\partial x\right]_{m}^{n}$ and $\left[  \partial F/\partial x\right]  _{m}^{n}$, can be computed via a simple first order forward
+finite difference scheme (since we assume uni-directional propagation in the positive $x$-direction), which due to the prefactor of $\delta t^2$ will preserve the second order accuracy of the scheme.  
+\bibliography{bib_resources.bib}
 \end{document}
 

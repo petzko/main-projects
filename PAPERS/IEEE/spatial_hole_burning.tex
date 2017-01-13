@@ -94,7 +94,7 @@ where $I_1^+=I_1^-=I_1$ and $\theta_1'= \theta_1/2$.
 During lasing, the net gain of the mode will be equal to the round trip losses, giving us the condition 
 \begin{equation}
 \label{eq:balance}
-\sigma_1\int_{0}^{l} N(x)I_1(x)dx = r^2\int_{0}^{l}I_1(x)e^{-ax}dx,
+\sigma_1\int_{0}^{l} N(x)I_1(x)dx = (1-r)^2\int_{0}^{l}I_1(x)e^{-ax}dx,
 \end{equation} 
 where the left hand expression gives us the gain: $\sigma$ is the gain cross section at that particular frequency, $N(x) = N_0/(1+I_1(x)/I_{sat})$ is the space-dependent population inversion of the active region ($N_0$ is the sub-threshold inversion and $I_{sat}$ is the saturation intensity of the material \cite{siegman1986lasers}),  and $a$ is the linear loss of the material. 
 
@@ -102,8 +102,8 @@ Plugging in Eq. (\ref{eq:interference}) into the rhs of Eq. (\ref{eq:balance}), 
 
 \begin{align}
 \label{eq:losses}
-r^2\int_{0}^{l}I_1(x)e^{-ax}dx &= 4r^2I_1\int_{0}^{l}e^{-ax}\cos^2(\beta_1 x+\theta_1')dx \nonumber \\ 
-&=  2r^2I_1\left(\int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx\right) = 2r^2\gamma(\beta_1,\theta_1) I_1,
+(1-r)^2\int_{0}^{l}I_1(x)e^{-ax}dx &= 4(1-r)^2I_1\int_{0}^{l}e^{-ax}\cos^2(\beta_1 x+\theta_1')dx \nonumber \\ 
+&=  2(1-r)^2I_1\left(\int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx\right) = 2(1-r)^2\gamma(\beta_1,\theta_1) I_1,
 \end{align}
 where 
 \begin{equation}
@@ -126,15 +126,41 @@ where $\delta_1 = 4I_1/I_{sat}$ and
 Now, using Eqs. (\ref{eq:gain}) and (\ref{eq:losses}), the balance condition in Eq. (\ref{eq:balance}) imposes 
 \begin{equation}
 \label{eq:balance-02}
-\xi(\beta_1,\theta_1,I_1) = \frac{r^2}{2\sigma N_0} \times \gamma(\beta_1,\theta_1).
+\xi(\beta_1,\theta_1,I_1) = \frac{(1-r)^2}{2\sigma N_0} \times \gamma(\beta_1,\theta_1).
 \end{equation}
-Maintaining $\beta_1$ and $\theta_1$ fixed, the above relation gives us the average intensity $I_1$ inside the cavity of the primary mode.
+Maintaining $\beta_1$ and $\theta_1$ fixed, the above relation gives us the average intensity $I_1$ inside the cavity of the primary mode. 
 
+Let us perform the integrals explicitly. First start with Eq. (\ref{eq:xi-beta-teta-I}). 
+\begin{align}
+\label{eq:xi-beta-teta-I-sol}
+	\xi(\beta_1,\theta_1,I_1) &= \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta_1\cos^2(\beta_1 x+\theta_1')} dx \nonumber \\
+	 &=\frac{1}{\beta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \frac{\cos^2y}{1+\delta_1\cos^2y} dy  \quad \quad \text{, where } y = x\beta_1+\theta_1' \nonumber \\
+	 &= \frac{1}{\beta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \frac{1}{(1+\tan^2y)(1+\tan^2y+\delta_1)} dy  \nonumber \\
+	 &= \frac{1}{\beta_1\delta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \left[\frac{1}{1+\tan^2y} - \frac{1}{1+\tan^2y+\delta_1} dy \right] \nonumber \\
+	 &= \frac{1}{\beta_1\delta_1}\left[y - \frac{1}{\sqrt{1+\delta_1}} \arctan\frac{\tan y}{\sqrt{1+\delta_1}} \right]_{\theta_1'}^{l\beta_1+\theta_1'}
+\end{align} 
+
+Then we derive the solution of Eq. (\ref{eq:gamma-beta-teta})
+\begin{align}
+\label{eq:gamma-beta-teta-sol}
+\gamma(\beta_1,\theta_1) &= \int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx  \nonumber \\
+&= -\frac{1}{a}\left. e^{-ax}\right |_0^l +  \frac{2\beta_1}{4\beta_1^2+a^2} \left.e^{-ax} \left[\sin(2\beta_1x+\theta_1)-\frac{a}{2\beta_1}\cos(2\beta_1x+\theta_1) \right] \right |_0^l,
+\end{align}
+where to derive the second term we have used integration by parts formula. 
+
+JAN 12, 2017: TODOs
+\begin{enumerate}
+	\item Verify Eq. (\ref{eq:xi-beta-teta-I-sol}) and Eq. (\ref{eq:gamma-beta-teta-sol}) for correctness. 
+	\item For fixed intensity $I$ and fixed lasing mode $\beta_1$ plot the above formulas as a function of the phase difference $\theta_1$. Can there be scattering from the inversion grating - see Agrawals
+	\item Are there multiple solutions -> i.e. points satisfying the balance condition Eq. \ref{eq:balance-02}?
+\end{enumerate}
+
+ 
 Questions to be answered:
 \begin{enumerate}
 	\item Which mode will start fist?
 	\item Given that a single mode is already lasing, what will be the condition for a second lasing mode to start?
-	\item Can I use Eq. (\ref{eq:balance-02}) or any of the other relations above, to determine the onset of phase instabilities in the spectrum. Specifically, check if SHB induces phase instabilities prior to inducing any amplitude such! Assume that $I_1$ and $\beta_1$ are fixed. Check how many solutions does this above relation have. More specifically investigate the stability around a particular solution $\theta_1 \rightarrow \theta_1+\delta\theta$ and linearizing $$.
+	\item Can I use Eq. (\ref{eq:balance-02}) or any of the other relations above, to determine the onset of phase instabilities in the spectrum. Specifically, check if SHB induces phase instabilities prior to inducing any amplitude such! Assume that $I_1$ and $\beta_1$ are fixed. Check how many solutions does this above relation have. More specifically investigate the stability around a particular solution $\theta_1 \rightarrow \theta_1+\delta\theta$ and linearizing .
 \end{enumerate}
 
 \bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
