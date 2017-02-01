@@ -1,0 +1,135 @@
+close all;
+clear;
+clc;
+
+e0=1.60217646e-19; hbar=1.05457168e-34;
+ctr = 1;
+
+Omega= 1.2e-3*e0/hbar;
+
+gamma1= 0e10;
+gamma2 = 0e10;
+w0 = 0.0;
+T_R = 60e-12;
+w_1 = 0*Omega;%2*pi/T_R;
+ampl = .1*Omega;
+mov_fname = 'res_0p3ampl.avi';
+
+
+
+beta_t= @(t) ampl*(1+(cos(w_1*t)));
+
+T= 3*T_R; N = 50000;
+
+options=odeset('RelTol',1e-6,'AbsTol',1e-8);
+BlochOn = true;
+skip = 1
+if BlochOn
+    s10=0; s20=0; s30 = -.1; %Assumed initial condition: electron initially in lower state
+    [t,sol]=ode45('quasi_bloch',[(0:(N-1))/(N-1)*T],[s10,s20,s30],1,Omega,beta_t,gamma1,gamma2,w0,BlochOn);
+    dt = t(2)-t(1);
+    t = t(1:skip:end);
+    s1 = sol(1:skip:end,1);
+    s2 = sol(1:skip:end,2);
+    s3 = sol(1:skip:end,3);
+else
+    s10=0; s20=+.1; %Assumed initial condition: electron initially in lower state
+    [t,sol]=ode45('quasi_bloch',[(0:(N-1))/(N-1)*T],[s10,s20],1,Omega,beta_t,gamma1,gamma2,w0,BlochOn);
+    dt = t(2)-t(1);
+    t = t(1:skip:end);
+    s1= real(sol(1:skip:end,1));
+    s2= imag(sol(1:skip:end,1));
+    s3= sol(1:skip:end,2);
+end
+
+NFFT = 2^nextpow2(8*length(s2));
+Y2 = ifft(s2.*hanning(length(s2)),NFFT);
+freq  = [0:NFFT/2-1, -NFFT/2:-1]*1/dt/NFFT;
+[pks,ploc] = findpeaks(abs(fftshift(Y2)).^2,fftshift(freq));
+[pmax,idmax] = max(pks);
+freq_max = abs(ploc(idmax));
+
+%plot
+dfigure;
+subplot(2,2,1);
+plot(t/T_R,s1,'k',t/T_R,s2,'--r',t/T_R,s3,'LineWidth',2);
+legend('u','v','w');
+
+subplot(2,2,[2,4]);
+rad = 1;
+[x,y,z] = sphere(100);
+x = sqrt(rad)*x; y = sqrt(rad)*y; z = sqrt(rad)*z;
+lightBlue = 0.3*[0 0 1]; % It looks better if the lines are lighter
+% surface(x,y,z,'FaceAlpha', 0.2,'FaceColor','none','EdgeColor',lightBlue,...
+%         'EdgeAlpha',.02)
+grid on; hold on; 
+plot3(0,0,0,'xr','LineWidth',2.0)
+plot3(s1,s2,s3,'LineWidth',0.5)
+xlabel('u');
+ylabel('v');
+zlabel('w');
+view([45,30]);
+
+period_ps(ctr) = 1/freq_max*1e12
+theoretical_period_ps(ctr) = 2*pi/sqrt(2*ampl^2+Omega^2)*1e12
+O(ctr) = Omega;
+ctr = ctr + 1
+% end
+subplot(2,2,3)
+radius_s = s1.^2 + s2.^2  + s3.^2;
+plot(t/T_R,radius_s,'LineWidth',2.0)
+xlabel('Time (T_{rt})'); title('u^2+v^2+w^2');
+
+dfigure; 
+subplot(1,2,1)
+plot3(s1,s2,s3,'LineWidth',0.5)
+xlabel('u');ylabel('v');zlabel('w'); 
+xlim([-.1,.1]);zlim([-.1,.1]);ylim([-.1,.1])
+view([0,90]);
+
+subplot(1,2,2)
+plot3(s1,s2,s3,'LineWidth',0.5)
+xlabel('u');ylabel('v');zlabel('w'); 
+xlim([-.1,.1]);zlim([-.1,.1]);ylim([-.1,.1])
+view([90,0]); 
+% close all; 
+% MOVIE  --> plot Bloch "manifold" formation
+
+% figure('units','normalized','outerposition',[0 0 1 1]);
+% set(gcf,'DefaultTextFontName','Arial');
+% set(gcf,'DefaultAxesFontSize',30.0)
+
+% plot3(0,0,0,'xr','LineWidth',2.0)
+% hold on
+% p0 = [0,0,0];
+% img_ctr = 1; 
+% for j = 1:length(t)
+%     if mod(j,200) == 0
+% %         subplot(2,2,[1,2])
+% %         plot(t(1:j)/T_R,radius_s(1:j),'Linewidth',2.0)
+% %         xlim([0,t(end)]); 
+%         ylim([.003,.012])
+% %         subplot(2,2,[3,4])
+%         p1 = [s1(j),s2(j),s3(j)];
+%         vectarrow(p0,p1)
+%         hold on;
+%         plot3(s1(1:j),s2(1:j),s3(1:j),'Linewidth',2.0);
+%         xlabel('u'); xlim([-.1,.1])
+%         ylabel('v'); ylim([-.1,.1])
+%         zlabel('w'); zlim([-.1,.1])
+%         hold off;
+% %         pause
+%        M_ovie(img_ctr) =  getframe(figure(1));
+%        img_ctr = img_ctr + 1; 
+%     end
+% end
+% 
+% 
+% v = VideoWriter(mov_fname);
+% open(v)
+% for frame_num = 1:length(M_ovie)
+% writeVideo(v,M_ovie(frame_num));
+% end
+% close(v);
+%   
+

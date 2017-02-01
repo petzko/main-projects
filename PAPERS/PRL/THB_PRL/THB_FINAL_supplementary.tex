@@ -131,39 +131,67 @@ where $\omega_0$ is the $\ket{l}\leftrightarrow\ket{g}$ transition frequency and
 \frac{d \eta_{-g}}{dt} &= -i(\omega_--\omega_{0})\eta_{-g}+i\frac{d_{-}}{2\hbar}f(\rho_{--}-\rho_{gg})+i\frac{d_{+}}{2\hbar}f\rho_{-+}. \label{eq:eta-g}. 
 \end{align}
 \end{subequations}
-We can cast Eqs. (\ref{eq:4eqns}) into their final form, i.e. Eqs. (\ref{MAIN-eq:4eqns}) from the main body of the article, via assuming that when resonance detuning is small, i.e. $\epsilon \approx  0$ , then the anticrossing splitting yields the energy difference $\omega_+-\omega_0 \approx \Omega_{lr}$, $\omega_--\omega_0\approx - \Omega_{lr}$ as well as $\omega_+-\omega_- \approx 2\Omega_{lr}$. Next we assume that the dipoles have the same algebraic value, i.e. $d_+ = d_- =d$, and that the optical field's Rabi frequency evolves as a real number, i.e. $\beta(x,t) = df(x,t)/2\hbar \in \mathbb{R}$. 
+We can cast Eqs. (\ref{eq:4eqns}) into their final form, i.e. Eqs. (\ref{MAIN-eq:4eqns}) from the main body of the article, via assuming that when resonance detuning is small, i.e. $\epsilon \approx  0$ , then the anticrossing splitting yields the energy difference $\omega_+-\omega_0 \approx \Omega_{lr}$, $\omega_--\omega_0\approx - \Omega_{lr}$ as well as $\omega_+-\omega_- \approx 2\Omega_{lr}$. Next we assume that the dipoles have the same algebraic value, i.e. $d_+ = d_- =d$, and that the optical field's Rabi frequency, i.e. $\beta(x,t) = df(x,t)/2\hbar $ satisfies the relation $\Re\{\beta\} \gg \Im\{\beta\}$, i.e. it evolves primarily in the domain of real numbers. 
 
-Under these conditions we can decouple the system of ODEs in Eq. (\ref{eq:4eqns}) by setting $\eta = \eta_{+a}+\eta_{-a}^*$, $\sigma = \eta_{+a}-\eta_{-a}^*$, $w = \rho_{++}-\rho_{--}$ and deriving the time-evolution of these quantities. After some simple algebraic operations we obtain
+Under these conditions we can decouple the system of ODEs in Eq. (\ref{eq:4eqns}) by setting $\eta = \eta_{+g}+\eta_{-g}^*$, $\sigma = \eta_{+g}-\eta_{-g}^*$, $w = \rho_{++}-\rho_{--}$ and deriving the time-evolution of these quantities.
+
+After some simple algebraic operations, neglecting terms $\propto \Im \{\beta\}$, we obtain
+\begin{subequations}
+	\label{eq:rhogg-system}
+	\begin{align}
+	\frac{d \rho_{gg}}{dt} &= - i\Re\{\beta\}(\sigma-\sigma^*), \label{eq:rhoggprime} \\
+	\frac{d \rho_{+-}}{dt} &= -2i\Omega_{lr}\rho_{+-}+i\Re\{\beta\}\sigma,\\
+	\frac{d \sigma}{dt} &= -i\Omega_{lr}\sigma+i\Re\{\beta\}(1-3\rho_{gg})+2i\Re\{\beta\}\rho_{+-},
+	\end{align}
+\end{subequations}
+for $\rho_{gg}$, $\sigma$ and $\rho_{+-}$, as well as 
+\begin{subequations}
+\label{eq:w-system}
 \begin{align}
-\frac{d w}{dt} &= i\beta(\eta-\eta^*), \\
-\frac{d \eta}{dt} &= -i\Omega_{lr}\eta+i\beta w, \label{eq:eta}
+\frac{d w}{dt} &= i\Re\{\beta\}(\eta-\eta^*), \\
+\frac{d \eta}{dt} &= -i\Omega_{lr}\eta+i\Re\{\beta\} w, \label{eq:eta}
 \end{align}
-for $w$ and $\eta$ as well as 
+\end{subequations}
+for $w$ and $\eta$. 
+On the other hand, the Rabi frequency obeys the slowly varying propagation equation \cite{jirauschek2014modeling}
 \begin{align}
-\frac{d \rho_{gg}}{dt} &= - i\beta(\sigma-\sigma^*), \\
-\frac{d \rho_{+-}}{dt} &= -2i\Omega_{lr}\rho_{+-}+i\beta\sigma,\\
-\frac{d \sigma}{dt} &= -i\Omega_{lr}\sigma+i\beta(1-3\rho_{gg})-2i\beta\rho_{-+},
-\end{align}
-for $\rho_{gg}$, $\sigma$ and $\rho_{+-}$. The Rabi frequency obeys the slowly varying propagation equation 
-\begin{align}
+\label{eq:propagation-eq}
 \frac{n_0}{c}\frac{\p \beta}{\p t} + \frac{\p \beta}{\p x} &= - i\frac{N\Gamma d^2 k_0}{2\epsilon_0n_0^2\hbar}(\eta_{+g}+\eta_{-g}) \nonumber \\
-		&=  -i\frac{g}{2}\Re{\eta}+\frac{g}{2}\Im{\sigma}, \label{eq:rabi-freq}
+		&=  -i\frac{g}{2}\Re{\eta}+\frac{g}{2}\Im{\sigma},
 \end{align}
-where we have set $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $. 
+where $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $ is the peak value of the optical gain. 
 
+To completely decouple Eqs. (\ref{eq:rhogg-system}) from Eqs. (\ref{eq:w-system}) and (\ref{eq:propagation-eq}), we simply have to find a solution of Eqs. \ref{eq:rhogg-system}, for which $\Im\{\sigma\} =0$. If such a solution existed, this would have two very significant consequences. First, setting $\Im\{\sigma\} =0$ in Eq. (\ref{eq:propagation-eq}) would mean that the real part of the Rabi frequency would propagate without interacting with the medium, i.e. there seems to be a . And second, the population of the lower electron level, $\rho_{gg}$, would remain constant, which is evident from Eq. (\ref{eq:rhoggprime}). This observation strongly enhances our hypothesis of the onset of a two-photon process, suggested in the main body of this paper.
 
+The last remaining questions left for us to address are whether it is reasonable to assume that the $\Re\{\beta\} \gg \Im\{\beta\}$, whether there is a solution of Eqs. (\ref{eq:rhogg-system}), for which $\Im\{\sigma\} = 0$ and how stable it is, and lastly what if the dipole moments have same magnitude but different algebraic sign, i.e. $d_+ = -d_-$. Each of these issues will be addressed briefly in the following parts of the supplementary material.  
 
 
 
 \section{Validity of the temporal hole burning assumptions}
 A few comments on the assumptions made in the derivation of the quasi-Bloch equations are in order. 
 
-First of all, it will be interesting to consider when will the reality condition for the envelope $f(x,t) $  hold. To investigate that, let us take an input pulse $f_{in}(t_0) = f(x=0,t_0)$, with Fourier transform $F_{in}(\omega)$, entering the medium at the left facet, such that at $F_{in}(\omega)^* = F_{in}(-\omega)$, i.e. $f_{in}$ is real. After propagating a distance $L$ inside the cavity the pulse transforms according to \cite{weiner2011ultrafast}
+
+TODO:
+
+Mention that at least one solution exists for the case when $\rho_{gg} = 1/3$ and $\sigma = \rho_{\pm} = 0$. Then Eqs. (\ref{eq:rhogg-system}) are identically satisfied and thus the systems have been decoupled. In the more general case, impose $\Im\{\sigma\}=0$ into Eq. (\ref{eq:rhogg-system}), amounts to solving a liner differential-algebraic equation with time-varying coefficients of the form 
+\begin{align}
+\dot{y} &= M(t)y \label{eq:diffequation} \\
+0 &= g(y) \label{eq:algebraicequation},
+\end{align}
+where $y = [\Re\{\rho_{\pm}\},\Im\{\rho_{\pm}\},\Re\{\sigma\}]$, is the vector of remaining variables, $M$ is the coefficient matrix, the form of which can be directly inferred from Eqs. (\ref{eq:rhogg-system}) by rewriting them in matrix-vector notation. The constraint in Eq. (\ref{eq:algebraicequation}), on the other hand, establishes the relationships between the $y-$vector variables so that $\Im\{\sigma\} = 0$ is satisfied. The existence and uniqueness of such a solution is a mathematical topic on its own and is out of the scope of this work. However, we have shown that in the special case when $\rho_{gg} = 1/3 = \text{const}$ a solution is possible and is 
+in fact stable/unstable:
+
+TODO Investigate the stability of the solution!!!!
+
+
+
+
+Next, let us consider when will the reality condition for the Rabi frequency $\beta(x,t)$  hold. To investigate that, let us take an input pulse $\beta_{in}(t_0) = \beta(x=0,t_0)$, with Fourier transform $F_{in}(\omega)$, entering the medium at the left facet, such that at $F_{in}(\omega)^* = F_{in}(-\omega)$, i.e. $\beta_{in}$ is real. After propagating a distance $L$ inside the cavity the pulse transforms according to \cite{weiner2011ultrafast}
 \begin{align}
 \label{eq:fout-expansion}
-f(x=L,t) &= \int_{-\infty}^{\infty} F(x=L,\omega)e^{-i\omega t}d\omega = \int_{-\infty}^{\infty} F_{in}(\omega)e^{-i\omega t}e^{g(\omega)L+i\Psi(\omega)}d\omega,
+\beta(x=L,t) &= \int_{-\infty}^{\infty} F(x=L,\omega)e^{-i\omega t}d\omega = \int_{-\infty}^{\infty} F_{in}(\omega)e^{-i\omega t}e^{g(\omega)L+i\Psi(\omega)}d\omega,
 \end{align}
-where $g(\omega)$ denotes the spectral gain per unit length and $\Psi(\omega)=k(\omega)L$, the acquired phase. In order for $f(x=L,t)$ to remain real, it is sufficient that $F(x=L,\omega)^*= F(x=L,-\omega)$. To find when this holds, we first expand the wave number $k(\omega)$ around $\omega=0$ up to fourth order to get  
+where $g(\omega)$ denotes the spectral gain per unit length and $\Psi(\omega)=k(\omega)L$, the acquired phase. In order for $\beta(x=L,t)$ to remain real, it is sufficient that $F(x=L,\omega)^*= F(x=L,-\omega)$. To find when this holds, we first expand the wave number $k(\omega)$ around $\omega=0$ up to fourth order to get  
 \begin{align}
 \label{eq:k-expansion}
 k(\omega) = \beta_1\omega + \frac{\beta_2}{2}\omega^2 + \frac{\beta_3}{6}\omega^3 + O(\omega^4), 

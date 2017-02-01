@@ -79,13 +79,67 @@
 	I will investigate the effect of spatial hole burning onto the multimode dynamics of homogeneously broadened solid state lasers. In particular I will model the light-matter interaction within a semi-classical approach via the Maxwell-Bloch equations and treat the spatial hole burning effect from physical principles. The end goal is to derive expressions for the onset of multimode phase and amplitude instabilities in quantum cascade lasers. 
 \end{abstract}
 \maketitle
-For a linear Fabry-Perot cavity of length $l$ there will be a forward and backward propagating components of each lasing longitudinal mode. Assuming a single mode laser, traversing the cavity along the $x-$direction with forward and backward components of the intensity, respectively $I_1^+$ and $I_1^-$ (assumed constant for simplicity), one obtains for the total intensity 
-\begin{equation}
-I(x) = I_1^+ + I_1^-+2\sqrt{I_1^+I_1^-}\cos(2\beta_1 x+\theta_1), 
-\end{equation} 
-where $\beta_1$ and $\theta_1$ are the wave number and the phase difference of the propagating field, respectively, and they generally depend on the geometry of the cavity. Above and in what follows, subscript index 1 will denote quantities related to the primary mode, 2 such of the secondary mode and so on. 
 
-For a cavity with equal facet reflectivities, i.e. $r_L = r_R = r$, generally the forward and backward components of the wave ought to have the same amplitude and thus intensity so the above expression simplifies as 
+
+\section{Fabry-Perot cavity Maxwell-Bloch equations}
+
+For a Fabry-Perot cavity we need to allow for both forward and backward travelling components of the field. The interference between those counter-propagating waves will induce intensity grating, which in turn will induce a population grating, commonly referred to as the spatial hole burning (SHB) effect. Due to the relatively slow carrier diffusion as compared to the life-times in QCLs, SHB cannot be neglected. Within the rotating wave approximation, SHB is usually modelled only to first order by making the following ansatz for the population densities (i.e. diagonal elements of the density matrix)
+\begin{align}
+\rho_{jj}(t) = \rho_{jj}^{0} + \rho_{jj}^{+}e^{2ik_0x}+\rho_{jj}^{-}e^{-2ik_0x}, 
+\end{align}
+where $\rho_{jj}^{0}$ can be interpreted as population averages, and $\rho_{jj}^{+}=(\rho_{jj}^{-})^{\ast}$ as the amplitudes of the inversion grating. On the other hand, allowing for bi-directional propagation, we make additional ansatz for the electric field and the microscopic polarization terms, decomposing them into a forward and  backward propagating components and subtracting out fast oscillations with the carrier frequency $\omega_0$ and carrier wave number $k_0 = \omega_0*n_{THz}/c$
+\begin{align}
+E_{z}(x,t) &=\frac{1}{2}\left( E_{+}(x,t)e^{\mathrm{i}(k_{0}x-\omega_{0}t)} +E_{-}(x,t)e^{-\mathrm{i}(k_{0}x+\omega_{0}t)}  +c.c\right)  , \label{eq:e-ansatz} \\
+\rho_{21}(x,t)  &  =\eta_{21}^{+}(x,t)e^{  \mathrm{i}(k_{0}x-\omega_{0}t)}  +\eta_{21}^{-}(x,t)e^{-\mathrm{i}(k_{0}x+\omega_{0}t)} .\label{eq:21ansatz}
+\end{align}
+We then plug in all of the above assumptions into the two-level von Neumann equation and employ the rotating wave approximation to obtain the extended Bloch equations 
+\begin{align}
+\frac{d\Delta_{0}}{dt} &= \mathrm{i}\frac{\mu}{\hslash}\left(  E_{-}^{\ast}\eta_{21}^{-}+E_{+}^{\ast}\eta_{21}^{+}-c.c.\right) -\frac{\Delta_{0}-\Delta_{0}^{eq}}{T_1} \label{eq:inversion}\\
+\frac{d\Delta_{+}}{dt} &= \mathrm{i}\frac{\mu}{\hslash}\left[  E_{-}^{\ast}\eta_{21}^{+}-E_{+}(\eta_{21}^{-})^{\ast}\right] - \left( \frac{1}{T_1}+4k_{0}^{2}D\right)  \Delta_{+},\label{eq:invgrating}\\
+\frac{d\eta_{21}^{\pm}}{dt} & = -\mathrm{i}\left(  \omega_{21}-\omega_{0}\right) \eta_{21}^{\pm}+\mathrm{i}\frac{\mu}{2\hslash}\left (  E_{\pm}\Delta_{0}+E_{\mp}\Delta_{\pm}\right)-\frac{1}{T_2}\eta_{21}^{\pm}, \label{eq:coherences}
+\end{align}
+where $T_1$ and $T_2$ are the gain recovery and the dephasing times, respectively,$\Delta_0^{eq}$ is the steady state inversion, which depends on the current injection, D is the diffusion constant, $\mu = q_0z_{21}$ is the dipole matrix element of the $1\leftrightarrow 2$ transition, $\omega_{21}$ is the corresponding angular frequency, $\hslash$ is Plank's constant and the $^{\ast}$ sign denotes the complex conjugate.
+
+The effect of the atomic system onto the electric field is modelled via a macroscopic polarization, calculated as the expectation value of the dipole moment operator. In the slowly varying envelope approximation \cite{boyd2003nonlinear}, the forward and backward wave envelopes satisfy the following pair of propagation equations 
+\begin{equation}
+\frac{n_{THz}}{c}\frac{\partial E_{\pm}}{\partial {t}}\pm\frac{\partial E_{\pm}}{\partial {x}}=-i\frac{N\Gamma\mu\omega_0}{\epsilon_0 c n_{THz}}\eta_{21}^{\pm}-\frac{a}{2}E_{\pm
+}, \label{eq:waves}%
+\end{equation}	
+where $n_{THz}$ is the refractive index at the central frequency, $\epsilon_0$ is the vacuum permittivity $N$ is the average carrier density in the material, $\Gamma$ is the (dimensionless) overlap factor of the particular transverse mode with the active region, and $a$ is the (total) power loss coefficient (per unit length).
+
+\section{Threshold condition}
+
+We first examine the steady state solution of the Maxwell-Bloch equations at threshold. At and below the threshold pumping, the electric field is zero, so from Eq. (\ref{eq:inversion}) we get the steady state solution $\bar{\Delta}_0 = \Delta_{0}^{eq} = \Delta_0^{\text{th}}$. At threshold, the peak of the gain, attained at some angular frequency $\omega$ will exactly balance the losses, so the threshold condition tells us that
+\begin{equation}
+\label{eq:gain-loss-threshold}
+\frac{N\Gamma\mu^2\omega_0}{2 \epsilon_0 c \hbar n_{THz}}\times\frac{\gamma_{21}}{\gamma_{21}^2+(\omega-\omega_{21})^2}\times\bar{\Delta}_0 =\frac{1}{2}\sigma_\omega N \Delta_0^{\text{th}} = \frac{a}{2},
+\end{equation}
+where $\gamma_{21} = T_2^{-1}$ is the dephasing rate and $\sigma_\omega$ is the gain cross-section at that particular frequency, given by
+\begin{equation}
+\label{eq:cross-section}
+\sigma_\omega = \frac{\Gamma \mu^2\omega_{0}}{\hbar\epsilon_0n_0c}\times\frac{\gamma_{21}}{\gamma_{21}^2+(\omega-\omega_{21})^2}.
+\end{equation}
+This gives us the threshold population inversion as 
+\begin{equation}
+\label{eq:threshold-inversion}
+\Delta_0^{\text{th}} = \frac{a}{\sigma_{\omega}N}, 
+\end{equation}
+where the primary lasing frequency, i.e. $\omega$, will generally be the cavity mode yielding the largest possible value of $\sigma_\omega$ and thus smallest possible value for the inversion $\Delta_{0}^{\text{th}}$. Since it is reasonable to assume that $\omega \approx \omega_{21}\approx\omega_0$, the threshold inversion is given by the formula $\Delta_0^{\text{th}} = a \times \epsilon_0 c \hbar n_{THz}/\left [N\Gamma\mu^2\omega_0 T_2\right ]$.
+
+We now rewrite the equation for the population inversion in terms of the "pump" strength parameter $p=\Delta_0^{\text{eq}}/\Delta_0^{\text{th}}$
+
+\begin{equation}
+\label{eq:inversion-p}
+\frac{d\Delta_{0}}{dt} = \mathrm{i}\frac{\mu}{\hslash}\left(  E_{-}^{\ast}\eta_{21}^{-}+E_{+}^{\ast}\eta_{21}^{+}-c.c.\right) -\frac{\Delta_{0}-p\times\Delta_{0}^{\text{th}}}{T_1}.
+\end{equation}
+
+\section{Single mode lasing}
+
+ Assuming a single lasing at angular frequency $\omega_1$ and wave number $\beta_1$, the forward and backward propagating components of the field, respectively $I_1^+ = cn_{THz}\epsilon_0 |E_+|^2/2$ and $I_1^-= cn_{THz}\epsilon_0 |E_-|^2/2$, will interfere to produce the total intracavity intensity    
+\begin{equation}
+I_1(x) = I_1^+ + I_1^-+2\sqrt{I_1^+I_1^-}\cos(2\beta_1 x+\theta_1), 
+\end{equation} 
+where $\theta_1$ is the phase difference between the forward and backward propagating field. For a cavity with equal facet reflectivities, i.e. $r_L = r_R = r$, both of which are close to 1, we can approximately take that the intensity of the field in both direction is approximately constant and has equal value, i.e. $I_1^+=I_1^-$. Thus the above expression simplifies to
 \begin{equation}
 \label{eq:interference}
 I_1(x) =4I_1\cos^2(\beta_1 x+\theta_1'),
@@ -94,29 +148,37 @@ where $I_1^+=I_1^-=I_1$ and $\theta_1'= \theta_1/2$.
 During lasing, the net gain of the mode will be equal to the round trip losses, giving us the condition 
 \begin{equation}
 \label{eq:balance}
-\sigma_1\int_{0}^{l} N(x)I_1(x)dx = (1-r)^2\int_{0}^{l}I_1(x)e^{-ax}dx,
+\sigma_1\int_{0}^{l} N(x)I_1(x)dx = \int_{0}^{l} a I_1(x)dx,
 \end{equation} 
-where the left hand expression gives us the gain: $\sigma$ is the gain cross section at that particular frequency, $N(x) = N_0/(1+I_1(x)/I_{sat})$ is the space-dependent population inversion of the active region ($N_0$ is the sub-threshold inversion and $I_{sat}$ is the saturation intensity of the material \cite{siegman1986lasers}),  and $a$ is the linear loss of the material. 
+where the left hand expression gives us the net gain and the right hand side the total round trip losses, with $a = a_w+a_m$ being the distributed loss parameter, incorporating both waveguide and mirror losses. 
 
-Plugging in Eq. (\ref{eq:interference}) into the rhs of Eq. (\ref{eq:balance}), we obtain 
 
+The steady state dependence of the population inversion on intensity can be given by the formula 
+\begin{equation}
+\label{eq:steadystate-inversion}
+N(x) = N\Delta(x) = N\Delta^{\text{eq}}/(1+I_1(x)/I_{sat}).
+\end{equation} 
+Here $\Delta^{\text{eq}}$ is the total equilibrium inversion and $I_{sat} = cn_{THz} \epsilon_0 \hbar^2 /(2\mu^2T_1T_2)$ is the saturation intensity of the material \cite{siegman1986lasers}. The formula (\ref{eq:21ansatz}) can be easily derived from the steady state solution of the von Neumann equation, modelling an ensemble of atoms in an electric field, \emph{without} taking the rotating wave approximation. A simple calculation SHOULD (CHECK) reveal that Eq. (\ref{eq:steadystate-inversion}), expanded around zero to first order in $I_1/I_{sat}$, is equivalent to the steady state value of $\Delta(x) =\Delta_0 + \Delta_2e^{2ik_0 x} + c.c.$, which in turn can be obtained from Eqs. (\ref{eq:inversion},\ref{eq:invgrating}), under the appropriate assumptions (like $E_+\approx E_-$, $k_0 \approx \beta_1$ and $I_1/I_{sat} \approx 0$).  
+
+Plugging in Eq. (\ref{eq:interference}) into the r.h.s. of Eq. (\ref{eq:balance}), we obtain 
 \begin{align}
 \label{eq:losses}
-(1-r)^2\int_{0}^{l}I_1(x)e^{-ax}dx &= 4(1-r)^2I_1\int_{0}^{l}e^{-ax}\cos^2(\beta_1 x+\theta_1')dx \nonumber \\ 
-&=  2(1-r)^2I_1\left(\int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx\right) = 2(1-r)^2\gamma(\beta_1,\theta_1) I_1,
+\int_{0}^{l}I_1(x)adx &= 4I_1a\int_{0}^{l}\cos^2(\beta_1 x+\theta_1')dx \nonumber \\ 
+&=  2I_1a \left(\int_{0}^{l}dx + \int_{0}^{l}\cos(2\beta_1 x+\theta_1)dx\right) = 2 a I_1 \gamma(\beta_1,\theta_1),
 \end{align}
 where 
 \begin{equation}
 \label{eq:gamma-beta-teta}
-\gamma(\beta_1,\theta_1) = \int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx
+\gamma(\beta_1,\theta_1) = l+\frac{1}{2\beta_1}\left. \sin(2\beta_1x+\theta_1) \right|_{0}^{l}
 \end{equation}
 are the phase and wave number dependent losses. 
 
 On the other hand the same mode will experience the following overall gain
 \begin{align}
 \label{eq:gain}
-\sigma_1\int_{0}^{l} N(x)I_1(x)dx &= \sigma_1 N_0 \int_{0}^{l}\frac{4I_1\cos^2(\beta_1 x+\theta_1')}{1+4\frac{I_1}{I_{sat}}\cos^2(\beta_1 x+\theta_1')}dx \nonumber \\ 
-&= 4\sigma N_0I_1 \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta\cos^2(\beta_1 x+\theta_1')} dx  =4\sigma N_0 I_1 \xi(\beta_1,\theta_1,I_1),
+\sigma_1\int_{0}^{l} N(x)I_1(x)dx &= \sigma_1 N \Delta^{\text{eq}} \int_{0}^{l}\frac{4I_1\cos^2(\beta_1 x+\theta_1')}{1+4I_1\cos^2(\beta_1 x+\theta_1')/I_{sat}}dx \nonumber \\ 
+&= 4\sigma_1 N \Delta^{\text{eq}} I_1 \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta_1\cos^2(\beta_1 x+\theta_1')} dx  \nonumber \\ 
+&=4\sigma_1 N \Delta^{\text{eq}} I_1 \xi(\beta_1,\theta_1,I_1),
 \end{align}
 where $\delta_1 = 4I_1/I_{sat}$ and
 \begin{equation}
@@ -126,29 +188,29 @@ where $\delta_1 = 4I_1/I_{sat}$ and
 Now, using Eqs. (\ref{eq:gain}) and (\ref{eq:losses}), the balance condition in Eq. (\ref{eq:balance}) imposes 
 \begin{equation}
 \label{eq:balance-02}
-\xi(\beta_1,\theta_1,I_1) = \frac{(1-r)^2}{2\sigma N_0} \times \gamma(\beta_1,\theta_1).
+2\sigma_1 N \Delta^{\text{eq}} \times \xi(\beta_1,\theta_1,I_1) = a\times \gamma(\beta_1,\theta_1).
 \end{equation}
-Maintaining $\beta_1$ and $\theta_1$ fixed, the above relation gives us the average intensity $I_1$ inside the cavity of the primary mode. 
 
-Let us perform the integrals explicitly. First start with Eq. (\ref{eq:xi-beta-teta-I}). 
+From the threshold condition in Eq. (\ref{eq:gain-loss-threshold}) we know that $\sigma_{1}N = a/\Delta^{\text{th}}$ and so the primary mode's intensity will be the solution of the equation
+\begin{equation}
+\label{eq:balance-03}
+2p \times \xi(\beta_1,\theta_1,I_1) = \gamma(\beta_1,\theta_1),
+\end{equation}
+where we have used the definition $p=\Delta^{\text{eq}}/\Delta^{\text{th}}$.
+
+Some simple algebraic manipulations, give us the integral in Eq. (\ref{eq:xi-beta-teta-I}) as  
 \begin{align}
 \label{eq:xi-beta-teta-I-sol}
 	\xi(\beta_1,\theta_1,I_1) &= \int_{0}^{l} \frac{\cos^2(\beta_1 x+\theta_1')}{1+\delta_1\cos^2(\beta_1 x+\theta_1')} dx \nonumber \\
 	 &=\frac{1}{\beta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \frac{\cos^2y}{1+\delta_1\cos^2y} dy  \quad \quad \text{, where } y = x\beta_1+\theta_1' \nonumber \\
-	 &= \frac{1}{\beta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \frac{1}{(1+\tan^2y)(1+\tan^2y+\delta_1)} dy  \nonumber \\
-	 &= \frac{1}{\beta_1\delta_1}\int_{\theta_1'}^{l\beta_1+\theta_1'} \left[\frac{1}{1+\tan^2y} - \frac{1}{1+\tan^2y+\delta_1} dy \right] \nonumber \\
-	 &= \frac{1}{\beta_1\delta_1}\left[y - \frac{1}{\sqrt{1+\delta_1}} \arctan\frac{\tan y}{\sqrt{1+\delta_1}} \right]_{\theta_1'}^{l\beta_1+\theta_1'}
+	 &= \frac{1}{\beta_1}\int_{\tan\theta_1'}^{\tan{l\beta_1+\theta_1'}} \frac{1}{(1+t^2)(1+t^2+\delta_1)} dt  \nonumber \\
+	 &= \frac{1}{\beta_1\delta_1}\int_{\tan\theta_1'}^{\tan{l\beta_1+\theta_1'}} \left[\frac{1}{1+t^2} - \frac{1}{1+t^2+\delta_1}  \right]dt \nonumber \\
+	 &= \frac{1}{\beta_1\delta_1}\left[y - \frac{1}{\sqrt{1+\delta_1}} \arctan\frac{\tan y}{\sqrt{1+\delta_1}} \right]_{\theta_1'}^{l\beta_1+\theta_1'} ,
 \end{align} 
+which combined with Eqs. (\ref{eq:balance-03}) gives us the dependence of for $I_1$ as a function of the pump parameter $p$.
 
-Then we derive the solution of Eq. (\ref{eq:gamma-beta-teta})
-\begin{align}
-\label{eq:gamma-beta-teta-sol}
-\gamma(\beta_1,\theta_1) &= \int_{0}^{l}e^{-ax}dx + \int_{0}^{l}e^{-ax}\cos(2\beta_1 x+\theta_1)dx  \nonumber \\
-&= -\frac{1}{a}\left. e^{-ax}\right |_0^l +  \frac{2\beta_1}{4\beta_1^2+a^2} \left.e^{-ax} \left[\sin(2\beta_1x+\theta_1)-\frac{a}{2\beta_1}\cos(2\beta_1x+\theta_1) \right] \right |_0^l,
-\end{align}
-where to derive the second term we have used integration by parts formula. 
+\section{Longitudinal-mode instabilities}
 
-JAN 12, 2017: TODOs
 \begin{enumerate}
 	\item Verify Eq. (\ref{eq:xi-beta-teta-I-sol}) and Eq. (\ref{eq:gamma-beta-teta-sol}) for correctness. 
 	\item For fixed intensity $I$ and fixed lasing mode $\beta_1$ plot the above formulas as a function of the phase difference $\theta_1$. Can there be scattering from the inversion grating - see Agrawals
@@ -156,12 +218,20 @@ JAN 12, 2017: TODOs
 \end{enumerate}
 
  
-Questions to be answered:
+ Questions to be answered:
+ \begin{enumerate}
+ 	\item Which mode will start fist?
+ 	\item Given that a single mode is already lasing, what will be the condition for a second lasing mode to start?
+ 	\item Can I use Eq. (\ref{eq:balance-02}) or any of the other relations above, to determine the onset of phase instabilities in the spectrum. Specifically, check if SHB induces phase instabilities prior to inducing any amplitude such! Assume that $I_1$ and $\beta_1$ are fixed. Check how many solutions does this above relation have. More specifically investigate the stability around a particular solution $\theta_1 \rightarrow \theta_1+\delta\theta$ and linearizing .
+ \end{enumerate}
+
+\section{Transverse-mode instabilities}
+
 \begin{enumerate}
-	\item Which mode will start fist?
-	\item Given that a single mode is already lasing, what will be the condition for a second lasing mode to start?
-	\item Can I use Eq. (\ref{eq:balance-02}) or any of the other relations above, to determine the onset of phase instabilities in the spectrum. Specifically, check if SHB induces phase instabilities prior to inducing any amplitude such! Assume that $I_1$ and $\beta_1$ are fixed. Check how many solutions does this above relation have. More specifically investigate the stability around a particular solution $\theta_1 \rightarrow \theta_1+\delta\theta$ and linearizing .
+	\item examine how the overlap integral $\Gamma$ can influence the stability of the transverse modes. Examine a typical rectilinear waveguide structure and how a strong pump will induce the generation of higher-order transverse modes 
 \end{enumerate}
+
+\section{Time-domain simulations}
 
 \bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
 \end{document}

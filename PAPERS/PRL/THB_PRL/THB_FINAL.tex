@@ -154,23 +154,23 @@ where $\rho_{ii}$ denote the population densities and $\eta_{\pm g} = \rho_{\pm 
 \end{subequations}
 where we have assumed that $\epsilon = 0$. 
 
-The origin of the temporal hole burning effect is revealed by assuming that $f = f^*$, which is reasonable under resonance, since then the even order dispersion can be considered negligible\cite{khurgin2005optical} (see supplementary material for detailed justification), as well as taking $d_{+}\approx d_{-} = d$, setting  $\eta = \eta_{+g}+(\eta_{-g})^*$ and deriving the equation of motion of this quantity. Direct substitution from Eq.~(\ref{eq:4eqns}) gives us
+The origin of the temporal hole burning effect is revealed by assuming that $\Re\{f\} \gg \Im\{f\} $, which is reasonable under resonance, since then the even order dispersion can be considered negligible\cite{khurgin2005optical} (see supplementary material for detailed justification), as well as taking $d_{+}\approx d_{-} = d$, setting  $\eta = \eta_{+g}+(\eta_{-g})^*$ and deriving the equation of motion of this quantity. Direct substitution from Eq.~(\ref{eq:4eqns}) gives us
 \begin{equation}
 \label{eq:coherence_quasi2lvl}
-\frac{d \eta}{dt} = -i\Omega_{lr} \eta + i\beta w, 
+\frac{d \eta}{dt} = -i\Omega_{lr} \eta + i\Re\{\beta\}w, 
 \end{equation}
 where $w = \rho_{++}-\rho_{--}$ denotes the inversion between the delocalized states and $\beta =d f/2\hbar$ is the Rabi frequency. This inversion evolves according to 
 \begin{align}
 \label{eq:inversion_quasi2lvl}
-\frac{d w }{dt}	&=  i\beta(\eta-\eta^*)
+\frac{d w }{dt}	&=  i\Re\{\beta\}(\eta-\eta^*)
 \end{align}
 from where we see that the variables $\eta$ and $w$ form a "quasi-particle", the time-evolution of which is completely decoupled from the rest of the system. However, one needs to notice that Eqs.~(\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) differ from the usual Bloch equations \cite{boyd2003nonlinear}, due to the absence of a factor of 2 in the right hand side of Eq.~(\ref{eq:inversion_quasi2lvl}), which, as will be shown below, constrains the evolution of the system on the surface of an ellipsoid rather than a sphere in Bloch space.
 
 From a more fundamental point of view, we can look at the temporal hole burning dynamics as a two-photon process where the states $\ket{+}$ and $\ket{-}$ exchange an electron via the ground state $\ket{g}$. This naturally follows from the interpretation of $\eta = \eta_{+g}+\eta_{g-}$ as expectation value of the time-dependent operator \cite{loudon2000quantum}
 \begin{align}
-\hat\sigma(t) = \P(t) +\M^{\dagger}(t),
+\hat\eta(t) = \P(t) +\M^{\dagger}(t),
 \end{align}
-where the terms $\hat\pi_{\pm}(t)$ are the slowly varying Heisenberg-picture analogues of the raising and lowering operators introduced before, satisfying $\P(0) =\ket{g}\bra{+}$ and $\M^{\dagger}(0)=\ket{-}\bra{g}$. We can thus see that $\hat\sigma$ will lower an electron from the anti-symmetric state, $\ket{+}$, to the ground level and raise an electron from $\ket{g}$ to the symmetric state, $\ket{-}$. This process is accompanied by an energy conserving exchange of a photon in the $\omega_{-}$ mode for a photon in the $\omega_{+}$ mode, as illustrated in Fig.~\ref{fig:two_photon_process}a, and continues until the anti-symmetric state is sufficiently depleted so that the conjugate effect could take over. Figure~\ref{fig:two_photon_process}b illustrates this alternative process, namely the one corresponding to the action of the conjugate transpose operator $\hat{\sigma}^{\dagger}$, which swaps a $\omega_+$ photon for a $\omega_-$ photon. In a way, these two-photon processes are similar to the familiar Stokes, Fig.~\ref{fig:two_photon_process}c, and anti-Stokes, Fig.~\ref{fig:two_photon_process}d, Raman scattering, however in an flipped energy configuration as the electron exchange does not occur in the upper levels, but rather in the ground state \cite{butcher1991elements}. 
+where the terms $\hat\pi_{\pm}(t)$ are the slowly varying Heisenberg-picture analogues of the raising and lowering operators introduced before, satisfying $\P(0) =\ket{g}\bra{+}$ and $\M^{\dagger}(0)=\ket{-}\bra{g}$. We can thus see that $\hat\eta$ will lower an electron from the anti-symmetric state, $\ket{+}$, to the ground level and raise an electron from $\ket{g}$ to the symmetric state, $\ket{-}$. This process is accompanied by an energy conserving exchange of a photon in the $\omega_{-}$ mode for a photon in the $\omega_{+}$ mode, as illustrated in Fig.~\ref{fig:two_photon_process}a, and continues until the anti-symmetric state is sufficiently depleted so that the conjugate effect could take over. Figure~\ref{fig:two_photon_process}b illustrates this alternative process, namely the one corresponding to the action of the conjugate transpose operator $\hat{\sigma}^{\dagger}$, which swaps a $\omega_+$ photon for a $\omega_-$ photon. In a way, these two-photon processes are similar to the familiar Stokes, Fig.~\ref{fig:two_photon_process}c, and anti-Stokes, Fig.~\ref{fig:two_photon_process}d, Raman scattering, however in an flipped energy configuration as the electron exchange does not occur in the upper levels, but rather in the ground state \cite{butcher1991elements}. 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphicsXL{IMGS/two_photon_process.eps}
@@ -186,47 +186,26 @@ Semi-classically, we can also see that Eqs.~(\ref{eq:coherence_quasi2lvl}) and (
 \end{align}
 for the envelope $f(x,t)$, where $\epsilon_0$ is the permittivity of free space, $N$ is the average carrier density per unit volume and $\Gamma$ is the overlap factor. Now, if we decompose $\eta_{+g}$ and $\eta_{-g}$ into their real and imaginary parts, i.e. $\eta_{+g} = u_{+}+iv_{+}$ and $\eta_{-g} = u_{-}+iv_{-}$, and substitute into Eq.~($\ref{eq:propagation01}$), we see that the real part of the total polarization, i.e. $u_++u_-$, models changes in the envelope's phase, i.e. dispersion, whereas the imaginary part, $v_++v_-$, captures the gain or losses due to the atomic resonances. On the other hand, Eq.~(\ref{eq:coherence_quasi2lvl}) evolves the \emph{difference} of $v_+$ and $v_-$, i.e. $\Im\{\eta\}=v_+-v_-$, and not their sum. This means that, for example, when $\Im\{\eta\}$ is a large  positive number the $\ket{+}\leftrightarrow \ket{g}$ transition will experience gain, and the $\ket{-}\leftrightarrow\ket{g}$ one loss and when $\Im\{\eta\}$ is negative - vice versa. Note that this is namely the classical analogue of the photon-exchange picture discussed above.
 
-
-%To enhance this interpretation let us write Eq. (\ref{eq:coherence_quasi2lvl}) and Eq. (\ref{eq:inversion_quasi2lvl}) into mathematically equivalent matrix form as follows
-%\begin{align}
-%\label{eq:QB_matrix}
-%\dot{\rho}_{QB} = -i[H_{QB},\rho_{QB}] +\beta \begin{bmatrix}
-%\Im\{\eta\} & 0 \\ 0 & -\Im\{\eta\}
-%\end{bmatrix},
-%\end{align}
-%where the quasi-Bloch Hamiltonian and statistical operator take the form
-%\begin{align}
-%\label{eq:QB_H_RHO}
-%H_{QB}= \begin{bmatrix}
-%\Omega & \beta \\ \beta & 0
-%\end{bmatrix}, \quad \rho_{QB}= \begin{bmatrix}
-%\rho_{++} & \eta \\ \eta^* & \rho_{--}
-%\end{bmatrix}.
-%\end{align}
-
-
 Lastly, we can elaborate a little further and make the ansatz $u=\Re\{\eta\}$, $v =\Im\{\eta\}$ and as before $w = \rho_{++}-\rho_{--}$. This transforms Eqs.~(\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) into the following system 
 \begin{subequations}
 	\label{eq:quasi-Blocheqn}
 	\begin{align}
 		\dot{u} &= \Omega_{lr} v , \\
-		\dot{v} &= -\Omega_{lr} u +\beta w , \\
-		\dot{w} &= -2\beta v.
+		\dot{v} &= -\Omega_{lr} u +\Re\{\beta\} w , \\
+		\dot{w} &= -2\Re\{\beta\} v.
 	\end{align}
 \end{subequations}
-
- Notice that Eqs.~(\ref{eq:quasi-Blocheqn}) above are \emph{not} exactly the familiar Bloch equations and therefore the solutions do \emph{not} lie on the Bloch sphere. In fact, we see that $d(u^2+v^2+w^2)/dt = -2\beta vw \neq 0$, i.e. the radius is actually not a conserved quantity. One can easily show that the Bloch-space variables, $u,v $ and $w$, instead satisfy the equality $d(u^2+v^2+(w/\sqrt{2})^2)/dt = 0$, which describes the surface of an ellipsoid with two equal principal axes $a=b$, i.e. those in the $u-v$ plane, and a third axis $c = \sqrt{2}a$ parallel to $w$, which tells us that, irrespective of the driving field $\beta(t)$, the time evolution will proceed on the surface of an ellipsoid in Bloch space. 
+ Notice that Eqs.~(\ref{eq:quasi-Blocheqn}) above are \emph{not} exactly the familiar Bloch equations and therefore the solutions do \emph{not} lie on the Bloch sphere. In fact, we see that the derivative $d(u^2+v^2+w^2)/dt = -2\Re\{\beta\} vw \neq 0$, i.e. the radius is actually not a conserved quantity. One can easily show that the Bloch-space variables, $u,v $ and $w$, instead satisfy the equality $d(u^2+v^2+(w/\sqrt{2})^2)/dt = 0$, which describes the surface of an ellipsoid with two equal principal axes $a=b$, i.e. those in the $u-v$ plane, and a third axis $c = \sqrt{2}a$ parallel to $w$, which tells us that, irrespective of the driving field $\Re\{\beta(t)\}$, the time evolution will proceed on the surface of an ellipsoid in Bloch space. 
+ 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width = 0.45\textwidth]{IMGS/quasi-bloch-resonance-new.eps}
 		\caption{\textbf{a} The Bloch variables $u,v$ and $w$ evolved for 120 picoseconds with Eq.~(\ref{eq:quasi-Blocheqn}), when $\omega_f = \Omega_{lr}$ and $\beta_0 = 0.1\times\Omega_{lr}$, with $\Omega_{lr} = 290\times 2\pi$ GHz. \textbf{b} Bloch space representation of \textbf{a}.} \label{fig:quasi-bloch-resonance}
 	\end{center}	
 \end{figure}
+We solve these quasi-Bloch equations, i.e. Eqs.~(\ref{eq:quasi-Blocheqn}), numerically, initially setting $u(t=0)=0$, $v(t=0) = 0$ and $w(t=0) = 0.2$ and assuming $\Re\{\beta\} = \beta_0 \cos\omega_f t$. The latter is indeed a reasonable assumption as the field envelope $f(t)$ will not be a DC field, but rather contain components oscillating around the frequency $\omega_f \approx \Omega_{lr}$, which directly follows from the tunneling-induced energy splitting. Our results, when we set $\beta_0 = 0.1\Omega_{lr}$ and $\omega_f = \Omega_{lr}$, are plotted in Fig.~\ref{fig:quasi-bloch-resonance}. These simulations reveal that the population inversion, $w$, completes full swings between -0.2 and 0.2, whereas in the same time $|u|$ and $|v|$ are upper bounded by $0.2/\sqrt{2}$, Fig.~\ref{fig:quasi-bloch-resonance}a. This confirms the deduction that the coherent time-evolution of this system will lie on the surface of an ellipsoid with principal axes $a=b=c/\sqrt{2}$ in the $u$,$v$ and $w$ direction, respectively, as it is evident from Fig.~\ref{fig:quasi-bloch-resonance}b. Additionally, we can observe that the system dynamics is governed by two time scales: a fast one, having a period close to $2\pi/\Omega_{lr}$, which follows the envelope frequency, and another, slower time-scale originating from the field-induced Rabi-oscillations, the period of which depends on the magnitude of $\beta_0$.  
 
-\vspacec
-We solve these quasi-Bloch equations, i.e. Eqs.~(\ref{eq:quasi-Blocheqn}), numerically, initially setting $u(t=0)=0$, $v(t=0) = 0$ and $w(t=0) = 0.2$ and assuming $\beta(t) = \beta_0 \cos\omega_f t$. The latter is indeed a reasonable assumption as the field envelope $f(t)$ will not be a DC field, but rather contain components oscillating around the frequency $\omega_f \approx \Omega_{lr}$, which directly follows from the tunneling-induced energy splitting. Our results, when we set $\beta_0 = 0.1\Omega_{lr}$ and $\omega_f = \Omega_{lr}$, are plotted in Fig.~\ref{fig:quasi-bloch-resonance}. These simulations reveal that the population inversion, $w$, completes full swings between -0.2 and 0.2, whereas in the same time $|u|$ and $|v|$ are upper bounded by $0.2/\sqrt{2}$, Fig.~\ref{fig:quasi-bloch-resonance}a. This confirms the deduction that the coherent time-evolution of this system will lie on the surface of an ellipsoid with principal axes $a=b=c/\sqrt{2}$ in the $u$,$v$ and $w$ direction, respectively, as it is evident from Fig.~\ref{fig:quasi-bloch-resonance}b. Additionally, we can observe that the system dynamics is governed by two time scales: a fast one, having a period close to $2\pi/\Omega_{lr}$, which follows the envelope frequency, and another, slower time-scale originating from the field-induced Rabi-oscillations, the period of which depends on the magnitude of $\beta_0$.  
-
-In summary, we have presented experimental evidence and theoretical explanation for a novel time-domain effect, named temporal hole burning, which in addition to spectral and spatial hole burning, completes the classification of hole burning phenomena encountered in  literature. THB was first observed in a terahertz QC laser-based frequency comb with a strong injector anticrossing\cite{burghoff2015evaluating}, however in principle it could be detected in any sufficiently coherent and broadband laser with an upper laser level doublet. Ideally, the signal produced by such a device would consists of two pulses propagating in a way as to "burn" a hole onto each other's instantaneous intensities. Under the presented simplifying assumptions, temporal hole burning can be seen as a two-photon process similar to the familiar stimulated Raman scattering, however with inverted energy level configuration. We note that THB persists also when those conditions are slightly violated, as already shown by experiment\cite{burghoff2015evaluating} and simulation\cite{petz2016}, however in those cases the system of equations does not simplify sufficiently to clearly reveal the true nature of this mechanism. 
+In summary, we have presented experimental evidence and theoretical explanation for a novel time-domain effect, named temporal hole burning, which in addition to spectral and spatial hole burning, completes the classification of hole burning phenomena encountered in  literature. THB was first observed in a terahertz QC laser-based frequency comb with a strong injector anticrossing\cite{burghoff2015evaluating}, however in principle it might be detectable in any sufficiently coherent and broadband laser with an upper laser level doublet. Ideally, the signal produced by such a device would consists of two pulses propagating in a way as to "burn" a hole onto each other's instantaneous intensities. Under the presented simplifying assumptions, temporal hole burning can be seen as a two-photon process similar to the familiar stimulated Raman scattering, however with inverted energy level configuration. We note that THB persists also when those conditions are slightly violated, as already shown by experiment\cite{burghoff2015evaluating} and simulation\cite{petz2016}, however in those cases the system of equations does not simplify sufficiently to clearly reveal the true nature of this mechanism. 
 
 This work was supported by the German Research Foundation (DFG) within the Heisenberg program (JI 115/4-1) and under DFG Grant No. JI 115/9-1.
 \bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
