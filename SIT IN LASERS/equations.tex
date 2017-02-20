@@ -204,27 +204,94 @@ where the primary lasing frequency, i.e. $\omega$, will generally be the cavity 
 We now rewrite the equation for the population inversion in terms of the "pump" strength parameter $p=\Delta_0^{\text{eq}}/\Delta_0^{\text{th}}$
 
 \section{Haus's theory of passive mode locking with a fast saturable absorber}
+\label{sec:haustheory}
 
-We can directly apply Haus's celebrated theory of passive mode locking, with slight modifications, to investigate the pulse formation dynamics in our simulations \cite{haus1975theory}.
-\begin{center}
-	\begin{figure}	
-	\includegraphics[width=0.7\textwidth]{IMGS/CAVITIES} \label{fig:cavities}\caption{a Ring cavity model. b Fabry-Perot cavity model.}
-	\end{figure}
-\end{center}
+Due to the relatively low saturation intensity in quantum cascade lasers, the classical theory of mode locking with a fast saturable absorber will not apply, since the gain will also saturate. Below we will write down a master equation modelling the passive mode locking  with a FAST saturable absorber and a saturable gain. 
 
-First consider modelocking inside a monolithic Ring cavity as depicted in Fig.~\ref{fig:cavities}a.  Adhereing to Haus's notation, we will denote the envelope profile at the onset of the $n^{th}$ round trip as $E_n(t)$ and with $\tilde E_n(\omega_k) $ the corresponding Fourier component at the angular frequency $\omega_k$.  Notice that here we are refering to quantities related to the slowly varying envelope of the optical field. In order to recover the electric field one needs to apply formula Eq. (\ref{eq:ringansatz-field}) or (\ref{eq:FPansatz-field}), depending on the modelled cavity geometry. 
-
-Upon propagating inside the gain the spectral components of the envelope transform as
+Equation for the inversion upon passage of a pulse 
+\begin{align}
+\dot \Delta = - \kappa_g^2T_{2g} |E|^2 \Delta  \nonumber \\
+			&= - \frac{1}{T_{1g}}\frac{|E|^2}{W_{sat}^G}\Delta, 
+\end{align}
+where $W_{sat}^G = 1/[\kappa_g^2T_{1g}T_{2g}]$ is the saturation electric field squared of the gain medium. The solution of the above equation is 
 \begin{equation}
-\label{eq:gainprop}
-\tilde E_{nG}(\omega_k) = e^{i\omega_k T_G}e^{G(\omega_k)}E_n(\omega_k), 
+\Delta(t) = \Delta_{init}\exp\{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau\}
 \end{equation}
-where the first term on the left hand side induces a phase shift due to the delay time $T_G$ and the second term is the frequency dependent gain. Upon passing through the absorber the so modified pulse exhibits further deformation 
+Thus the gain $g(t) = \sigma_\omega^g N_g \Delta(t)$ also follows the same exponential dependence.  
+
+For a FAST saturable absorber we have~\cite{haus1975theory}
 \begin{equation}
-\label{eq:gainprop}
-\tilde E_{n+1}(\omega_k) = \tilde E_{nA}(\omega_k) = e^{i\omega_k T_A}e^{-L(\omega_k)}\tilde E_{nG}(\omega_k) =e^{i\omega_k T_A}e^{-L(\omega_k)} e^{i\omega_k T_G}e^{G(\omega_k)}\tilde E_n(\omega_k). 
+l(t) = (a+q_0) -\gamma |E|^2,
 \end{equation}
-where one must be very careful to 
+where $a$ denotes the distributed losses, $q_0 = \sigma_\omega^a N_a$ is the unsaturated loss in the SA, and $\gamma = q_0/W_{sat}^A$ is the so called self-amplitude modulation (SAM) parameter.
+
+
+
+The master equation then reads
+\begin{align}
+\label{eq:master-equation}
+T_R \frac{\p E(T,t)}{\p T} &= \left[g(t) - l(t) +\Delta_f \frac{\p^2}{\p t^2}\right]E(T,t) \nonumber \\
+T_R \frac{\p E(T,t)}{\p T} &= \left[ g_{init}\exp\left \{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau \right \} - (a+q_0)  +D_f \frac{\p^2}{\p t^2} +\gamma |E|^2\right]E(T,t).
+\end{align}
+Let us expand the exponent up to second order
+\begin{align}
+g_{init}(t) \approx  g_{init}\left [ 1-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau +\frac{1}{2} \left(\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau\right)^2 \right ].
+\end{align}
+
+Now we can make the following ansatz for the solution $E(t) = E_0 \sech(\frac{t}{\tau} +\alpha \frac{T}{T_R})$ and use the expressions~\cite{haus1975theoryslow}
+\begin{align}
+\frac{1}{T_{1g}W_{sat}^G}\int_{-T_R/2}^{t} |E(T,\tau)|^2d\tau &= \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})], \\ 
+(\frac{1}{T_{1g}W_{sat}^G})^2\left (\int_{-T_R/2}^{t} |E(T,\tau)|^2d\tau \right)^2 &=  \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right), \\
+T_R\frac{\p E}{\p T} &= -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t), \\
+D_f\frac{\p^2 E}{\p t^2} &= \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) E(T,t).
+\end{align}
+
+Now combine in the master equation 
+\begin{align}
+\label{eq:master-equation2}
+ -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
+ &  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
+ &  -(a+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}E(T,t).
+\end{align}
+Or 
+\begin{align}
+\label{eq:master-equation3}
+-\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
+&  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
+&  -(a+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}.
+\end{align}
+
+Now we arrange the coefficients. If we put all terms terms before $\tanh $ together on the right hand side we get:
+\begin{align}
+\label{eq:coefs1}
+\left[\alpha -g_{init}\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} +g_{init}\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right]\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}).
+\end{align}
+If we put all terms terms before $\sech^2 $ together on the right hand side we get:
+\begin{align}
+\label{eq:coefs2}
+\left[ -g_{int}\frac{1}{2}\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 - 2\frac{D_f}{\tau^2} +\gamma|E_0|^2\right]\sech(\frac{t}{\tau}+\alpha \frac{T}{T_R}).
+\end{align}
+If we put all constant terms together on the right hand side we get:
+\begin{align}
+\label{eq:coefs3}
+g_{init}\left[1-\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}+\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right] -(a+q_0) - \frac{D_f}{\tau^2}.
+\end{align}
+
+Now the parametric regimes where the solution will exist will satisfy that all those expressions are identically zero! We try a solution with $\alpha = 0$. From Eq. (\ref{eq:coefs1}) we get that
+\begin{equation}
+\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}=1,
+\end{equation}
+which when we plug into Eq. (\ref{eq:coefs3}) yields
+\begin{equation}
+\frac{D_f}{\tau^2} = g_{init} - a-q_0. 
+\end{equation}
+and from Eq. \ref{eq:coefs3} we finally have
+\begin{equation}
+\gamma|E_0|^2 = \frac{5}{2}g_{init}-a-q_0.
+\end{equation}
+
+ToDo: Examine the solution and especially the stability condition! 
+
 
 
 \section{Some notes/thoughts on the paper}
@@ -245,42 +312,65 @@ where one must be very careful to
 \subsection{}
 	It seems that the mode locking mechanism is very sensitive to the dephasing time $T_{2a}$ of the absorber precisely of that reason! When you DECREASE the pure dephasing time by $T_{2a}\rightarrow T_{2a}/2$, then the absorption cross section $\sigma_\omega^{a} \rightarrow \sigma_\omega^{a}/2$ which LOWERS the threshold $\Delta_{0}^{th}$ due to Eq. (\ref{eq:threshold-inversion2}) and thus broadens the pulse. I expect that the parameter $p$ will thus play a vital role in the dynamics. IDEALLY always keep $p \approx 1$!  
 \subsection{}
-	Actually we can straight-forwardly derive an expression for the gain recovery time. Assume that the pulse has just passed the atom at time $t=t_0$ and perturbed the system to inversion $\Delta_0(t_0)$. Then the recovery of the gain obeys the simple ODE
-	\begin{equation}
-	\dot\Delta_0(t) = -\frac{\Delta_0(t) -\Delta_0^{eq}}{T_1},
-	\end{equation}    
-	which has the solution 
-	\begin{eqnarray}
-	\Delta_0(t) = \big(\Delta_0(t_0) -\Delta_0^{eq}\big)e^{-\frac{t-t_0}{T_1}}+\Delta_0^{eq}.
-	\end{eqnarray}
-	Now substituting $\Delta_0^{eq} = p\Delta_0^{(th)}$ and requiring that at $t=t_1$ the gain has recovered to the threshold value $\Delta_0^{th}$ we obtain an equation for the gain recovery time $\Delta T = t_1-t_0$ 
-	\begin{equation}
-	\Delta_{0}^{th} = \big(\Delta_0(t_0) - p\Delta_0^{th}\big)e^{-\frac{\Delta T}{T_1}}+p\Delta_0^{th}.
-	\end{equation}
-	with the gain recovery $\Delta T $ given by
-	\begin{equation}
-	\Delta T = T_1 \ln\frac{p\Delta_0^{th}-\Delta_0(t_0)}{\Delta_0^{th}(p-1)}.
-	\end{equation}
-	From which we can see that if $p=1$ the gain recovery time will be infinite, which is long enough for mode locking. Naturally this is not acceptable since this would mean that no lasing will be able to start whatsoever and thus the nominator of the fraction will also be small. Therefore what we are seeking to optimize is to maximize the ratio $[p\Delta_0^{th}-\Delta_0(t_0)]/[\Delta_0^{th}(p-1)]$ as a function of $p$. Now we need to see how does the maximal saturation $\Delta_0(t_0)$ depend on the system parameters.
+Actually we can straight-forwardly derive an expression for the gain recovery time. 
+
+Assume that the pulse has just passed the atom and at time $t=t_0$, perturbed the system to inversion $\Delta_0(t_0)$. What will the gain recovery be then? Well it will be the time it takes for the population inversion to recover above THRESHOLD value $\Delta_{0}^{th}$. Immediately after passage of the pulse, the population inversion obeys the following simple ODE
+\begin{equation}
+\dot\Delta_0(t) = -\frac{\Delta_0(t) -\Delta_0^{eq}}{T_{1g}},
+\end{equation}    
+which has the solution 
+\begin{eqnarray}
+\Delta_0(t) = \big(\Delta_0(t_0) -\Delta_0^{eq}\big)e^{-\frac{t-t_0}{T_{1g}}}+\Delta_0^{eq}.
+\end{eqnarray}
+Now substituting $\Delta_0^{eq} = p\Delta_0^{(th)}$ and requiring that at $t=t_1$ the gain has recovered to the threshold value $\Delta_0^{th}$ we obtain an equation for the gain recovery time $\Delta T = t_1-t_0$ 
+\begin{equation}
+\Delta_{0}^{th} = \big(\Delta_0(t_0) - p\Delta_0^{th}\big)e^{-\frac{\Delta T}{T_{1g}}}+p\Delta_0^{th}.
+\end{equation}
+with the gain recovery $\Delta T $ given by
+\begin{equation}
+\Delta T = T_{1g} \ln\frac{p\Delta_0^{th}-\Delta_0(t_0)}{\Delta_0^{th}(p-1)}.
+\end{equation}
+One can naively assume that if $p\to1+$ the gain recovery time will be infinite, which is long enough for mode locking. This is obviously not the case since we have not written down how would the saturated gain $\Delta_0(t_0)$ depend on the pump strength $p$. Intuitively, the closer the $p$ is to threshold, the weaker the saturation and hence the closer this value to $p\Delta_0^{th}$ which will render gain recovery time of 0. So we see that close to threshold there is a very peculiar dynamics which needs to be investigated in detail. To do so, we need to estimate the saturation strength as a function of the pulse intensity, which on the other hand will be a function of the pump power and possibly other system parameters. For this, we need a comprehensive model for the mode locking dynamics, possibly similar to the celebrated Haus master equation, but one which includes both the effects of a FAST saturable absorber and a SATURABLE gain, which is done in Sec. \ref{sec:haustheory}. 
+
 \subsection{}
 To investigate the dependence of the maximal saturation $\Delta_0(t_0)$ onto the different parameters we will address the equation
 \begin{equation}
 \label{eq:inversion3}
-\dot\Delta_0(t) = -\frac{\mu^2}{\hbar^2}T_{2} |E|^2\Delta_0(t) -\frac{\Delta_0-\Delta_0^{eq}}{T_1}.
+\dot\Delta_0(t) = -\frac{\mu^2}{\hbar^2}T_{2g} |E|^2\Delta_0(t) -\frac{\Delta_0-\Delta_0^{eq}}{T_{1g}}.
 \end{equation}
 Assuming instantaneous response of the inversion to the applied field, the population inversion will reach it's minimum as a function of time, at a point where $\dot\Delta_0 = 0$. This readily gives us the solution
 \begin{equation}
 \label{eq:saturation}
-\Delta_0(t_0) = p\Delta_0^{th}\times \frac{1}{\kappa^2T_1T_2|E|^2+1},
+\Delta_0(t_0) =  \frac{ p\Delta_0^{th}}{1+\kappa_g^2T_{1g}T_{2g}|E|^2} = \frac{ p\Delta_0^{th}}{1+|E|^2/W_{sat}^G} ,
 \end{equation} 
-where $\kappa = \mu/\hbar$ is the coupling parameter. First of all, we notice that $\Delta_0(t_0) >0$ for all $p$. This means that for a fixed pump parameter $p$, the maximum value of the gain recovery is $\Delta T= T_1\times\ln p/(p-1)$. Which can be arbitrarily large for $p\to 1$. There is more to it, as the saturation will not necessarily be 0 but larger. This will depend on the coupling strength $\kappa$, the saturation intensity of the gain medium $I_{sat}\propto 1/T_1T_2$ and the amplitude of the field envelope $|E|$.
+where we have used the same notation as in Sec. \ref{sec:haustheory}.
 
-Following Haus's solution \cite{haus2000mode}, we know that successful passive mode locking with a fast saturable absorber would produce a hyperbolic secant pulse satisfying the following relations
+
+First of all, we notice that $\Delta_0(t_0) >0$ for all $p$. This means that for a fixed pump parameter $p$, the maximum value of the gain recovery is $\Delta T= T_{1g}\times\ln p/(p-1)$. Which can be arbitrarily large for $p\to 1$. There is more to it, as the saturation will not necessarily be 0 but larger. This will depend on the coupling strength $\kappa_g$, the saturation intensity of the gain medium $I_{sat}\propto 1/T_{1g}T_{2g}$ and moreover on the amplitude of the field $|E|$.
+
+A formula, more revealing to the nature of the gain recovery dynamics, in a pumped two level system is thus the following
 \begin{align}
-E(t) &= E_0 \sech(t/\tau) , \\
-\frac{1}{\tau^2} &= {\gamma E_0^2\Omega_g^2}{2g} , \\
-l-g &= \frac{g}{\Omega_g^2\tau^2}.
+\Delta T = T_{1g} \ln\left[\frac{p}{\left(p-1\right)}\times\frac{|E|^2/W_{sat}^G}{\left (1+|E|^2/W_{sat}^G\right)}\right].
 \end{align}
+%Following Haus's notation and solution \cite{haus1975theory}, we know that successful passive mode locking with a fast saturable absorber would produce a hyperbolic secant pulse satisfying the following relations
+%
+% \begin{align}
+% v(t) &= v_0 \sech(t/\tau_p) , \\
+% \frac{qv_0^2}{P_A} &= \frac{2g}{\omega_L^2\tau_p^2} , \\
+% 1+q-g &= \frac{g}{\omega_L^2\tau_p^2}.
+% \end{align}
+% Below I present a table with the respective quantities and their relation to our model
+% \begin{table}
+%	\begin{tabular}{c|c|c|c}
+%		\hline
+%	\textbf{Haus-Symbol} & \textbf{Meaning} & \textbf{Units} & \textbf{Relation to our model} \\	
+%	\hline
+%	$A_A$ & Effective absorber area & $ m^2 $ & $A_A$ \\
+%	$v_0$ & $\sqrt{\text{generated power}}$  & Watts & $\sqrt{\epsilon_0n_0 c|E_0|^2 A_A}$\\
+%	$P_A$ & Saturation Power & Watts & $\frac{\hbar \omega_0 }{\sigma_\omega^a T_{1a}}\times A_A$ \\
+%	$q$ & the small signal (normalized) inverse Q of the SA & unit less & $\frac{\sigma_\omega^a L_A A_A N_A}{aL_G}$
+%	\end{tabular}
+% \end{table}
 
 \bibliography{bib_resources.bib}
 \end{document}
