@@ -167,9 +167,9 @@ Lastly, the Rabi frequency obeys the slowly varying propagation equation \cite{j
 \begin{align}
 \label{eq:propagation-eq}
 \frac{n_0}{c}\frac{\p \beta}{\p t} + \frac{\p \beta}{\p x} &= - i\frac{N\Gamma d^2 k_0}{2\epsilon_0n_0^2\hbar}(\eta_{+g}+\eta_{-g}) \nonumber \\
-		&=  -i\frac{g}{2}\Re{\eta}+\frac{g}{2}\Im{\sigma},
+		&=  -i\frac{g}{2}\Re\{\eta\}+\frac{g}{2}\Im\{\sigma\},
 \end{align}
-where $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $ is the peak value of the optical gain. The relationships between all variables of interest are schematically illustrated in Fig. \ref{fig:coupling}. 
+where $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $. The relationships between all variables of interest are schematically illustrated in Fig. \ref{fig:coupling}. 
 To completely decouple Eqs.~(\ref{eq:rhogg-system}) from Eqs.~(\ref{eq:w-system}) and (\ref{eq:propagation-eq}), we simply have to find a solution of Eqs.~(\ref{eq:rhogg-system}), for which $\Im\{\sigma\} =0$. If such a solution existed, this would have two very significant consequences. First, setting $\Im\{\sigma\} =0$ in Eq.~(\ref{eq:propagation-eq}) would mean that the real part of the Rabi frequency would propagate without interacting with the medium, i.e. some kind of a coherent regime of transparency would be observed. And second, the population of the ground electron level, $\rho_{gg}$, would remain constant, as evident from Eq.~(\ref{eq:rhoggprime}). In fact, in our previous simulation results we had already observed this approximately time-constant behaviour of the population in the ground state~\cite{tzenov2017temporal}. These observations strongly enhance our hypothesis of the onset of a two-photon process, suggested in the main body of this paper.
 \begin{figure}[h!]
 	\begin{center}
@@ -221,11 +221,11 @@ We can also discuss whether the temporal hole burning phenomena will be present 
 
 From Fig.~\ref{fig:coupling} we see that the temporal hole burning solution imposes coupling between the real and imaginary parts of $\beta(x,t)$. However since at the onset of our derivations we had imposed that $\Re\{\beta\} \gg \Im\{\beta\}$, it therefore follows that not every single field configuration will satisfy this condition and at the same time the coupling in Fig.~\ref{fig:coupling}. To derive the requirements on $\Re\{\beta\}$ we will solve the coupled system Eqs.~(\ref{eq:w-system}) and (\ref{eq:propagation-eq}) via a perturbative approach. Since the former system strongly resembles the classical two level system, we make the usual expansion of the population inversion $w=w^{(0)} + w^{(2)}$ and the polarization $\eta = \eta^{(1)} + \eta^{(3)}$, in terms of powers of $\Re\{\beta\}$. Plugging this ansatz in Eq. \ref{eq:w-system} we immediately see that $w^{(0)} = w_0 = \text{const}$ is the zeroth order solution of the inversion. In Fourier domain, the solution for $\eta^{(1)}$ goes as
 \begin{align}
--i\om\t\eta^{(1)}(\om,x) &= -i\Omega_{lr}\t\eta^{(1)}(\om,x) +i\t\beta^{re}(\om,x)w^{(0)} \nonumber \\
+-i\om\t\eta^{(1)}(x,\om) &= -i\Omega_{lr}\t\eta^{(1)}(x,\om) +i\t\beta^{re}(x,\om)w^{(0)} \nonumber \\
 	&\Leftrightarrow \nonumber \\
-	\t\eta^{(1)}(\om,x) &= \frac{1}{\Omega_{lr}-\om}\t\beta^{re}(\om,x)w^{(0)}, \label{eq:eta-1-solution} 
+	\t\eta^{(1)}(x,\om) &= \frac{1}{\Omega_{lr}-\om}\t\beta^{re}(x,\om)w^{(0)}, \label{eq:eta-1-solution} 
 \end{align}
-where $\t\eta^{(1)}(\om,x) $ and $\beta^{re}(\om,x)$ are the Fourier transforms of $\eta$ and $\Re\{\beta\}$, respectively, at the angular frequency $\omega$ and position $x$ along the cavity. We will consider only first order solutions for $\eta$ and therefore we can neglect higher order terms. 
+where $\t\eta^{(1)}(x,\om) $ and $\tilde\beta^{re}(x,\om)$ are the Fourier transforms of $\eta$ and $\Re\{\beta\}$, respectively, at the angular frequency $\omega$ and position $x$ along the cavity. We will consider only first order solutions for $\eta$ and therefore neglect higher order terms. 
 
 Addressing the propagation equation and assuming the temporal hole burning solution holds, i.e. $\sigma = 0$, then we get 
 \begin{subequations}
@@ -237,46 +237,46 @@ Addressing the propagation equation and assuming the temporal hole burning solut
 &	\frac{n_0}{c}\frac{\p \Im\{\beta\}}{\p t} + \frac{\p \Im\{\beta\}}{\p x} = -\frac{g}{2}\Re\{\eta\}. \label{eq:beta-imag-prop} 
 \end{align}
 \end{subequations}
-Again, transforming Eq. (\ref{eq:beta-real-prop}) the Fourier domain, we immediately get the solution $\t\beta^{re}(\om,x) = \t\beta^{re}(\om,0)e^{i\frac{\om n_0}{c}x}$. On the other hand, Eq. (\ref{eq:beta-imag-prop}) reduces to 
+Again, transforming Eq. (\ref{eq:beta-real-prop}) the Fourier domain, we immediately get the solution $\t\beta^{re}(x,\om) = \t\beta^{re}(0,\om)e^{i\frac{\om n_0}{c}x}$. On the other hand, Eq. (\ref{eq:beta-imag-prop}) reduces to 
 \begin{align}
--i\frac{\om n_0}{c}\t\beta^{im}(\omega,x) + \frac{\p \t\beta^{im}(\omega,x)}{\p x} = -\frac{g}{2}\frac{\t\eta(\om,x)+\t\eta(-\om,x)^*}{2}, \label{eq:beta-imag-prop-fourier} 
+-i\frac{\om n_0}{c}\t\beta^{im}(x,\om) + \frac{\p \t\beta^{im}(x,\om)}{\p x} = -\frac{g}{2}\frac{\t\eta(x,\om)+\t\eta(x,-\om)^*}{2}, \label{eq:beta-imag-prop-fourier} 
 \end{align}
 which can be directly solved, to first order in $\Re\{\beta\}$ by plugging in the solution Eq. (\ref{eq:eta-1-solution}). Now rewriting and simplifying the terms we get the ordinary differential equation 
 \begin{align}
-\frac{\p \t\beta^{im}(\omega,x)} {\p x} -i\frac{\om n_0}{c}\t\beta^{im}(\omega,x)  = -\frac{g w^{(0)} }{4}\times  \big(\frac{\t\beta^{re}(\om,x)}{\Omega_{lr}-\om} + \frac{\t\beta^{re}(-\om,x)^* }{\Omega_{lr}+\om} \big).
+\frac{\p \t\beta^{im}(x,\om)} {\p x} -i\frac{\om n_0}{c}\t\beta^{im}(x,\om)  = -\frac{g w^{(0)} }{4}\times  \big(\frac{\t\beta^{re}(x,\om)}{\Omega_{lr}-\om} + \frac{\t\beta^{re}(x,-\om)^* }{\Omega_{lr}+\om} \big).
 \end{align}
-Furthermore exploiting the symmetry of $\t\beta^{re}(\om,x)$ since it is the Fourier transform of a real function, i.e.  $\t\beta^{re}(-\om,x)  =  \t\beta^{re}(\om,x)^*$, premultiplying both sides of the previous equation with $e^{-i\frac{\om n_0}{c}x}$ and using the fact that $\t\beta^{re}(\om,x) = \t\beta^{re}(\om,0)e^{i\frac{\om n_0}{c}x}$
+Furthermore exploiting the symmetry of $\t\beta^{re}(x,\om)$ since it is the Fourier transform of a real function, i.e.  $\t\beta^{re}(x,-\om)  =  \t\beta^{re}(x,\om)^*$, premultiplying both sides of the previous equation with $e^{-i\frac{\om n_0}{c}x}$ and using the fact that $\t\beta^{re}(x,\om) = \t\beta^{re}(0,\om)e^{i\frac{\om n_0}{c}x}$
 \begin{align}
-\frac{\p \left [ \t\beta^{im}(\omega,x)e^{-i\frac{\om n_0}{c}x} \right] } {\p x}  = -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(\om,0) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}.
+\frac{\p \left [ \t\beta^{im}(x,\om)e^{-i\frac{\om n_0}{c}x} \right] } {\p x}  = -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(0,\om) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}.
 \end{align}
-After some more algebra we obtain the analytical solution of $\t\beta^{im}(\om,x)$
+After some more algebra we obtain the analytical solution of $\t\beta^{im}(x,\om)$
 \begin{equation}
 \label{eq:beta-imag-solution-fourier}
-\t\beta^{im}(\om,x) = \t\beta^{im}(\om,0)e^{i\frac{\om n_0}{c}x} -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(\om,0) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}\times x e^{i\frac{\om n_0}{c}x}.
+\t\beta^{im}(x,\om) = \t\beta^{im}(0,\om)e^{i\frac{\om n_0}{c}x} -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(0,\om) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}\times x e^{i\frac{\om n_0}{c}x}.
 \end{equation}
 Now inverse Fourier transforming Eq.~(\ref{eq:beta-imag-solution-fourier}) we obtain
 \begin{equation}
 \label{eq:beta-imag-solution-tine}
-\beta^{im}(t,x) = \beta^{im}(t-xn_0/c,0)  -x\frac{g w^{(0)} \Omega_{lr} }{2}\times \int_{-\infty}^{\infty} \frac{\t\beta^{re}(\om,0)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega.
+\beta^{im}(x,t) = \beta^{im}(0,t-xn_0/c)  -x\frac{g w^{(0)} \Omega_{lr} }{2}\times \frac{1}{2\pi} \int_{-\infty}^{\infty} \frac{\t\beta^{re}(0,\om)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega.
 \end{equation}
 The first term on the right contains the propagation part of the solution, while the second term is in general an indefinite integral of $\omega$, due to the singularities at $\omega = \pm \Omega_{lr}$. Now, from complex analysis we know that the Cauchy principle value of the latter integral is given by
 \begin{equation}
 \label{eq:pvalue}
-P \int_{-\infty}^{\infty} \frac{\t\beta^{re}(\om,0)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega = -i\pi \left[Res(f(\tilde\omega);\tilde\omega=\Omega_{lr})+Res(f(\tilde\omega);\tilde\omega=-\Omega_{lr})\right],
+P \int_{-\infty}^{\infty} \frac{\t\beta^{re}(0,\om)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega = -i\pi \left[Res(f(\tilde\omega);\tilde\omega=\Omega_{lr})+Res(f(\tilde\omega);\tilde\omega=-\Omega_{lr})\right],
 \end{equation}
-where $f(\tilde\omega) = \t\beta^{re}(\tilde\omega,0) e^{i\tilde\omega(\frac{x n_0}{c}x-t)}/[\Omega_{lr}^2-\tilde\omega^2]$ is the continuation of the integrand over the complex plane with $\tilde\omega = \omega + iu$, and $Res(f(\tilde{\omega}),\tilde\omega=\tilde\omega_i)$ denote the residuals of the function at the points $\tilde\omega_i$. Since $f(\tilde\omega)$ has simple poles at $\pm\Omega_{lr}$, we one can easily find the residuals to be 
+where $f(\tilde\omega) = \t\beta^{re}(0,\tilde\omega) e^{i\tilde\omega(\frac{x n_0}{c}x-t)}/[\Omega_{lr}^2-\tilde\omega^2]$ is the continuation of the integrand over the complex plane with $\tilde\omega = \omega + iu$, and $Res(f(\tilde{\omega}),\tilde\omega=\tilde\omega_i)$ denote the residuals of the function at the points $\tilde\omega_i$. Since $f(\tilde\omega)$ has simple poles at $\pm\Omega_{lr}$, we one can easily find the residuals to be 
 \begin{subequations}
 \label{eq:residuals}
 \begin{align}
-Res(f(\tilde{\omega});\tilde{\omega}=\Omega_{lr}) &= - \beta^{re}(\Omega_{lr},0)e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}, \\
-Res(f(\tilde{\omega});\tilde{\omega}=-\Omega_{lr}) &= \beta^{re}(-\Omega_{lr},0)e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}.
+Res(f(\tilde{\omega});\tilde{\omega}=\Omega_{lr}) &= - \beta^{re}(0,\Omega_{lr})e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}, \\
+Res(f(\tilde{\omega});\tilde{\omega}=-\Omega_{lr}) &= \beta^{re}(0,-\Omega_{lr})e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}.
 \end{align}
 \end{subequations}
 Combining Eqs.~(\ref{eq:residuals}) with Eqs.~(\ref{eq:pvalue}) and (\ref{eq:beta-imag-solution-tine}) we obtain
 \begin{subequations}
 	\begin{align}
-	\beta^{im}(t,x) &= \beta^{im}(t-xn_0/c,0)  -i\pi x\frac{g w^{(0)} \Omega_{lr} }{2}\times \left( \frac{\beta^{re}(\Omega_{lr},0)e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}}-\frac{\beta^{re}(-\Omega_{lr},0)e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}} \right) \nonumber \\
-	&= \beta^{im}(t-xn_0/c,0)+\pi x\frac{g w^{(0)}}{2}\Im\{ \beta^{re}(\Omega_{lr},x)e^{-i\Omega_{lr}t}\} 
+	\beta^{im}(x,t) &= \beta^{im}(0,t-xn_0/c)  -i\pi x\frac{g w^{(0)} \Omega_{lr} }{2}\times  \frac{1}{2\pi} \left( \frac{\beta^{re}(0,\Omega_{lr})e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}}-\frac{\beta^{re}(0,-\Omega_{lr})e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}} \right) \nonumber \\
+	&= \beta^{im}(0,t-xn_0/c)+ x\frac{g w^{(0)}}{4}\Im\{ \beta^{re}(x,\Omega_{lr})e^{-i\Omega_{lr}t}\}. 
 	\end{align}
 \end{subequations}
 

@@ -221,9 +221,9 @@ Thus the gain $g(t) = \sigma_\omega^g N_g \Delta(t)$ also follows the same expon
 
 For a FAST saturable absorber we have~\cite{haus1975theory}
 \begin{equation}
-l(t) = (a+q_0) -\gamma |E|^2,
+l(t) = (aL_g+q_0) -\gamma |E|^2,
 \end{equation}
-where $a$ denotes the distributed losses, $q_0 = \sigma_\omega^a N_a$ is the unsaturated loss in the SA, and $\gamma = q_0/W_{sat}^A$ is the so called self-amplitude modulation (SAM) parameter.
+where $aL_g$ denotes the distributed losses upon a single propagation through the laser medium, $q_0 = \sigma_\omega^a N_aL_a$ is the unsaturated loss per round trip in the SA, and $\gamma = q_0/W_{sat}^A$ is the so called self-amplitude modulation (SAM) parameter.
 
 
 
@@ -231,17 +231,18 @@ The master equation then reads
 \begin{align}
 \label{eq:master-equation}
 T_R \frac{\p E(T,t)}{\p T} &= \left[g(t) - l(t) +\Delta_f \frac{\p^2}{\p t^2}\right]E(T,t) \nonumber \\
-T_R \frac{\p E(T,t)}{\p T} &= \left[ g_{init}\exp\left \{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau \right \} - (a+q_0)  +D_f \frac{\p^2}{\p t^2} +\gamma |E|^2\right]E(T,t).
+T_R \frac{\p E(T,t)}{\p T} &= \left[ g_{init}\exp\left \{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt' \right \} - (aL_g+q_0)  +D_f \frac{\p^2}{\p t^2} +\gamma |E|^2\right]E(T,t),
 \end{align}
+where $ g_{init} =  p\Delta_0^{th} \sigma_\omega^g N_g  L_g$ is the small signal gain in one round trip. 
 Let us expand the exponent up to second order
 \begin{align}
-g_{init}(t) \approx  g_{init}\left [ 1-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau +\frac{1}{2} \left(\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau\right)^2 \right ].
+g_{init}(t) \approx  g_{init}\left [ 1-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt' +\frac{1}{2} \left(\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt'\right)^2 \right ].
 \end{align}
 
 Now we can make the following ansatz for the solution $E(t) = E_0 \sech(\frac{t}{\tau} +\alpha \frac{T}{T_R})$ and use the expressions~\cite{haus1975theoryslow}
 \begin{align}
-\frac{1}{T_{1g}W_{sat}^G}\int_{-T_R/2}^{t} |E(T,\tau)|^2d\tau &= \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})], \\ 
-(\frac{1}{T_{1g}W_{sat}^G})^2\left (\int_{-T_R/2}^{t} |E(T,\tau)|^2d\tau \right)^2 &=  \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right), \\
+\frac{1}{T_{1g}W_{sat}^G}\int_{-T_R/2}^{t} |E(T,t')|^2dt' &= \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})], \\ 
+(\frac{1}{T_{1g}W_{sat}^G})^2\left (\int_{-T_R/2}^{t} |E(T,t')|^2dt' \right)^2 &=  \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right), \\
 T_R\frac{\p E}{\p T} &= -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t), \\
 D_f\frac{\p^2 E}{\p t^2} &= \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) E(T,t).
 \end{align}
@@ -251,14 +252,14 @@ Now combine in the master equation
 \label{eq:master-equation2}
  -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
  &  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
- &  -(a+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}E(T,t).
+ &  -(aL_g+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}E(T,t).
 \end{align}
 Or 
 \begin{align}
 \label{eq:master-equation3}
 -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
 &  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
-&  -(a+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}.
+&  -(aL_g+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E_0|^2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})  \}.
 \end{align}
 
 Now we arrange the coefficients. If we put all terms terms before $\tanh $ together on the right hand side we get:
@@ -274,23 +275,35 @@ If we put all terms terms before $\sech^2 $ together on the right hand side we g
 If we put all constant terms together on the right hand side we get:
 \begin{align}
 \label{eq:coefs3}
-g_{init}\left[1-\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}+\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right] -(a+q_0) - \frac{D_f}{\tau^2}.
+g_{init}\left[1-\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}+\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right] -(aL_g+q_0) - \frac{D_f}{\tau^2}.
 \end{align}
 
 Now the parametric regimes where the solution will exist will satisfy that all those expressions are identically zero! We try a solution with $\alpha = 0$. From Eq. (\ref{eq:coefs1}) we get that
 \begin{equation}
+\label{eq:condition1}
 \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}=1,
 \end{equation}
 which when we plug into Eq. (\ref{eq:coefs3}) yields
 \begin{equation}
-\frac{D_f}{\tau^2} = g_{init} - a-q_0. 
+\label{eq:condition2}
+\frac{D_f}{\tau^2} = g_{init} - aL_g-q_0. 
 \end{equation}
-and from Eq. \ref{eq:coefs3} we finally have
+and from Eq. \ref{eq:coefs2} we finally have
 \begin{equation}
-\gamma|E_0|^2 = \frac{5}{2}g_{init}-a-q_0.
+\label{eq:condition3}
+\gamma|E_0|^2 = \frac{5}{2}g_{init}-2aL_g-2q_0.
 \end{equation}
 
-ToDo: Examine the solution and especially the stability condition! 
+Equation (\ref{eq:condition2}) can be simplified by considering that $D_f = 1/\Omega_f^2 = T_{2g}^2$ and using the threshold condition in Eq. (\ref{eq:threshold-inversion2}) we obtain the length of the pulse as
+\begin{equation}
+\label{eq:duration}
+\tau = \frac{T_{2g}}{\sqrt{(p-1)g^{th}}},
+\end{equation}
+where $g^{th} = \sigma_\omega^g N_g \Delta_0^{th}L_g$. Similarly the two other constituent relations can be written as
+\begin{align}
+|E_0|^2 = \frac{T_{1g}}{T_{2g}}W_{sat}^G\sqrt{(p-1)g^{th}}, \\
+\gamma |E_0|^2 = \frac{1}{2}(5p-4)g^{th}.
+\end{align}
 
 
 

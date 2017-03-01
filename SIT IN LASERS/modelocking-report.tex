@@ -1,0 +1,382 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arcCot}
+\DeclareMathOperator{\arccsc}{arcCsc}
+\DeclareMathOperator{\arccosh}{arcCosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arcCsch}
+\DeclareMathOperator{\arccoth}{arcCoth} 
+
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.7\textwidth]{#1}}
+\newcommand{\includegraphicsM}[1]{\includegraphics[width = 0.5\textwidth]{#1}}
+
+%\captionsetup{width=.45\textwidth}
+
+
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+
+
+
+\section{Model equations}
+We write down the MB-equations for a two level system in the rotating wave and slowly varying amplitude approximation. Depending on the type of geometry, there are two sets of MB-equations, those for a ring cavity geometry (Fig.~\ref{fig:fig1}a) and those for a Fabry-Perot such (Fig.~\ref{fig:fig1}b).  
+
+\begin{figure}
+	\includegraphicsXL{IMGS/CAVITIES}
+	\caption{Insert text here}
+	\label{fig:fig1}
+\end{figure}
+
+\subsection{Ring Cavity}
+For a ring cavity we have only unidirectional propagation and thus the system of equations is very simple.  
+\begin{align}
+& \frac{\p E}{\p x}+ \frac{n_{THz}}{c} \frac{\p E}{\p t} = -i\frac{N\Gamma\mu\omega_0}{\epsilon_0 c n_{THz}}\eta_{21}-\frac{a}{2}E.
+\\
+& \partial_t {\rho_{2,2}(t)} = i\frac{ \mu }{2 \hbar} \Big ( E^* \eta_{21} - E\eta_{21}^* \Big) -\frac{\rho_{2,2}-\rho_{2,2}^{eq}}{T_1}\text{  ,} \label{eq:inversion1}
+\\
+& \partial_t {\rho_{1,1}(t)} = - i\frac{ \mu }{2 \hbar} \Big ( E^* \eta_{21} - E\eta_{21}^* \Big) -\frac{\rho_{1,1}-\rho_{1,1}^{eq}}{T_1} \label{eq:inversion2}
+\\
+& d_t \eta_{21} = -i(\omega_{21}-\omega_0)\eta_{21}+i\frac{ \mu}{ 2 \hbar} E(\rho_{22}-\rho_{11}) - \frac{\eta_{21}}{T2} \text{  ,}
+\end{align}
+where $a = a_w+a_m$ denotes the distributed waveguide and mirror POWER losses. The boundary conditions are naturally $E(x=0,t)=E(x=L,t)$, where $L$ is the cavity length.
+
+\subsection{Fabry-Perot cavity}
+
+For a Fabry-Perot cavity we need to allow for both forward and backward travelling components of the field. The interference between those counter-propagating waves will induce intensity grating, which in turn will induce a population grating, commonly referred to as the spatial hole burning (SHB) effect. Due to the relatively slow carrier diffusion as compared to the life-times in QCLs, SHB cannot be neglected. Within the rotating wave approximation SHB is usually modelled only to first order by making the ansatz 
+\begin{align}
+\rho_{jj}(t) = \rho_{jj}^{0} + \rho_{jj}^{+}e^{2ik_0x}+\rho_{jj}^{-}e^{-2ik_0x}, 
+\end{align}
+where $\rho_{jj}^{0}$ can be interpreted as population averages, and $\rho_{jj}^{+}=(\rho_{jj}^{-})^{\ast}$ as the amplitudes of the inversion grating. Naturally for the electric field and the polarization the following ansatz also applies 
+\begin{align}
+E_{z}(x,t) &=\frac{1}{2}\left( E_{+}(x,t)e^{\mathrm{i}(k_{0}x-\omega_{0}t)} +E_{-}(x,t)e^{-\mathrm{i}(k_{0}x+\omega_{0}t)}  +c.c\right)  , \label{eq:FPansatz-field} \\
+\rho_{21}(x,t)  &  =\eta_{21}^{+}(x,t)e^{  \mathrm{i}(k_{0}x-\omega_{0}t)}  +\eta_{21}^{-}(x,t)e^{-\mathrm{i}(k_{0}x+\omega_{0}t)}  ,\label{eq:21ansatz}
+\end{align}
+
+Then the density matrix equations (after some approximations) become 
+\begin{align}
+\frac{d\rho_{22}^{0}}{dt} &= \mathrm{i}\frac{\mu}{2\hslash}\left(  E_{-}^{\ast}\eta_{21}^{-}+E_{+}^{\ast}\eta_{21}^{+}-c.c.\right) -\frac{\rho_{2,2}^{0}-\rho_{2,2}^{eq}}{T_1} \\
+\frac{d\rho_{22}^{+}}{dt} &= \mathrm{i}\frac{\mu}{2\hslash}\left[  E_{-}^{\ast}\eta_{21}^{+}-E_{+}(\eta_{21}^{-})^{\ast}\right] - \left( \frac{1}{T_1}+4k_{0}^{2}D\right)  \rho_{22}^{+},\label{eq:rtpop3grating}\\
+\frac{d\rho_{11}^{0}}{dt} &=-\mathrm{i}\frac{\mu}{2\hslash}\left(E_{-}^{\ast}\eta_{21}^{-}+E_{+}^{\ast}\eta_{21}^{+}-c.c.\right) -\frac{\rho_{1,1}^{0}-\rho_{1,1}^{eq}}{T_1} \\
+\frac{d\rho_{11}^{+}}{dt} &=-\mathrm{i}\frac{\mu}{2\hslash}\left[E_{-}^{\ast}\eta_{21}^{+}-E_{+}(\eta_{21}^{-})^{\ast}\right] -\left(  \frac{1}{T_1}+4k_{0}^{2}D\right) \rho_{11}^{+}, \label{eq:rtpop2grating} \\
+\frac{d\eta_{21}^{\pm}}{dt} & = -\mathrm{i}\left(  \omega_{21}-\omega_{0}\right) \eta_{21}^{\pm}+\mathrm{i}\frac{\mu}{2\hslash}\left[  E_{\pm}(\rho_{22}^{0}-\rho_{11}^{0})+E_{\mp}(\rho_{22}^{\pm}-\rho_{11}^{\pm})\right]-\frac{1}{T_2}\eta_{21}^{\pm},
+\end{align}
+where D is the diffusion constant, $k_0$ is the wave number and the $^{\ast}$ denotes the complex conjugate.
+
+Finally the propagation equations are
+\begin{equation}
+\frac{n_{THz}}{c}\frac{\partial E_{\pm}}{\partial {t}}\pm\frac{\partial E_{\pm}}{\partial {x}}=-i\frac{N\Gamma\mu\omega_0}{\epsilon_0 c n_{THz}}\eta_{21}^{\pm}-\frac{a}{2}E_{\pm
+}, \label{eq:rtwave}%
+\end{equation}	
+With the "reflecting" boundary conditions $E_+(x=0,t)=E_-(x=0,t)$ and $E_-(x=L,t)=E_+(x=L,t)$, where again $L$ is the cavity length, and $a$ denotes the distributed power losses. 
+
+
+\section{Threshold gain}
+
+We first examine the steady state solution of the Maxwell-Bloch equations at threshold. At and below the threshold pumping, the electric field is zero, so from Eq.~(\ref{eq:inversion1}) and (\ref{eq:inversion2}), we get the steady state solution $\bar{\Delta}_0 = \Delta_{0}^{eq} = \Delta_0^{\text{th}}$. At threshold, the peak of the gain, attained at some angular frequency $\omega$ will exactly balance the losses, so the threshold condition tells us that
+\begin{equation}
+\label{eq:gain-loss-threshold}
+\frac{N\Gamma\mu^2\omega_0}{2 \epsilon_0 c \hbar n_{THz}}\times\frac{\gamma_{21}}{\gamma_{21}^2+(\omega-\omega_{21})^2}\times\bar{\Delta}_0 =\frac{1}{2}\sigma_\omega N \Delta_0^{\text{th}} = \frac{a}{2},
+\end{equation}
+where $\gamma_{21} = T_2^{-1}$ is the dephasing rate and $\sigma_\omega$ is the gain cross-section at that particular frequency, given by
+\begin{equation}
+\label{eq:cross-section}
+\sigma_\omega = \frac{\Gamma \mu^2\omega_{0}}{\hbar\epsilon_0n_0c}\times\frac{\gamma_{21}}{\gamma_{21}^2+(\omega-\omega_{21})^2}.
+\end{equation}
+This gives us the threshold population inversion as 
+\begin{equation}
+\label{eq:threshold-inversion}
+\Delta_0^{\text{th}} = \frac{a}{\sigma_{\omega}N}, 
+\end{equation}
+where the primary lasing frequency, i.e. $\omega$, will generally be the cavity mode yielding the largest possible value of $\sigma_\omega$ and thus smallest possible value for the inversion $\Delta_{0}^{\text{th}}$. Since it is reasonable to assume that $\omega \approx \omega_{21}\approx\omega_0$, the threshold inversion is given by the formula $\Delta_0^{\text{th}} = a \times \epsilon_0 c \hbar n_{THz}/\left [N\Gamma\mu^2\omega_0 T_2\right ]$.
+We now rewrite the equation for the population inversion in terms of the "pump" strength parameter $p=\Delta_0^{\text{eq}}/\Delta_0^{\text{th}}$
+
+Note however, that the above equation is not actually true when one includes a saturable absorber in the system (Fig. \ref{fig:fig1}a). One needs to also consider the losses upon propagating inside the absorber! Assuming perfectly inverted absorber of length $L_a$, without distributed losses, then the condition in Eq. (\ref{eq:threshold-inversion}) becomes
+\begin{align}
+\label{eq:threshold-inversion2}
+&\sigma_{\omega}^{g}N_g\Delta_0^{\text{th}}L_g = aL_g+ \sigma_{\omega}^a N_a L_a, \nonumber \\
+& \Leftrightarrow \nonumber \\
+&\Delta_0^{\text{th}} = \frac{a}{\sigma_{\omega}^{g}N_g} + \frac{\sigma_{\omega}^{a}N_a L_a}{\sigma_{\omega}^{g}N_g L_g}, \nonumber \\
+& \Leftrightarrow \nonumber \\
+&\Delta_0^{\text{th}} = \frac{a}{\sigma_{\omega}^{g}N_g} +  \frac{G_a}{G_g},
+\end{align}
+where subscript/superscript indices $g$/$a$ denote the respective quantities of the gain/absorber section and $G_j = \sigma_{\omega}^{j}N_j L_j$. From Eq. (\ref{eq:threshold-inversion2}), we immediately see that 
+if $G_a>G_g$ then $\Delta_0^{th} > 0$, and no lasing will start whatsoever. 
+
+\subsection{some thoughts on the gain recovery dynamics}
+	It is important to realize that what matters is the gain recovery time ABOVE THRESHOLD and not to the steady state value $\Delta_0^{\text{eq}}$ of the inversion. This will have a large impact on the mode locking, since for a fixed $T_1$ parameter, the gain recovery time will be shorter if the threshold is LOWER and longer if the threshold is HIGHER. So for ideal results one might want to bias the cavity only slightly above threshold.
+
+	It seems that the mode locking mechanism is very sensitive to the dephasing time $T_{2a}$ of the absorber precisely of that reason! When you DECREASE the pure dephasing time by $T_{2a}\rightarrow T_{2a}/2$, then the absorption cross section $\sigma_\omega^{a} \rightarrow \sigma_\omega^{a}/2$ which LOWERS the threshold $\Delta_{0}^{th}$ due to Eq. (\ref{eq:threshold-inversion2}) and thus broadens the pulse. I expect that the parameter $p$ will thus play a vital role in the dynamics. IDEALLY always keep $p \approx 1$!  
+\section{Gain recovery time}
+Actually we can straight-forwardly derive an expression for the gain recovery time. Assume that the pulse has just passed the atom and at time $t=t_0$, perturbed the system to inversion $\Delta_0(t_0)$. What will the gain recovery be then? Well it will be the time it takes for the population inversion to recover above THRESHOLD value $\Delta_{0}^{th}$. Immediately after passage of the pulse, the population inversion obeys the following simple ODE
+\begin{equation}
+\dot\Delta_0(t) = -\frac{\Delta_0(t) -\Delta_0^{eq}}{T_{1g}},
+\end{equation}    
+which has the solution 
+\begin{eqnarray}
+\Delta_0(t) = \big(\Delta_0(t_0) -\Delta_0^{eq}\big)e^{-\frac{t-t_0}{T_{1g}}}+\Delta_0^{eq}.
+\end{eqnarray}
+Now substituting $\Delta_0^{eq} = p\Delta_0^{(th)}$ and requiring that at $t=t_1$ the gain has recovered to the threshold value $\Delta_0^{th}$ we obtain an equation for the gain recovery time $\tau_{gr} = t_1-t_0$ 
+\begin{equation}
+\Delta_{0}^{th} = \big(\Delta_0(t_0) - p\Delta_0^{th}\big)e^{-\frac{\tau_{gr}}{T_{1g}}}+p\Delta_0^{th}.
+\end{equation}
+with the gain recovery $\tau_{gr} $ given by
+\begin{equation}\label{eq:gainrecovery1}
+\tau_{gr} = T_{1g} \ln\frac{p\Delta_0^{th}-\Delta_0(t_0)}{\Delta_0^{th}(p-1)}.
+\end{equation}
+One can naively assume that if $p\to1+$ the gain recovery time will be infinite, which is long enough for mode locking. This is obviously not the case since we have not written down how would the saturated gain $\Delta_0(t_0)$ depend on the pump strength $p$. Intuitively, the closer the $p$ is to threshold, the weaker the saturation and hence the closer this value to $p\Delta_0^{th}$ which will render gain recovery time of 0. So we see that close to threshold there is a very peculiar dynamics which needs to be investigated in detail. To do so, we need to estimate the saturation strength as a function of the pulse intensity, which on the other hand will be a function of the pump power and possibly other system parameters. For this, we need a comprehensive model for the mode locking dynamics, possibly similar to the celebrated Haus master equation, but one which includes both the effects of a FAST saturable absorber and a SATURABLE gain, which is done in Sec. \ref{sec:haustheory}. 
+
+\subsection{}
+To investigate the dependence of the maximal saturation $\Delta_0(t_0)$ onto the different parameters we will address the equation
+\begin{equation}
+\label{eq:inversion3}
+\dot\Delta_0(t) = -\frac{\mu^2}{\hbar^2}T_{2g} |E|^2\Delta_0(t) -\frac{\Delta_0-\Delta_0^{eq}}{T_{1g}}.
+\end{equation}
+Assuming instantaneous response of the inversion to the applied field, the population inversion will reach it's minimum as a function of time, at a point where $\dot\Delta_0 = 0$. This readily gives us the solution
+\begin{equation}
+\label{eq:saturation}
+\Delta_0(t_0) =  \frac{ p\Delta_0^{th}}{1+\kappa_g^2T_{1g}T_{2g}|E|^2} = \frac{ p\Delta_0^{th}}{1+|E|^2/W_{sat}^G} ,
+\end{equation} 
+where we have used the same notation as in Sec. \ref{sec:haustheory}.
+
+
+First of all, we notice that $\Delta_0(t_0) >0$ for all $p$. This means that for a fixed pump parameter $p$, the maximum value of the gain recovery is $\Delta T= T_{1g}\times\ln p/(p-1)$. Which can be arbitrarily large for $p\to 1$. There is more to it, as the saturation will not necessarily be 0 but larger. This will depend on the coupling strength $\kappa_g$, the saturation intensity of the gain medium $I_{sat}\propto 1/T_{1g}T_{2g}$ and moreover on the amplitude of the field $|E|$.
+
+A formula, more revealing to the nature of the gain recovery dynamics, in a pumped two level system is thus the following
+\begin{align}
+\label{eq:gainrecovery2}
+\tau_{gr} = T_{1g} \ln\left[\frac{p}{\left(p-1\right)}\times\frac{|E|^2/W_{sat}^G}{\left (1+|E|^2/W_{sat}^G\right)}\right].
+\end{align}
+
+
+\section{Haus's theory of passive mode locking with a fast saturable absorber}
+\label{sec:haustheory}
+
+Due to the relatively low saturation intensity in quantum cascade lasers, the classical theory of mode locking with a fast saturable absorber will not apply, since the gain will also saturate. Below we will write down a master equation modelling the passive mode locking  with a FAST saturable absorber and a saturable gain. 
+
+Equation for the inversion upon passage of a pulse 
+\begin{align}
+\dot \Delta = - \kappa_g^2T_{2g} |E|^2 \Delta  \nonumber \\
+&= - \frac{1}{T_{1g}}\frac{|E|^2}{W_{sat}^G}\Delta, 
+\end{align}
+where $W_{sat}^G = 1/[\kappa_g^2T_{1g}T_{2g}]$ is the saturation electric field squared of the gain medium. The solution of the above equation is 
+\begin{equation}
+\Delta(t) = \Delta_{init}\exp\{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(\tau)|^2}{W_{sat}^G}d\tau\}
+\end{equation}
+Thus the gain $g(t) = \sigma_\omega^g N_g \Delta(t)$ also follows the same exponential dependence.  
+
+For a FAST saturable absorber we have~\cite{haus1975theory}
+\begin{equation}
+l(t) = (aL_g+q_0) -\gamma |E|^2,
+\end{equation}
+where $aL_g$ denotes the distributed losses upon a single propagation through the laser medium, $q_0 = \sigma_\omega^a N_aL_a$ is the unsaturated loss per round trip in the SA, and $\gamma = q_0/W_{sat}^A$ is the so called self-amplitude modulation (SAM) parameter.
+
+
+
+The master equation then reads
+\begin{align}
+\label{eq:master-equation}
+T_R \frac{\p E(T,t)}{\p T} &= \left[g(t) - l(t) +\Delta_f \frac{\p^2}{\p t^2}\right]E(T,t) \nonumber \\
+T_R \frac{\p E(T,t)}{\p T} &= \left[ g_{init}\exp\left \{-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt' \right \} - (aL_g+q_0)  +D_f \frac{\p^2}{\p t^2} +\gamma |E|^2\right]E(T,t),
+\end{align}
+where $ g_{init} =  p\Delta_0^{th} \sigma_\omega^g N_g  L_g$ is the small signal gain in one round trip. 
+Let us expand the exponent up to second order
+\begin{align}
+g_{init}(t) \approx  g_{init}\left [ 1-\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt' +\frac{1}{2} \left(\frac{1}{T_{1g}} \int_{-T_R/2}^{t} \frac{|E(T,t')|^2}{W_{sat}^G}dt'\right)^2 \right ].
+\end{align}
+
+Now we can make the following ansatz for the solution $E(t) = E_0 \sech(\frac{t}{\tau} +\alpha \frac{T}{T_R})$ and use the expressions~\cite{haus1975theoryslow}
+\begin{align}
+\frac{1}{T_{1g}W_{sat}^G}\int_{-T_R/2}^{t} |E(T,t')|^2dt' &= \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})], \\ 
+(\frac{1}{T_{1g}W_{sat}^G})^2\left (\int_{-T_R/2}^{t} |E(T,t')|^2dt' \right)^2 &=  \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right), \\
+T_R\frac{\p E}{\p T} &= -\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t), \\
+D_f\frac{\p^2 E}{\p t^2} &= \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) E(T,t).
+\end{align}
+
+Now combine in the master equation 
+\begin{align}
+\label{eq:master-equation2}
+-\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) E(T,t) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
+&  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
+&  -(aL_g+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E|^2  \}E(T,t).
+\end{align}
+Or 
+\begin{align}
+\label{eq:master-equation3}
+-\alpha \tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) &=  \{ g_{init}(1 - \frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} [1+\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R})]  \nonumber \\
+&  +\frac{1}{2} \left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \left(2+2\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}) - \sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})\right)  \nonumber \\
+&  -(aL_g+q_0)  + \frac{D_f}{\tau^2}\left( 1-2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R}) \right) + \gamma |E_0|^2\sech^2(\frac{t}{\tau}+\alpha \frac{T}{T_R})  \}.
+\end{align}
+
+Now we arrange the coefficients. If we put all terms terms before $\tanh $ together on the right hand side we get:
+\begin{align}
+\label{eq:coefs1}
+\left[\alpha -g_{init}\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G} +g_{init}\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right]\tanh(\frac{t}{\tau}+\alpha \frac{T}{T_R}).
+\end{align}
+If we put all terms terms before $\sech^2 $ together on the right hand side we get:
+\begin{align}
+\label{eq:coefs2}
+\left[ -g_{int}\frac{1}{2}\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 - 2\frac{D_f}{\tau^2} +\gamma|E_0|^2\right]\sech(\frac{t}{\tau}+\alpha \frac{T}{T_R}).
+\end{align}
+If we put all constant terms together on the right hand side we get:
+\begin{align}
+\label{eq:coefs3}
+g_{init}\left[1-\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}+\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2 \right] -(aL_g+q_0) + \frac{D_f}{\tau^2}.
+\end{align}
+
+Now the parametric regimes where the $\sech$ solution will exist will satisfy that all those expressions are identically zero! Those are three equations with three unknowns $\alpha, E_0 $ and $\tau$ that establish the relationship between the SA and laser configurations as well as the pulse characteristics. More importantly, Eq. (\ref{eq:}) reveals that in order for a solution to even exist, it requires that 
+\begin{align}
+\left (\gamma|E_0|^2 -g_{int}\frac{1}{2}\left(\frac{|E_0|^2\tau}{T_{1g}W_{sat}^G}\right)^2\right)=2\frac{D_f}{\tau^2}>0, 
+\end{align}
+which in accordance to the standard mode locking results \cite{haus1975theoryslow} can be interpreted as a requirement that the absorber should saturate more than the gain in order to open a net gain window -> see Fig. \ref{fig:SCHEMA}. 
+\begin{figure}[H]
+	\centering
+	\includegraphicsM{IMGS/SCHEMA}
+	\caption{Insert text here}
+	\label{fig:SCHEMA}
+\end{figure}
+
+\section{Simulation results}
+\subsection{RING Cavity QCLs}
+
+First we restrict our attention to ring-cavity QCLs.
+
+Indeed it seems that the gain recovery dynamics of QCLs imposes some stringent limits onto the ability to mode lock the device. But as discussed above - the GR-time is a dynamic parameter of the system which depends not only on the T1 parameter but also on the pump above threshold $p$, the saturation intensity of the gain $W_{sat}^G$ as well as the intracavity intensity $|E_0|^2$. 
+
+Even though the Haus solution from the previous section gives us some insight into the processes that contribute to pulse formation, the approximations that need to be satisfied so that Eq.~(\ref{eq:master-equation3}) is a valid model are, in general, violated in QCLs. For instance, Haus's master equation is derived by assuming that one can expand the exponential dependence of the saturable gain to second order in it's arguments. 
+In order for this to be possible, the gain saturation needs to be only a fraction of it's small signal value, which due to the high coupling strength in QCLs is rarely the case. Also, in the original paper \cite{haus1975theory,haus1975theoryslow}, Haus assumes that the variations in the steady state pulse during one round trip in the cavity are small. This allows him to expand the Lorentzian gain formula to second order around the carrier frequency. Although this might be a good approximation for solid state lasers, where the interaction path is only a fraction of the total cavity length, this condition is violated in the envisioned by us systems, since the pulse constantly interacts either with the SA or the laser medium -> i.e. in a sense we get a "breathing" pulse signal. 
+
+In the following section, keeping all other parameters fixed, we varied the inversion recovery time of the gain, i.e. $T_{1g}$, and observed the effect of this parameter on the mode locking behaviour. The rest of the system parameters are summarized in table~\ref{tab:params}. 
+\begin{table}
+{	\centering 
+	\begin{tabular}{c c}	
+		Absorber & Gain \\
+	{\begin{tabular}{|c | c|}
+		\hline
+		Dipole matrix. el ($\mu_{a}$) & 4 nm \\ 
+		Resonant freq. ($f_{0a}$) & 2.45 THz \\
+		Recovery time ($T_{1a}$) & 2 ps \\ 
+		Dephasing time ($T_{2a}$) & 1 ps \\
+		Length ($L_a$)  & 0.85 mm \\
+		Doping density ($N_a$)  & 3.7$\times 10^{14}$ cm$^{-3}$\\
+		\hline
+	\end{tabular}}
+	&
+	{\begin{tabular}{|c | c|}
+		\hline
+		Dipole matrix. el ($\mu_{a}$) & 2 nm \\ 
+		Resonant freq. ($f_{0a}$) & 2.45 THz \\
+		Recovery time ($T_{1a}$) & 10-30 ps \\ 
+		Dephasing time ($T_{2a}$) & 1 ps \\
+		Length ($L_a$)  & 2.00 mm \\
+		Doping density ($N_a$)  & 1.9$\times 10^{15}$ cm$^{-3}$\\
+		\hline
+	\end{tabular}}
+	\end{tabular}
+	\caption{haha}
+	\label{tab:params}
+}\end{table}
+\newpage
+\subsection{T1 = 30 ps}
+\begin{figure}[H]
+	\centering
+	\includegraphicsXL{IMGS/T1g-30ps}
+	\caption{Insert text here}
+	\label{fig:T130}
+\end{figure}
+
+The round trip time of a ring cavity laser with background refractive index $n=3.6$ and total cavity length of 2.85 mm is approximately 34 ps. 
+
+Figures~\ref{fig:T130}a-\ref{fig:T130}b illustrate the spectrum, intracavity intensity and the dependence of the gain recovery, calculated with Eq.~(\ref{eq:gainrecovery2} for $p =1.1$ and $T_{1g} = 30$ ps. From Fig.~\ref{fig:T130}b, we see that a little after the pulse has passed, $\tau_{gr}$ peaks to approximately 45 ps, which is long enough. When we vary $p$, the pulse full width at half maximum (FWHM) exhibits $1/\sqrt{(p-1)}$ dependence on the pump parameter $p$, whereas the intracavity power is proportional to $(p-1)^2$. Figure~\ref{fig:T130}d, illustrates the gain recovery time as a function of the pump strength $p$. We see that whereas $\tau_{gr}$ drops with increasing $p$, by virtue of Eq.~(\ref{eq:gainrecovery1}), for $p=1.5$ it remains sufficiently long as to enable fundamental mode locking. Thus we observed fundamental mode locking for all values of $p$.
+\newpage
+\subsection{T1 = 20 ps}
+\begin{figure}[H]
+	\centering
+	\includegraphicsXL{IMGS/T1g-20ps}
+	\caption{Insert text here}
+	\label{fig:T120}
+\end{figure}
+
+
+Figures~\ref{fig:T120}a-\ref{fig:T120}b illustrate the spectrum, intracavity intensity and the dependence of the gain recovery, for $p =1.1$ and $T_{1g} = 20$ ps. From Fig.~\ref{fig:T120}b, we see that a little after the pulse has passed, $\tau_{gr}$ peaks to approximately 33 ps, which is ALSO long enough. When we vary $p$, the pulse FWHM also exhibits $1/\sqrt{(p-1)}$ dependence, whereas the intracavity power is proportional to $(p-1)^2$. Figure~\ref{fig:T120}d, illustrates the gain recovery time as a function of the pump strength $p$. We see that $\tau_{gr}$ drops with increasing $p$ but for $p=1.5$ it  still remains sufficiently long ($\approx$22 ps) as to enable fundamental mode locking. Thus we observed fundamental mode locking for all values of $p$.
+\newpage
+\subsection{T1 = 10 ps}
+\begin{figure}[H]
+	\centering
+	\includegraphicsXL{IMGS/T1g-10ps}
+	\caption{Insert text here}
+	\label{fig:T110}
+\end{figure}
+Figures~\ref{fig:T110}a-\ref{fig:T110}b illustrate the spectrum, intracavity intensity and the dependence of the gain recovery, for $p =1.1$ and $T_{1g} = 10$ ps. From Fig.~\ref{fig:T110}b, we see that a little after the pulse has passed, $\tau_{gr}$ peaks to approximately 23 ps, which is twice longer than $T_{1g}$ and still enables fundamental mode locking. When we vary $p$, the pulse FWHM also exhibits $1/\sqrt{(p-1)}$ dependence, whereas the intracavity power is proportional to $(p-1)^2$. In Fig.~\ref{fig:T110}c, however there is a small kink in both lines at p=1.2. This is due to the fact that at this point the laser switches from the fundamental mode locking solution to a regime of so called second harmonic mode locking, i.e. the laser no longer emits a single pulse per round trip, but rather two pulses per round trip. To understand why this happens, we consider  Fig.~\ref{fig:T110}d, which illustrates the gain recovery time as a function of the pump strength $p$. There we see that at $p>1.2$, $\tau_{gr}$ is two or more times faster than the round trip time. When this is true, the single pulse splits into two pulses identical copies such that, as seen by the inversion, the effective round trip time reduces to about half of the original value. 
+\bibliography{bib_resources.bib}
+
+\end{document}
+
