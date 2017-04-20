@@ -1,0 +1,196 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                File: OpEx_temp.tex                  %
+%             Created: 2 September 2009               %
+%                Updated: 15 May 2015                 %
+%                                                     %
+%           LaTeX template file for use with          %
+%           OSA's journals Optics Express,            %
+%             Biomedical Optics Express,              %
+%            and Optical Materials Express            %
+%                                                     %
+%  send comments to Theresa Miller, tmiller@osa.org   %
+%                                                     %
+% This file requires style file, opex3.sty, under     %
+%              the LaTeX article class                %
+%                                                     %
+%   \documentclass[10pt,letterpaper]{article}         %
+%   \usepackage{opex3}                                %
+%                                                     %
+%                                                     %
+%       (c) 2015 Optical Society of America           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%% preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\uline{\underline}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+
+%%%%%%%%%%%%%%%%%%%%%%% begin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%%%%%%%%%%%%%%%%%% title page information %%%%%%%%%%%%%%%%%%
+	\title{Simple template for authors submitting to OSA Express Journals}
+	
+	\author{Petar Tzenov$^{1,*}$, Christian Jirauschek$^1$ and David Burghoff$^{2}$}
+	
+\address{$^1$ Institute for Nanoelectronics, Technische Universit\''at M\''unchen, D-80333 Munich, Germany}
+	\address{$^2$ Somewhere in MIT, US}
+	
+	\email{$^*$petar.tzenov@tum.de} %% email address is required
+	
+	% \homepage{http:...} %% author's URL, if desired
+	
+	%%%%%%%%%%%%%%%%%%% abstract and OCIS codes %%%%%%%%%%%%%%%%
+	%% [use \begin{abstract*}...\end{abstract*} if exempt from copyright]
+	
+	\begin{abstract}
+		A simple template with few examples is provided for preparing \textit{Optics Express}, \textit{Biomedical Optics Express}, and \textit{Optical Materials Express} manuscripts in \LaTeX. For complete instructions, refer to \texttt{OpEx\_temp.txt}. The Express journal simple and extended templates are also available on \url{http://www.overleaf.com/gallery/tagged/osa}. OSA encourages the use of this free online collaborative tool for writing your OSA article.
+	\end{abstract}
+	
+	\ocis{(000.0000) General.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE, MINIMUM OF TWO; Avoid using the OCIS codes for Ã¢ÂÂGeneralÃ¢ÂÂ or Ã¢ÂÂGeneral scienceÃ¢ÂÂ whenever possible.
+	
+	%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{thebibliography}{99}
+		
+		\bibitem{gallo99} K. Gallo and G. Assanto, ``All-optical diode based on second-harmonic generation in an asymmetric waveguide,'' \josab {\bf 16}(2), 267--269 (1999).
+	\end{thebibliography}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Dressed states derivation}
+	
+	EOM in the TB basis
+	
+	\begin{align}
+	\label{eq:vonNeumannmatrix}
+	& \frac{d}{dt} \begin{pmatrix}
+	\rho_{1'1'}& \rho_{1'3} & \rho_{1'2} \\
+	\rho_{31'} & \rho_{33} & \rho_{32} \\ 
+	\rho_{21'} & \rho_{23} & \rho_{22}
+	\end{pmatrix}  =   \frac{i}{\hbar}\left [
+	\begin{pmatrix}
+	\rho_{1'1'}& \rho_{1'3} & \rho_{1'2} \\
+	\rho_{31'} & \rho_{33} & \rho_{32} \\ 
+	\rho_{21'} & \rho_{23} & \rho_{22}
+	\end{pmatrix} , 
+	\overbrace{\begin{pmatrix} 
+		\frac{\hbar \epsilon}{2} & \hbar\Omega_{1'3} & 0 \\
+		\hbar\Omega_{1'3}  & -\frac{\hbar	\epsilon}{2} &  \hbar\Omega_{L}(t) \\
+		0  &\hbar\Omega_{L}(t) & -\frac{\hbar \epsilon}{2}-\hbar\omega_{0}   
+		\end{pmatrix} }^{\text{resonant tunneling and radiative coupling}}
+	\right ]  \nonumber \\
+	& + 
+	\underbrace{\begin{pmatrix}
+		-\frac{\rho_{1'1'}}{\tau_{1'}} + (\frac{1}{\tau_{31'}}+\frac{1}{\tau_{31}})\rho_{33}  +  (\frac{1}{\tau_{21'}}+\frac{1}{\tau_{21}})\rho_{22} & \tau_{\parallel 1'3}^{-1}\rho_{1'3} & \tau_{\parallel 1'2}^{-1}\rho_{1'2}\\
+		\tau_{\parallel 1'3}^{-1}\rho_{31'} & \frac{\rho_{1'1'}}{\tau_{1'3}}   - \frac{\rho_{33}}{\tau_{3}} +  \frac{\rho_{22}}{\tau_{23}} &  \tau_{\parallel 32}^{-1}\rho_{32}\\
+		\tau_{\parallel 1'2}^{-1}\rho_{21'}& \tau_{\parallel 32}^{-1}\rho_{32} &	\frac{ \rho_{1'1'}}{\tau_{1'2}} + \frac{\rho_{33} }{\tau_{32}} 	- \frac{\rho_{22}}{\tau_2}
+		\end{pmatrix}}_{\text{scattering rates matrix}},
+	\end{align}
+	
+	Due to the non-diagonal shape of the Hamiltonian in Eq. \ref{eq:vonNeumannmatrix}, the system will have a non-trivial time evolution even in the absence of scattering states( provied that the initial condition is not alredy in an eigenstate of $\bar H$ ).  In the absence of lasing field the diagonalization of
+	$$
+	H_{TB} = \begin{pmatrix} 
+	\frac{\hbar \epsilon}{2} & \hbar\Omega_{1'3} & 0 \\
+	\hbar\Omega_{1'3}  & -\frac{\hbar	\epsilon}{2} &  0 \\
+	0  & 0 & -\frac{\hbar \epsilon}{2}-\hbar\omega_{0}   
+	\end{pmatrix} 
+	$$ 
+	boils down to diagonalization of the $2\times2$ submatrix:
+	$$
+	H_{TB}^{2\times2} = \begin{pmatrix} 
+	\frac{\hbar \epsilon}{2} & \hbar\Omega_{1'3} \\
+	\hbar\Omega_{1'3}  & -\frac{\hbar	\epsilon}{2} \\
+	\end{pmatrix} 
+	$$
+	The eigenenergies are given by 
+	$$
+	E_{\pm} = \hbar \omega_\pm = \pm \frac{1}{2} \hbar \sqrt{\epsilon^2+4\Omega_{1'3}^2}.
+	$$
+	
+	The corresponding eigenstates $\Ket{\pm} = (\alpha_{\pm},\beta_{\pm})$ solve the equation (dropping the $\hbar$'s):
+	$$
+	(\frac{\epsilon}{2}-\omega_\pm)\alpha_\pm + \Omega_{1'3}\beta_\pm = (\frac{\epsilon}{2}\mp \frac{1}{2}\sqrt{\epsilon^2+4\Omega_{1'3}^2})\alpha_\pm + \Omega_{1'3}\beta_\pm =0.
+	$$
+	This gives us:
+	\begin{align}
+	\alpha_{\pm} &= \frac{2\Omega_{1'3}}{(\epsilon\mp \sqrt{\epsilon^2+4\Omega_{1'3}^2})}, \\
+	\beta_{\pm} &= -1.
+	\end{align}
+	
+	Defining $\tan\theta = -\frac{2\Omega_{1'3}}{(\epsilon+\sqrt{\epsilon^2+4\Omega_{1'3}^2})}$ and noting that 
+	$$
+	-\frac{2\Omega_{1'3}}{(\epsilon+\sqrt{\epsilon^2+4\Omega_{1'3}^2})}\frac{2\Omega_{1'3}}{(\epsilon-\sqrt{\epsilon^2+4\Omega_{1'3}^2})} = \tan \theta \frac{2\Omega_{1'3}}{(\epsilon-\sqrt{\epsilon^2+4\Omega_{1'3}^2})} = 1,
+	$$
+	it follows that:
+	\begin{align}
+	\Ket{+} &= C_+\left( \cot\theta \Ket{1'} -1\Ket{3}\right), \\
+	\Ket{-} &= C_-\left (-\tan\theta \Ket{1'} -1\Ket{3}\right),\\
+	\end{align}
+	where $C_\pm$ are normalization constants. After normalization and using the trigonometric identities: 
+	\begin{align}
+	\sin\theta &= \frac{1}{\sqrt{1+\cot^2\theta}} ,\text{ for } \theta \in (0;\pi) \\
+	\cos\theta &= \frac{1}{\sqrt{1+\tan^2\theta}} ,\text{ for } \theta \in (-\pi/2;\pi/2) \\
+	\end{align}
+	we obtain:
+	\begin{align}
+	\Ket{+} &= \frac{1}{\sqrt{1+\cot^2\theta }} (\cot\theta \Ket{1'} -1\Ket{3}) = \cos\theta \Ket{1'} -\sin\theta\Ket{3} , \\
+	\Ket{-} &= \frac{1}{\sqrt{1+\tan^2\theta }} (-\tan\theta \Ket{1'} -1\Ket{3}) = \sin\theta\Ket{1'} + \cos\theta\Ket{3}, 
+	\end{align}
+	where in the last equation we have absorbed the $-$ sign due to the freedom of choosing an arbitrary overall phase of the state. We see that both basis states are related via the rotation matrix: 
+	$$
+	U(\theta) = \begin{pmatrix} 
+	\cos\theta & -\sin\theta \\
+	\sin\theta & \cos\theta \\
+	\end{pmatrix} , 
+	$$
+	the inverse transform is thus given by:
+	\begin{align}
+	\Ket{1'} &= \cos\theta \Ket{+} +\sin\theta\Ket{-} , \\
+	\Ket{3} &=  -\sin\theta\Ket{+} + \cos\theta\Ket{-}, 
+	\end{align}
+	
+	Now to find the density matrix in the new basis we simply need to employ the rotation transformation above, 
+	\begin{align}
+	\rho_{++} &= \Bra{+}{\hat{\rho}}\Ket{+} = \cos\theta^2\rho_{1'1'}+\sin^2\theta\rho_{33} - 2\cos\theta\sin\theta \Re\{\rho_{1'3}\}, \\
+	\rho_{--} &= \Bra{-}{\hat{\rho}}\Ket{-} = \cos\theta^2\rho_{1'1'}+\sin^2\theta\rho_{33} + 2\cos\theta\sin\theta \Re\{\rho_{1'3}\}.
+	\end{align}
+	
+	
+	Comb generation via self-injection locking FWM: 
+	\begin{enumerate}
+		\item FWM provides the mode-proliferation mechanism for free running THz QCLs
+		\item when dispersion is relatively small, FWM would be efficient and could lead to mutual mode-locking of corresponding pairs of frequencies (which mix nonilnearly) being separated by one and the same frequency spacing. I.e. the FWM enforces the comb condition if intracavity power is strong enough and FWM is efficient enough. 
+		\item There are two cases to consider 1) a free running QCL with a spectral gap or 2) one without. It can be expected that case 1) will be less beneficial for comb formation because the absence of cross-talk between the spectral lobe components could induce temporal hole burning due to the different group velocities of the corresponding pulses. If however there is no spectral gap in the gain, FWM could enforce equal line-spacing accross the whole bandwidth of the gain and thus form a comb. 
+	\end{enumerate}
+		
+		  
+	
+	\end{document}

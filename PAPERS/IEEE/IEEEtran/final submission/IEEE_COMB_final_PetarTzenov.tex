@@ -1,0 +1,562 @@
+\documentclass[journal]{IEEEtran}
+
+\renewcommand{\baselinestretch}{1.0} % Change to 1.65 for double spacing
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{cite}
+%necessary for outline section of the article 
+%\usepackage{outline}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\includegraphicsL}[1]{\includegraphics[width=0.80\textwidth]{#1}}
+\newcommand{\includegraphicsS}[1]{\includegraphics[width=0.40\textwidth]{#1}}
+\newcommand{\includegraphicsXS}[1]{\includegraphics[width=0.35\textwidth]{#1}}
+\newcommand{\includegraphicsBIO}[1]{\includegraphics[width=1.1in,height=1.1in,clip,keepaspectratio]{#1}}
+\title{Analysis of operating regimes of terahertz quantum cascade laser frequency combs}
+\author{\IEEEauthorblockN{Petar Tzenov\IEEEauthorrefmark{1},
+		David Burghoff\IEEEauthorrefmark{2},
+		Qing Hu\IEEEauthorrefmark{2}, 
+		Christian Jirauschek\IEEEauthorrefmark{1}}
+	
+	\IEEEauthorblockA{\IEEEauthorrefmark{1}Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+	
+	\IEEEauthorblockA{\IEEEauthorrefmark{2}Department of Electrical Engineering and Computer Science, Research Laboratory of Electronics, Massachusetts Institute of Technology, Cambridge, Massachusetts 02139, USA}
+	\thanks{Corresponding author: P. Tzenov (email: petar.tzenov@tum.de).}}
+\IEEEtitleabstractindextext
+
+\begin{document} 
+	\maketitle	
+\begin{abstract}
+In recent years, quantum cascade lasers (QCLs) have shown tremendous potential for the generation of frequency combs in the mid-infrared (midIR) and terahertz (THz) portions of the electromagnetic spectrum. The research community has experienced success both in the theoretical understanding and experimental realization of QCL devices, capable of generating stable and broadband frequency combs. Specifically, it has been pointed out that four wave mixing (FWM) is the main comb formation process and group velocity dispersion (GVD) is the main comb degradation mechanism. As a consequence, special dispersion compensation techniques have been employed, in order to suppress the latter and simultaneously enhance the former processes. Here, we perform a detailed computational analysis of four wave mixing, group velocity dispersion and spatial hole burning (SHB), all known to play a role in QCLs, and show that SHB has a considerable impact on whether the device will operate as a comb or not. We therefore conclude that for a successful implementation of a quantum cascade laser frequency comb, one would need to address this effect as well. 
+\end{abstract}
+
+\IEEEoverridecommandlockouts
+\begin{IEEEkeywords}
+	Quantum cascade lasers, nonlinear optics, terahertz radiation.
+\end{IEEEkeywords}
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+\label{sec:introduction}
+The quantum cascade laser frequency comb is an emerging technology with a wide range of applications~\cite{ye2005femtosecond}, most prominently in spectroscopy~\cite{schliesser2012mid}. The need for an on-chip direct comb source in the mid- and far-infrared portions of the electromagnetic spectrum has been the main motivation driving the research in this area. Experimental realizations of QCL combs, first in the midIR~\cite{hugi2012mid} and later in the THz~\cite{burghoff2014terahertz}, have set the stage for a fruitful discussion on the topic, resulting both in extension of the bandwidth of a THz QCL to an octave \cite{rosch2015octave} and also to a series of successful proof-of-concept spectroscopic experiments \cite{villares2014dual,yang2016terahertz}. Interestingly, it has been also shown~\cite{yang2016terahertz} that even given a noisy comb source, one can still perform credible spectroscopic measurements by computationally post-processing the experimental data~\cite{Burghoff1601227}.
+
+%The generation of a frequency comb by a quantum cascade laser faces some immediate challenges still to be overcome. Specifically, in the THz one of the biggest problems remains the realisation of a room-temperature operating device, or at least one that can be inexpensively cooled while in use. Unfortunately, possibly due to limitations on state of the art THz QCL designs~\cite{albo2015investigating}, research efforts in this direction have generally stalled, with the current record-holding operating temperature fixed at $\approx$ 200 K, remaining unbroken since 2012~\cite{fathololoumi2012terahertz}. Recent work in~\cite{albo2017temperature}, however, has indicated that if one wants to push this limit higher, serious QCL design re-considerations would need to be implemented.
+
+The general mechanisms contributing to the comb formation and destabilization have been well understood, but due to the complex laser dynamics involved, there still lacks a concrete "recipe" for the making of the perfect QCL frequency comb. Ideally this device should be of very large bandwidth, emit a coherent multimode spectrum with uniform power distribution and also maintain the comb performance over a large dynamic range. Coming up with such a design requires
+ quantitatively accurate theoretical models, which depend on as little empirical fitting parameters as possible.
+
+Several recent theoretical treatments~\cite{khurgin2014coherent,villares2015quantum}, based on a modal expansion of the electric field and perturbative solution of the density matrix equations, have attempted to fill this gap. Yielding an easy to analyze model, those approaches nevertheless have some limitations as they do not include the spatial dependence of the modes, assume equidistant mode-spacing, and treat spatial hole burning indirectly. In our recent work~\cite{petz2016} we have shown that a full time-domain simulation approach, based on a more general set of equations, can represent reality more accurately and still be susceptible to robust analysis.
+
+Broadly speaking, mathematical models of a certain physical system can be simplistic enough as to provide us with analytical solutions and thus intuitive physical insights, or general enough as to be closer to reality, but less susceptible to analytical treatment. Our work is based in the latter part of this dichotomy, as we combine accurate numerical schemes with efficient computer implementation to perform simulations of terahertz quantum cascade lasers with high fidelity.
+
+This work can be considered as an extension of our publication in~\cite{petz2016}, as we use the numerical framework presented there to perform a careful study of the comb formation and comb degradation mechanisms in a typical resonant phonon THz QCL. A major assertion, and probably the main conclusion of our research, is our observation indicating that spatial hole burning can play a very large role in the comb degradation process. Our data clearly shows that SHB induces irregular variations in the phase and amplitude of each lasing mode, resulting in non-comb regimes of operation. We further show that upon suppression of SHB, one can recover the comb character of the laser, albeit over a reduced spectral bandwidth. This result also corresponds to recent experimental findings affirming that single-mode instabilities, introduced by spatial hole burning, yield an incoherent "dense" emission spectrum, when the QCL is driven a little above threshold \cite{mansuripur2016}.  
+
+This paper is organized as follows: In Sec.~\ref{sec:theory} we give an overview of the model, introduced in detail in~\cite{petz2016}. In Sec.~\ref{sec:proliferation} we perform a series of what we will call "computational experiments" in order to identify the main mode proliferation mechanism in the device. Section~\ref{sec:combdegradation} is dedicated on the analysis of the main comb-degradation effects, and lastly, Sec.~\ref{sec:time-evo} presents results from long time-simulations of free-running, self-starting THz QCLs, demonstrating sufficient conditions for the laser to operate in a comb and non-comb regime. Further, in the same section we show the dramatic effect of spatial hole burning on the comb coherence. In that sense SHB is considered both as a mode proliferation and as a comb-degradation process.
+\section{Model}
+\label{sec:theory}
+Typical resonant phonon THz quantum cascade lasers employ resonant tunneling for effective electron injection into the upper laser level and a longitudinal optical (LO) phonon emission process for rapid depletion of the lower laser state~\cite{williams2007terahertz}. Due to the ultrafast dynamics of the LO phonon effect, these lasers are known to have very short gain recovery time and broad spectral bandwidth~\cite{wang2015generating}, making them perfect candidates for frequency comb generation. 
+
+Traditional modelling of such devices, depending on the level of complexity, can be divided into four categories~\cite{jirauschek2014modeling}: rate equations \cite{indjin2003mechanisms,yang2010rate}, the density matrix approach and the related  Maxwell-Bloch equations \cite{iotti2001,weber2009,talukder2010self,wang2015active,terazzi2010density}, stochastic Monte-Carlo simulation techniques \cite{iotti2000hotcarrier,callebaut2004montecarlo,jirauschek2009monte,shi2014nonequilibrium} and fully quantum mechanical nonequilibrium Green's function simulations~\cite{wacker2002gain,kubis2009theory,wacker2013nonequilibrium}. A good trade-off between computational efficacy and proximity to the physical reality is provided by the semi-classical Maxwell-Bloch equations, while the rate equations lack the necessary accuracy, and the Monte-Carlo and non-equilibrium Green's function approaches are too computationally demanding for fast prototyping.
+
+Therefore we model the time-evolution of resonant phonon THz QCLs via the Maxwell-Bloch equations. In our previous contribution we extended the standard two level Bloch equations to a three level density matrix equation, by including the resonant tunneling coupling between the injector and the upper laser level~\cite{petz2016}. We then employed the rotating wave and the slowly varying envelope approximations to derive a system of coupled partial and ordinary differential equations modelling the laser under investigation. Similar work had been previously published \cite{callebaut2005importance,kumar2009coherence,dupont2010simplified}, however the authors had focused only on the steady state behaviour and thus neglected transient effects, such as multimode instabilities~\cite{wang2007coherent} and temporal hole burning~\cite{burghoff2015evaluating}, which have been shown to have immense impact on the laser behaviour. 
+
+Following the reasoning in~\cite{callebaut2005importance}, we consider the resonant tunneling transition between the injector and upper laser levels within the tight-binding approximation \cite{bastard1990wave, kumar2009coherence}.  This allows us to treat the optical and tunneling couplings fully coherently via a density matrix approach, whereas all other scattering mechanisms, e.g. LO phonon, electron-electron, impurity and interface roughness scattering etc. are considered phenomenologically by rate equations. 
+
+Considering only the injector state, $\ket{1'}$, and the upper and lower laser levels, i.e. $\ket{3}$ and $\ket{2}$, respectively, the tight-binding Hamiltonian of this system can be written in the rotating wave approximation (RWA) as~\cite{boyd2003nonlinear}
+\begin{align}
+\label{eq:hamiltonian-operatorform}
+\h{H}^{\text{RWA}} &= \hbar(\epsilon + \Delta) \h\sigma_{1',1'} +\hbar\Delta\h\sigma_{3,3}  \nonumber \\ &+ (\hbar\Omega_{1'3}\h\sigma_{1',3} +\frac{q_0z_{32}}{2}f \h\sigma_{3,2}+H.c.).
+\end{align}
+In Eq.~(\ref{eq:hamiltonian-operatorform}) we have made the usual ansatz decomposing the electric field $E_z(x,t) = \Re\{f(x,t) e^{i(k_0x-\omega_0t)}\}$ into the product of an envelope function $f(x,t)$ and a carrier wave with central angular frequency $\omega_0$ and wave number $k_0 = n\omega_0/c$. We have implicitly taken that the semiconductor growth direction of the QCL is along the z-axis and thus $E_z$ is the only component of the field coupling to the atomic system. Further,  $\epsilon$ denotes the ${1'}\leftrightarrow{3}$ detuning,  $n$ the background refractive index,  $c$ the velocity of light in vacuum, $q_0$ the elementary charge and $z_{32} = \bra{3}\h{z}\ket{2}$ the dipole matrix element between states $\ket{3}$ and $\ket{2}$, where $\h{z}$ is the z-component of the position operator. Also $\hbar\Omega_{1'3}$ denotes the tunneling coupling energy, $\Delta = \omega_{32} -\omega_0$ is the detuning of the electric field from $3\leftrightarrow 2$ resonance, and we have set the energy of the lower level to zero, i.e. $E_2 = 0$. Finally, $\h \sigma_{i,j}$ denote the atomic projection operators and "$H.c.$" the Hermitian conjugate.
+
+The state of the three level system at any point in time is captured by the density matrix operator $\h{\rho}^{\text{RWA}}$, which is also taken in the RWA. The time evolution of this quantity is given by
+\begin{equation}
+\label{eq:vonNeumann}
+\frac{d \h{\rho}^{\text{RWA}}}{dt} = -\frac{i}{\hbar}[\h{H}^{\text{RWA}};\h{\rho}^{\text{RWA}}] + \left.\frac{d\h{\rho}^{\text{RWA}}}{dt}\right|_{\text{coll}},
+\end{equation}
+where $[\cdot;\cdot]$ is the usual quantum mechanical commutator and the last term denotes the phenomenologically included "collision terms" modelling the interaction of this system with the environment, and is written within a standard scattering rates approach~\cite{iotti2005microscopic}. Those rates are not taken as empirical values, but they were rather calculated with our ensemble Monte Carlo simulation code~\cite{jirauschek2014modeling}, which incorporates all relevant incoherent scattering mechanisms for quantum cascade lasers \cite{jirauschek2009monte,jirauschek2010monte,jirauschek2014modeling}.
+
+In order to complete the description of the system, we simulate the time evolution of a forward and a backward travelling component of the field envelope with the aid of a pair of propagation equations, and we also extend Eq.~(\ref{eq:hamiltonian-operatorform}) accordingly,  to include  spatial hole burning (SHB)~\cite{gordon2008multimode}, as well as the effect of additional laser levels from a single period of the active region. Since the resulting system of equations has been published elsewhere~\cite{petz2016}, we omit further details on the technicalities, and instead focus our attention on the possible applications of our model for QCL device characterization. 
+
+\section{Mode proliferation mechanisms}
+\label{sec:proliferation}
+
+Both theoretical~\cite{khurgin2014coherent} and experimental~\cite{friedli2013four} investigations have confirmed that four wave mixing (FWM), induced by the large third order nonlinearity $\chi^{(3)}$, acts as the main comb-formation mechanism in free running mid- and far-infrared QCL devices.
+
+For example, a series of pump-probe experiments were performed in~\cite{friedli2013four}, where a midIR QC amplifier was pumped with two single mode lasers, emitting a pair of frequencies, $f_1$ and $f_2$ (with $f_1 > f_2$), lying well under the gain spectrum of the device. Outcoupled light was consecutively recorded and subsequent spectral analysis revealed the clear footprints of degenerate four wave mixing, i.e. the generation of a pair of conjugate modes at the Stokes and anti-Stokes frequencies of  $f_s = 2f_2 -f_1 $ and $f_a = 2f_1 - f_2 $, respectively. Combined with the inherently broadband gain of QCLs, this effect could support the generation of more sidebands in a cascaded manner, ideally spanning the full bandwidth of the laser. Since FWM is an energy conserving process, in this way it should lead to an equidistant multimode spectrum and thus a frequency comb.
+
+However, this does not always occur due to the competition of FWM with various comb-degradation mechanisms. These include group velocity dispersion (GVD) and multimode instabilities such as the Risken-Nummedal-Graham-Haken (RNGH) instability \cite{risken1968self,graham1968quantum}, which has a lower threshold in QCLs due to spatial hole burning (SHB)~\cite{gordon2008multimode}. From these the former, i.e. GVD, has been shown to play a major role in blocking the formation of a nice equidistantly-spaced spectrum \cite{burghoff2015evaluating,villares2016dispersion}. That is why state of the art QCL frequency combs usually employ sophisticated dispersion compensating mechanisms (DCMs), either based on a chirped corrugation structure embedded into the laser cavity~\cite{burghoff2014terahertz} or GTI-mirrors positioned behind one of the facets of the laser~\cite{villares2016dispersion}. Both techniques have been shown to be very successful in eliminating the dispersion, leading to comb formation. However, there is still lack of clear understanding as to why lasers operating at negative GVD are easier to phase-lock~\cite{villares2016dispersion} or why the DCMs can be effective only within a narrow range from the overall operating regime~\cite{burghoff2014terahertz}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphicsXS{IMGS/IEEE_COMB_figure1}
+	\caption{(a) Optical spectrum obtained from THz time domain spectroscopy simulations with two seed modes $f_1$ and $f_2$, separated by $\Delta f = 17.2$ GHz. The sidebands, detected at $f_s$ and $f_a$, with corresponding amplitudes $A_s$ and $A_a$, denote the FWM-generated Stokes and anti-Stokes waves. (b) Same as (a), however the pump modes are separated by $\Delta f = 51.6$ GHz. (c) Dependence of the sideband amplitudes, when the strength of the first pump at $f_1$ is varied, while $A_2$ is kept constant.  }	\label{fig:FWM_proof}
+\end{figure}
+
+With our model, we can investigate the effect of different parameters on the efficacy of FWM by essentially emulating laboratory experiments similar to those in~\cite{friedli2013four}. Figures~\ref{fig:FWM_proof}(a) and \ref{fig:FWM_proof}(b) show data from two such computations, where we simulated a travelling wave amplifier, seeded through the left facet with two equally strong pump modes with frequencies $f_1$ and $f_2$, when we varied the mode spacing  $\Delta f = f_1 - f_2$. In both cases, the simulations were based on the THz QCL from~\cite{burghoff2014terahertz}, biased at 11 kV/cm which is approximately the bias aligning the injector and the upper laser levels , i.e. $\epsilon \approx 0$  \cite{petz2016}. All scattering rates and other relevant active region parameters were calculated with the aid of our Schrödinger-Poisson and ensemble Monte Carlo codes~\cite{jirauschek2014modeling} and their values are not considerably different from the data published in~\cite{petz2016}. Importantly, here we have set the left and right amplitude reflectivities to only 5\%, chosen to be sufficiently low as to ensure the elimination of spatial hole burning from the simulation, and thus isolate FWM as the only mode proliferation mechanism.
+
+We pumped the system from the left facet and collected the electric field at the right end of a cavity of length $L=2.5$ mm, for a total simulation time of 1 ns. The logarithmic optical power spectrum clearly shows the emergence of signals at the Stokes ($f_s$) and anti-Stokes ($f_a$) frequencies. Based on the formalism in~\cite{sutherland2003handbook}, we know that the amplitudes of the generated sidebands at $f_a$ and $f_s$ will experience the following dependence on the pump amplitudes, i.e. $A_{1}$ and $A_{2}$, and the nonlinear susceptibility $\chi^{(3)}$:
+\begin{align}
+A_{a} &\propto \chi^{(3)}(f_1,-f_2,f_1;-f_a) A_{1}^2 A_{2}, \nonumber \\
+A_{s} &\propto \chi^{(3)}(-f_1,f_2,f_2;-f_s) A_{1}  A_{2}^2. \label{eq:susceptibility}
+\end{align}
+
+Figure~\ref{fig:FWM_proof}(c) shows namely this dependence when the strength of the first pump at $f_1$ is varied, whereas all other parameters are kept fixed. We see that, in the weak pumping regime, $A_{s}$ exhibits linear dependence on $A_{1}$, whereas $A_{a}$ quadratic. Further, we also observe saturation effects and, more interestingly, the previously experimentally reported threshold behaviour of $A_{a}$, emerging only after $A_{1}$ is large enough as compared to $A_2$~\cite{friedli2013four}.
+
+Even though our approach lacks the robustness of a direct mathematical proof, we believe that these results unequivocally confirm that it is indeed four wave mixing which is observed, and not other multi-mode generation effects. In principle Eq.~(\ref{eq:susceptibility}) could also be used to computationally extract the spectral shape of the third order susceptibility of the modelled QCL, but due to insufficient experimental data for comparison we deter this to possibly a later publication. 
+
+An additional mode proliferation mechanism, highly relevant for quantum cascade lasers, is spatial hole burning. This effect arises due to interference of counter-propagating waves in lasers with Fabry-Perot type cavities, and it has been shown to induce multimode instabilities and also hamper active mode locking of QCL devices \cite{wang2007coherent,gordon2008multimode,gkortsas2010dynamics}. The principle, under which SHB leads to multimode lasing, is straightforward to understand~\cite{siegman1986lasers}. The superposition of two cavity modes  $E_j(x,t) = \Re\{A_j(x)\exp[i(k_jx-\omega_jt)]\}$, with $j =\{1,2\}$ denoting the mode index, would produce an intensity interference pattern 
+\begin{equation}
+\label{eq:interference-effect}
+I(x,t) = I_1+I_2+2\sqrt{I_1I_2}\cos[(\omega_2-\omega_1)t-(k_2-k_1)x+\delta\phi],
+\end{equation}
+where $I_j \propto |A_j|^2$ denotes the intensity of each mode, $\omega_j$ and $k_j$ the corresponding angular frequencies and wave numbers, respectively, and $\delta\phi = \phi_2-\phi_1$ the phase difference. Now, assuming that both waves have the same frequency, i.e. $\omega_1 =\omega_2$, but propagate in opposite directions, $k_1 = -k_2$, we immediately see that the intracavity intensity will form a standing wave pattern with wavelength equal to half the wavelength of the original mode. Due to saturation effects the population inversion will experience a spatial dependence of the form 
+\begin{equation}
+\frac{\Delta N(x)}{N} = \frac{1}{1+I(x)/I_{sat}}, 
+\end{equation}
+where $N$ is the average carrier density, $\Delta N(x)$ is the space dependent inversion and $I_{sat}$ is the saturation intensity. In such a scenario secondary modes, with anti-nodes located at positions where the saturation due to the main, i.e. the primary mode, is weak, could experience a net gain and thus begin to lase. 
+
+It has also been argued that spatial hole burning might destabilize the comb emission as it could lead to strong amplitude and phase fluctuations. The mechanism with which this occurs is namely the RNGH instability, which has been shown to have lower threshold in QCLs, when SHB is taken into account~\cite{gordon2008multimode}. This means that whenever the pump current is above this instability threshold, spatial hole burning can severely alter the laser dynamics and ultimately act as a comb-degradation mechanism.
+
+\section{Comb degradation mechanisms}
+\label{sec:combdegradation}
+
+\begin{figure*}[tb]
+\centering
+ \includegraphicsL{IMGS/IEEE_COMB_figure2}
+	\caption{Results from simulations of a numerical pump-probe experiment, performed with our model in~\cite{petz2016}. (a), (b) and (c) display the variation of the free spectral range as a function of the mode index $m$, for values of the pump  pulse amplitude, expressed in terms of the Rabi-frequency, of 0.1 ns$^{-1}$, 1 ns$^{-1}$ and 10 ns$^{-1}$, respectively. For illustrative purposes we also plot the cavity modes (black lines), calculated via $f_m = m\times c/[2Ln'(f_m)]$, with amplitudes weighted by the normalized gain. (d), (e) and (f) Spectral gain (left y-axis) and the real part of the refractive index (right y-axis) as a function of the mode index $m$ and for different pump pulse amplitudes. All simulations were performed at an applied bias of 11 kV/cm, where the upper-lower laser level transition frequency was calculated as $f_0 = 3.88$ THz. The refractive index at $f_0$ was set to $n=3.6$ and the simulated cavity length was chosen as $L=5$ mm, giving a free spectral range $FSR(f_0) = 8.3$ GHz and a corresponding central mode index $m_0 = 487$.}	\label{fig:dispersion}
+\end{figure*}
+
+It is known that chromatic dispersion in a device, i.e. frequency dependence of the refractive index, affects the equidistance of the Fabry-Perot modes, and thus hampers the formation of a comb. Direct estimation of the GVD of a device is difficult, as it has a strong dependence on the system parameters, waveguide design, as well as the power spectral density of the lasing modes (due to self- and cross- phase modulation effects)~\cite{villares2016dispersion}. This also makes the theoretical treatment very challenging and therefore impedes the computer aided design of QCL frequency combs.
+
+Again, we find that the Maxwell-Bloch equations provide us with a  suitable framework for the rigorous treatment of dispersion, as the density matrix equations intrinsically capture polarization effects, and thus dispersion due to optical gain. The model can be extended by the phenomenological inclusion of different dispersive components, e.g. waveguide or bulk dispersion, via complementary ordinary differential equations, modelling this additional material response in the time domain~\cite{taflove2000computational}.
+
+We restrict ourselves to modelling only dispersion due to optical resonances, i.e. gain dispersion, and in the following we perform several computational experiments to characterise its impact on the equidistance of the cavity modes.
+
+The general idea is to treat the gain medium of length $L$ as a nonlinear filter with some unknown transfer function. If we were able to extract the magnitude and frequency response of this transfer function, we could use this information to infer the real and imaginary part of the refractive index. This can be done quite easily by simulating the passage of a pulse, with suitably chosen spectral width and amplitude, through the medium, recording the pulse at the output facet of the simulation region, and finally processing the input and output data in frequency domain~\cite{petz2016}. The real power of this method lies in its universality, as it allows us to characterize the time-dependent behaviour of the system under different operating conditions, by simply varying the model parameters.
+
+From basic laser theory~\cite{siegman1986lasers}, we know that a Fabry-Perot cavity of length $L$ will sustain longitudinal modes, determined by the relation $f_m = m \times c/[2L n'(f_m)]$, where $m$ is some (large) integer, $f_m$ denotes the frequency of the $m^{\text{th}}$ mode, $c$ the velocity of light in vacuum and $n'(f_m)$ is the corresponding value of the real part of the refractive index. The spacing at the $m^{\text{th}}$ longitudinal mode is also known as the free spectral range (FSR) and is given by $FSR(m)=f_{m+1}-f_{m}\approx c/[2Ln'(f_m)]$, which is generally index-dependent.
+
+In free-running QCLs, due to their broadband nature and ultrafast carrier dynamics~\cite{khurgin2014coherent}, there will be a strong competition between FWM and dispersion, the outcome of which will determine the emission spectrum of  the device. This is because, while the former is an energy conserving process and thus tends to homogenize the mode spacing, the latter has a detrimental influence as it results in an FSR depending on frequency. It has been shown that at operation regimes where the different components of dispersion cancel each other out~\cite{rosch2015octave}, or when special dispersion compensation mechanisms are employed~\cite{burghoff2014terahertz}, four wave mixing can defeat intracavity dispersion via the injection-locking effect~\cite{siegman1986lasers}, resulting in a broad comb spectrum. Generally, however, those comb regimes cover only a fraction of the whole dynamic range of the device and are usually limited to near-threshold operation. In fact, a clear explanation of why FWM loses to GVD   is somehow missing. It has been suggested~\cite{villares2016dispersion} that in cases of large dispersion the phase-matching condition for FWM is violated and therefore the process becomes inefficient. However, in our previous work  we showed via a simple Taylor expansion that, for the type of FWM depicted above, values of the GVD coefficient as high as 2 ps$^2/$mm cannot introduce a sufficiently strong phase-mismatch~\cite{petz2016}. We would like to report that we observe another comb-degrading effect, which can be related to spatial hole burning-induced instabilities, and could be also one of the reasons for the breakdown of comb-like operation at high pump currents.  
+
+First, we investigate in detail the frequency dependence of the refractive index, using the computational method outlined in the beginning of this section, when we vary the amplitude of the input pump pulse. In doing so, we can analyze the net effect of different intensity-dependent phenomena, such as gain saturation and also self- and cross-phase modulation, onto the system dynamics. 
+
+For these simulations we take the QCL of Ref.~\cite{burghoff2014terahertz}, again by applying our model from Ref.~\cite{petz2016}. This time, we set the cavity length to $5$ mm and propagate the pump pulse only once before post-processing. Figure~\ref{fig:dispersion} illustrates the results from this procedure when we vary the strength of the input pulse. The latter is chosen as an unchirped Gaussian, with an intensity full-width at half maximum (FWHM) duration of $1$ ps,  corresponding to a FWHM bandwidth of 440 GHz, whereas the amplitude is normalized to the Rabi-frequency of the material. 
+
+As a figure of merit for the effect of chromatic dispersion on the comb-spacing, we calculate the frequency dependent variation of the free spectral range via~\cite{herr2012universal} 
+\begin{equation}
+\Delta FSR(m) = (f_{m+1}-f_{m}) - (f_{m} - f_{m-1}).
+\end{equation} 
+Figures~\ref{fig:dispersion}(a)-\ref{fig:dispersion}(c) illustrate the dependence of $\Delta FSR$ upon the pump pulse intensity. For completeness, we also plot in Figs.~\ref{fig:dispersion}(d), \ref{fig:dispersion}(e) and \ref{fig:dispersion}(f) the shapes of the calculated spectral gain and the real part of the refractive index. 
+	
+The plots in Fig.~\ref{fig:dispersion}(a)-\ref{fig:dispersion}(f) show large variations in $\Delta FSR$ upon gain saturation. This is due to the fact that causality imposes an intimate relationship between the real and imaginary parts of the refractive index, via the Kramers-Kronig relations~\cite{toll1956}. In particular, we see from Figs.~\ref{fig:dispersion}(b)-(c) and Figs.~\ref{fig:dispersion}(e)-(f) that at places where the saturated spectral gain has a large curvature, due to the dependence $\Delta FSR(m) \propto \partial^2 f_m/\partial m^2 $, this would lead  to strong variation of the free spectral range and thereby very uneven mode spacing. This reveals to us that dispersion control is a highly non-trivial problem, deeply rooted in the laser dynamics (e.g. the fluctuations in the mode intensities), which might explain the difficulties of designing a dispersion compensation mechanism which can be effective over a broad range of operating conditions.   
+
+As mentioned in the previous section, spatial hole burning is directly related to amplitude and phase instabilities in QCLs due to the effective lowering of the RNGH-threshold, and therefore deserves a more detailed study.  A thorough analytical investigation of SHB was already performed in~\cite{gordon2008multimode} via a linear stability analysis of the Maxwell-Bloch equations. The authors showed how, in the presence of spatial hole burning, a two level system with a gain recovery time $T_1$ and a dephasing time $T_2$, will experience parametric gain, with maximum values at frequencies separated from the central frequency by the following distance-squared:
+\begin{equation}
+\Omega_{max}^2 \approx \frac{1}{T_1} \sqrt{\frac{p-1}{3T_1T_2}},
+\end{equation}
+where $p$ is the pump parameter and $p=1$ means that the laser is biased exactly at threshold. When driven high above threshold, many QCLs, candidates for frequency comb emitters, show the spectral splitting, predicted by the above formula, confirming the correctness of the analysis~\cite{wang2007coherent}.
+
+Ideally, SHB will not play a significant effect if the pumping is weak, i.e. $p\approx 1$, or the peaks of the parametric gain are well outside the gain full width at half maximum bandwidth, i.e. $\Delta\omega_{FWHM}$. Assuming, for simplicity, that $T_1 \approx T_2$, we could impose the condition 
+\begin{equation}
+T_1 \ll T_1^{max} = \frac{1}{\Delta\omega_{FWHM}}\sqrt{\frac{p-1}{3}},
+\end{equation}
+from where we see that for lasers with extremely fast gain recovery, spatial hole burning could not be expected to play a significant role. The order of magnitude of the gain recovery time needed, in order to suppress SHB, can be calculated directly. For value of $p=2$, for example, and a value of $\Delta\omega_{FWHM}\approx 2\pi\times 1$ THz, this yields $T_1^{max}\approx 0.06 $ps, which is unfortunately too fast to be realistic. 
+\begin{figure*}[tb]
+	\centering
+	\includegraphicsL{IMGS/IEEE_COMB_figure3}
+	\caption{Simulations of non-comb and comb regime of operation of a THz QCL where both mirror reflectivites were set to 100\%. (a)-(d) Modal phase, modal power, optical log-spectrum and radio-frequency (RF) beatnote, respectively, of a dispersion uncompensated device. (e)-(h) Modal phase, modal power, optical log-spectrum and RF beatnote, respectively, of a dispersion compensated device. The modal phases and powers were obtained via the short-time Fourier transform with a Hanning window function of duration 5 round trips (round trip time is approximately $\text{T}_{\text{rt}}=120$ ps) for a total simulation time of 4500 round trips. The phases are presented after filtering out the constant linear time-drift, obtained with least squares estimation. We plot the results for the 10 strongest modes (ordered in increasing order from 1 to 10) in the corresponding spectra in c) and g), the locations of which are indicated by star-shaped markers.  The colour coding for each mode is presented in the legend (coloured version online).}	\label{fig:combnocomb1}
+\end{figure*}
+	Another method to suppress spatial hole burning is by incorporating the gain medium into a ring cavity instead of a Fabry-Perot one. In~\cite{revin2016active} it has been demonstrated that integrating the active region into an external ring cavity leads to dramatic improvement of the quality of active mode locking and consecutively the emission of short pulses by a midIR QCL, known to be infamously hard to mode lock. A more accessible method for reducing SHB is by creating a cavity with asymmetric mirror reflectivities such that the outcoupling is much stronger at, for example, the right facet of the cavity than the left. In such a scenario, the intensity of the right to left propagating component of each mode will be much smaller than the one in the opposite direction, which will lead to suppression of the interference term in~(\ref{eq:interference-effect}) and thus reduction of the depth of the inversion grating. In the next section, we simulate this latter scenario and show how, when SHB is weak, a free running laser can settle in a regime of stable phase- and amplitude-coherent operation and therefore emit a frequency comb.
+
+	\section{Time-evolution of the multimode spectrum}
+	\label{sec:time-evo}	
+	In the following we present results from long-time simulations of our hypothetical THz QCL for a self-starting, free-running configuration under different boundary conditions. In the subsequent analysis we always started our simulations with some sufficiently small (and randomly chosen) value for the envelope $f(x,t=0)$, physically corresponding to some random fluctuations of the field, and evolved the system for 3000 to 4000 round trips until the time-evolution of $f(x,t)$ has reached steady state. Within our analysis, we find that spatial hole burning has a dramatic effect on the comb performance, one that appears even more relevant than dispersion. To see how SHB affects the dynamics, we need therefore to conduct a more detailed study of the time evolution of the phase and amplitude of each of the lasing modes in the spectrum. 
+	
+	In order to establish a criterion as to what this time evolution should be in the case of a comb and a non-comb regime of operation, we revisit our simulations (from Ref. \cite{petz2016}) of the same device with and without dispersion compensation, showing that in the former case the laser emitted a comb, whereas in the later - an incoherent multimode spectrum. Here we present a deeper look into our data, where we track the time-evolution of the amplitudes and phases of the 10 strongest lasing modes in both cases. 
+	
+	The results are summarized in Fig.~\ref{fig:combnocomb1}. Note that for these simulations the laser was biased at 10.8 kV/cm, which is when the injector level is energetically below the upper laser level (i.e. $\epsilon <0$). In Appendix \ref{sec:basistransform} we show how this leads to lasing predominantly of the high frequency part of the spectrum, in comparison to the case when the laser is biased at $1'\leftrightarrow 3$ resonance, where both spectral lobes are approximately equally strong.  A quick comparison of Figs.~\ref{fig:combnocomb1}(a)-(d) and \ref{fig:combnocomb1}(e)-(h) reveals a striking difference in the time-domain dynamics of both scenarios. In Figs.~\ref{fig:combnocomb1}(a)-(d), demonstrating the non-comb operational regime, we observe irregular fluctuation of phase and amplitude without any noticeable regularity or tendency for convergence. In fact, it almost seems that all individual modes switch on and off at random time intervals. This is namely a manifestation of multimode phase and amplitude instabilities discovered independently by Risken and Nummedal~\cite{risken1968self} as well as Graham and Haken~\cite{graham1968quantum}. In contrast, whenever the laser operates as a comb, i.e. Figs.~\ref{fig:combnocomb1}(e)-(h), after several hundred round trips the lasing modes quickly converge to their steady state values with very little variation what so ever. Thus the modes are lasing constantly and are clearly phase-locked. 
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphicsS{IMGS/IEEE_COMB_figure4}
+		\caption{Simulation results of a free-running THz QCL, biased at 11 kV/cm, where both the left and the right facet reflectivities were set at 100\%, in order to support a \emph{strong} spatial hole burning effect. (a) and (b) illustrate the modal phase and power of the top ten strongest lasing modes in the spectrum. (c) Optical power log-spectrum (normalized) and (d) RF beatnote of the simulated device. The modal characteristics, i.e. (a) and (b), were extracted using the short-time Fourier transform with a Hanning window of 5 round trips over a total simulation time of 3000 round trips. The colour coding is identical to Fig.~\ref{fig:combnocomb1} (colour online).}	\label{fig:NOCOMB_NODISP}
+	\end{figure}
+	
+	Now, we investigate whether SHB has any impact on the laser spectrum. First we simulate the device under study, biased at 11 kV/cm, in a free-running regime of operation, without dispersion compensation, when both outcoupling mirror reflectivities were set to 100\%. Since equal facet reflectivities favour the formation of standing waves, this will lead to a strong SHB. 
+	
+	Unsurprisingly, our simulation results reveal a similar behaviour to the one in Figs.~\ref{fig:combnocomb1}(a)-\ref{fig:combnocomb1}(c), with irregular variation of the spectral modes in Figs.~\ref{fig:NOCOMB_NODISP}(a)-\ref{fig:NOCOMB_NODISP}(b) and a highly irregular beatnote signal around $f_{rt} = 8.3$ GHz, Fig.~\ref{fig:NOCOMB_NODISP}(d). One can conclude, quite expectedly, that when there is no dispersion compensation and spatial hole burning is strong, the laser fails to produce a comb.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphicsS{IMGS/IEEE_COMB_figure5}
+		\caption{Simulation results for the same configuration as in Fig. 
+			\ref{fig:NOCOMB_NODISP}, with the difference that the right reflectivity coefficient was set to 5\%, whereas the left was maintained at 100\%, in order to support a \emph{weak} spatial hole burning effect. (a) and (b) depict the modal phase and power of the top 10 strongest modes, visible in the optical spectrum in (c). (c) Optical log-spectrum produced by the simulation with the top 10 modes indicated by red star-shape markers and corresponding mode index. (d) RF beatnote, calculated from the simulation.}	\label{fig:COMB_NODISP}
+	\end{figure}
+	
+	Next, we performed simulations for a free-running laser with asymmetrically chosen outcoupling losses, where the left reflection coefficient was maintained at 100\% and the right one was set to 5\%. As discussed in Section~\ref{sec:combdegradation}, this strengthens the unidirectionality of the emission and thus suppresses SHB. Notice that here also no dispersion compensation has been employed, in contrast to the simulation results in Figs.~\ref{fig:combnocomb1}(e)-\ref{fig:combnocomb1}(h). The plots in Figs.~ \ref{fig:COMB_NODISP}(a)-\ref{fig:COMB_NODISP}(d) show that by only eliminating spatial hole burning we can recover the comb-like stable behaviour. 
+	
+	Additionally, similarly to the spectrum in Fig.~\ref{fig:combnocomb1}(g), Fig~\ref{fig:COMB_NODISP}(c) shows that the comb-like behaviour seems to come at the expense of significantly reduced spectral bandwidth (as compared to e.g. Fig~\ref{fig:NOCOMB_NODISP}(c)). We note again that this was experimentally observed in Ref.~\cite{mansuripur2016}, where the elimination of SHB was shown to result in a sparse, but coherent multimode spectrum. 
+
+	\section{Conclusion}
+	We have discussed the interplay between various physical mechanisms determining if a typical terahertz quantum cascade laser will emit a comb- or noncomb-like multimode spectrum. These effects were categorized into mode proliferation mechanisms and comb degradation mechanisms, depending on whether they contribute to multimode lasing or hinder the comb formation, respectively. Our simulations show that spatial hole burning exerts a considerable influence on the laser dynamics, inducing phase and amplitude instabilities when strong, and thus hampers the generation of a multimode spectrum with equidistant spacing. Our data also suggests that a comb might be formed, even without the usage of special dispersion compensation mechanisms, if spatial hole burning is efficiently suppressed.
+	
+	\begin{appendices}
+	\section{}
+	\label{sec:basistransform}
+	 
+	 When $\hbar \epsilon \ll 1 $ meV, the close energetic alignment of the upper laser level and the injector state induces a strong wave function coupling, modelled via the energy interaction term $\hbar\Omega_{1'3}$ (typically $\approx1$ meV). This leads to a regime of coherent electron transport across the barrier via Rabi oscillations~\cite{callebaut2005importance}. In the absence of an electromagnetic field (i.e. $f=0$ in Eq.~(\ref{eq:hamiltonian-operatorform})) the total system's Hamiltonian is non-diagonal in the tight-binding basis, thus the inclusion of the coupling term $\hbar\Omega_{1'3}$ produces a splitting of the near-resonant states $\ket{1'}$ and $\ket{3}$ into a new doublet, the symmetric $\ket{-}$ and anti-symmetric $\ket{+}$ levels, energetically separated by $E_+-E_-\approx 2|\Omega_{1'3}|$ and spatially extending across the tunneling barrier (see Fig.~\ref{fig:biasdependence}). This splitting essentially results in a pair of upper levels, from both of which radiative transition to the ground state is possible.
+	 	\begin{figure}[h!]
+	 		\centering
+	 		\includegraphicsS{IMGS/IEEE_COMB_figure6}
+	 		\caption{Schematic diagram of the bias dependence of the dominant lobe of the gain spectrum. The laser is biased below (a) and above (b) "injector"$\leftrightarrow$"upper laser level" resonance.}	\label{fig:biasdependence}
+	 	\end{figure}
+	 	
+	The original "tight-binding" states, i.e. $\ket{2}$, $\ket{3}$ and $\ket{1'}$, are related to the "delocalized states", i.e. $\ket{2}$, $\ket{-}$ and $\ket{+}$,  via the unitary transform 
+	\begin{subequations}
+		\label{eq:transform}
+		\begin{align}
+		\ket{+} &= \cos\theta\ket{1'}-\sin\theta\ket{3}, \\
+		\ket{-} &= \sin\theta\ket{1'}+\cos\theta\ket{3}, \\
+		\ket{2} &=\ket{2},
+		\end{align}
+	\end{subequations}
+	where the expansion coefficients are obtained from $\tan\theta = -2\Omega_{1'3}/[\epsilon+(\epsilon^2+4\Omega_{1'3}^2)^{1/2}]$. Here $\epsilon$ and $\Omega_{1'3}$ are as defined in Sec.~\ref{sec:theory}. The anticrossing splitting of the upper laser and injector levels will lead to a transfer of the transition dipole moment $z_{32}$ onto the pair $z_{+2}$ and $z_{-2}$ of dipole moments, coupling the new anticrossed states with the ground level. This triplet of dipole moments will approximately satisfy the relation $z_{32}^2=z_{+2}^2+z_{-2}^2$, which can be directly inferred from Eq.~(\ref{eq:transform}). Furthermore Eq.~(\ref{eq:transform}) also give us an intuitive idea about the relative strengths of the optical transitions $+\leftrightarrow2$ and $-\leftrightarrow 2$. The ratio of the dipole moments will be $|z_{+2}|/|z_{-2}| \approx |\tan\theta|$, which is greater than one (i.e. the high frequency lobe will lase more strongly) for $\epsilon < 0$, see Fig.~\ref{fig:biasdependence}(a), and smaller than one (i.e. the low frequency lobe will laser more strongly) for $\epsilon > 0$, see Fig.~\ref{fig:biasdependence}(b).   
+	
+	\end{appendices}
+	\section*{Funding}
+	This work was supported by the German Research Foundation (DFG) within the Heisenberg program (JI 115/4-1) and under DFG Grant No. JI 115/9-1.
+
+	\bibliographystyle{IEEEtran}
+	%\bibliography{../../literature/bib_resources.bib}
+	\begin{thebibliography}{10}
+		\providecommand{\url}[1]{#1}
+		\csname url@samestyle\endcsname
+		\providecommand{\newblock}{\relax}
+		\providecommand{\bibinfo}[2]{#2}
+		\providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
+		\providecommand{\BIBentryALTinterwordstretchfactor}{4}
+		\providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
+			\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+			\fontdimen4\font\relax}
+		\providecommand{\BIBforeignlanguage}[2]{{%
+				\expandafter\ifx\csname l@#1\endcsname\relax
+				\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+				\typeout{** loaded for the language `#1'. Using the pattern for}%
+				\typeout{** the default language instead.}%
+				\else
+				\language=\csname l@#1\endcsname
+				\fi
+				#2}}
+		\providecommand{\BIBdecl}{\relax}
+		\BIBdecl
+		
+		\bibitem{ye2005femtosecond}
+		J.~Ye, \emph{Femtosecond optical frequency comb: principle, operation and
+			applications}.\hskip 1em plus 0.5em minus 0.4em\relax Springer Science \&
+		Business Media, 2005.
+		
+		\bibitem{schliesser2012mid}
+		A.~Schliesser, N.~Picqu{\'e}, and T.~W. H{\"a}nsch, ``Mid-infrared frequency
+		combs,'' \emph{Nat. Photon.}, vol.~6, no.~7, pp. 440--449, 2012.
+		
+		\bibitem{hugi2012mid}
+		A.~Hugi, G.~Villares, S.~Blaser, H.~Liu, and J.~Faist, ``Mid-infrared frequency
+		comb based on a quantum cascade laser,'' \emph{Nature}, vol. 492, no. 7428,
+		pp. 229--233, 2012.
+		
+		\bibitem{burghoff2014terahertz}
+		D.~Burghoff, T.-Y. Kao, N.~Han, C.~W.~I. Chan, X.~Cai, Y.~Yang, D.~J. Hayton,
+		J.-R. Gao, J.~L. Reno, and Q.~Hu, ``Terahertz laser frequency combs,''
+		\emph{Nat. Photon.}, vol.~8, no.~6, pp. 462--467, 2014.
+		
+		\bibitem{rosch2015octave}
+		M.~R{\"o}sch, G.~Scalari, M.~Beck, and J.~Faist, ``Octave-spanning
+		semiconductor laser,'' \emph{Nat. Photon.}, vol.~9, no.~1, pp. 42--47, 2015.
+		
+		\bibitem{villares2014dual}
+		G.~Villares, A.~Hugi, S.~Blaser, and J.~Faist, ``Dual-comb spectroscopy based
+		on quantum-cascade-laser frequency combs,'' \emph{Nat. Commun.}, vol.~5, p.
+		5192, 2014.
+		
+		\bibitem{yang2016terahertz}
+		Y.~Yang, D.~Burghoff, D.~J. Hayton, J.-R. Gao, J.~L. Reno, and Q.~Hu,
+		``Terahertz multiheterodyne spectroscopy using laser frequency combs,''
+		\emph{Optica}, vol.~3, no.~5, pp. 499--502, 2016.
+		
+		\bibitem{Burghoff1601227}
+		D.~Burghoff, Y.~Yang, and Q.~Hu, ``Computational multiheterodyne
+		spectroscopy,'' \emph{Sci. Adv.}, vol.~2, no.~11, 2016.
+		
+		\bibitem{khurgin2014coherent}
+		J.~Khurgin, Y.~Dikmelik, A.~Hugi, and J.~Faist, ``Coherent frequency combs
+		produced by self frequency modulation in quantum cascade lasers,''
+		\emph{Appl. Phys. Lett.}, vol. 104, no.~8, p. 081118, 2014.
+		
+		\bibitem{villares2015quantum}
+		G.~Villares and J.~Faist, ``Quantum cascade laser combs: effects of modulation
+		and dispersion,'' \emph{Opt. Express}, vol.~23, no.~2, pp. 1651--1669, 2015.
+		
+		\bibitem{petz2016}
+		P.~Tzenov, D.~Burghoff, Q.~Hu, and C.~Jirauschek, ``Time domain modeling of
+		terahertz quantum cascade lasers for frequency comb generation,'' \emph{Opt.
+			Express}, vol.~24, no.~20, pp. 23\,232--23\,247, 2016.
+		
+		\bibitem{mansuripur2016}
+		T.~S. Mansuripur, C.~Vernet, P.~Chevalier, G.~Aoust, B.~Schwarz, F.~Xie,
+		C.~Caneau, K.~Lascola, C.-e. Zah, D.~P. Caffey, T.~Day, L.~J. Missaggia,
+		M.~K. Connors, C.~A. Wang, A.~Belyanin, and F.~Capasso, ``Single-mode
+		instability in standing-wave lasers: The quantum cascade laser as a
+		self-pumped parametric oscillator,'' \emph{Phys. Rev. A}, vol.~94, p. 063807,
+		2016.
+		
+		\bibitem{williams2007terahertz}
+		B.~S. Williams, ``Terahertz quantum-cascade lasers,'' \emph{Nat. Photon.},
+		vol.~1, no.~9, pp. 517--525, 2007.
+		
+		\bibitem{wang2015generating}
+		F.~Wang, K.~Maussang, S.~Moumdji, R.~Colombelli, J.~R. Freeman, I.~Kundu,
+		L.~Li, E.~H. Linfield, A.~G. Davies, J.~Mangeney \emph{et~al.}, ``Generating
+		ultrafast pulses of light from quantum cascade lasers,'' \emph{Optica},
+		vol.~2, no.~11, pp. 944--949, 2015.
+		
+		\bibitem{jirauschek2014modeling}
+		C.~Jirauschek and T.~Kubis, ``Modeling techniques for quantum cascade lasers,''
+		\emph{Appl. Phys. Rev.}, vol.~1, no.~1, p. 011307, 2014.
+		
+		\bibitem{indjin2003mechanisms}
+		D.~Indjin, P.~Harrison, R.~Kelsall, and Z.~Ikoni{\'c}, ``Mechanisms of
+		temperature performance degradation in terahertz quantum-cascade lasers,''
+		\emph{Appl. Phys. Lett.}, vol.~82, no.~9, pp. 1347--1349, 2003.
+		
+		\bibitem{yang2010rate}
+		Q.~Yang, B.~Hinkov, F.~Fuchs, W.~Bronner, K.~K{\"o}hler, J.~Wagner, R.~Maulini,
+		and J.~Faist, ``Rate equations analysis of external-cavity quantum cascade
+		lasers,'' \emph{J. Appl. Phys.}, vol. 107, no.~4, p. 043109, 2010.
+		
+		\bibitem{iotti2001}
+		R.~C. {Iotti} and F.~{Rossi}, ``{Nature of charge transport in quantum-cascade
+			lasers},'' \emph{Phys. Rev. Lett.}, vol.~87, no.~14, p. 146603, 2001.
+		
+		\bibitem{weber2009}
+		C.~{Weber}, A.~{Wacker}, and A.~{Knorr}, ``{Density-matrix theory of the
+			optical dynamics and transport in quantum cascade structures: The role of
+			coherence},'' \emph{Phys. Rev. B}, vol.~79, no.~16, p. 165322, 2009.
+		
+		\bibitem{talukder2010self}
+		M.~A. Talukder and C.~R. Menyuk, ``Self-induced transparency modelocking of
+		quantum cascade lasers in the presence of saturable nonlinearity and group
+		velocity dispersion,'' \emph{Opt. Express}, vol.~18, no.~6, pp. 5639--5653,
+		2010.
+		
+		\bibitem{wang2015active}
+		Y.~Wang and A.~Belyanin, ``Active mode-locking of mid-infrared quantum cascade
+		lasers with short gain recovery time,'' \emph{Opt. Express}, vol.~23, no.~4,
+		pp. 4173--4185, 2015.
+		
+		\bibitem{terazzi2010density}
+		R.~Terazzi and J.~Faist, ``A density matrix model of transport and radiation in
+		quantum cascade lasers,'' \emph{New J. Phys.}, vol.~12, no.~3, p. 033045,
+		2010.
+		
+		\bibitem{iotti2000hotcarrier}
+		R.~C. {Iotti} and F.~{Rossi}, ``{Microscopic theory of hot-carrier relaxation
+			in semiconductor-based quantum-cascade lasers},'' \emph{Appl. Phys. Lett.},
+		vol.~76, p. 2265, 2000.
+		
+		\bibitem{callebaut2004montecarlo}
+		H.~{Callebaut}, S.~{Kumar}, B.~S. {Williams}, Q.~{Hu}, and J.~L. {Reno},
+		``{Importance of electron-impurity scattering for electron transport in
+			terahertz quantum-cascade lasers},'' \emph{Appl. Phys. Lett.}, vol.~84, pp.
+		645--647, 2004.
+		
+		\bibitem{jirauschek2009monte}
+		C.~Jirauschek and P.~Lugli, ``{Monte-Carlo-based spectral gain analysis for
+			terahertz quantum cascade lasers},'' \emph{J. Appl. Phys.}, vol. 105, no.~12,
+		p. 123102, 2009.
+		
+		\bibitem{shi2014nonequilibrium}
+		Y.~Shi and I.~Knezevic, ``Nonequilibrium phonon effects in midinfrared quantum
+		cascade lasers,'' \emph{J. Appl. Phys.}, vol. 116, no.~12, p. 123105, 2014.
+		
+		\bibitem{wacker2002gain}
+		A.~{Wacker}, ``{Gain in quantum cascade lasers and superlattices: A quantum
+			transport theory},'' \emph{Phys. Rev. B}, vol.~66, no.~8, p. 085326, 2002.
+		
+		\bibitem{kubis2009theory}
+		T.~{Kubis}, C.~{Yeh}, P.~{Vogl}, A.~{Benz}, G.~{Fasching}, and C.~{Deutsch},
+		``{Theory of nonequilibrium quantum transport and energy dissipation in
+			terahertz quantum cascade lasers},'' \emph{Phys. Rev. B}, vol.~79, no.~19, p.
+		195323, 2009.
+		
+		\bibitem{wacker2013nonequilibrium}
+		A.~{Wacker}, M.~{Lindskog}, and D.~O. {Winge}, ``Nonequilibrium {G}reen's
+		function model for simulation of quantum cascade laser devices under
+		operating conditions,'' \emph{IEEE J. Sel. Top. Quantum Electron.}, vol.~19,
+		no.~5, pp. 1--11, 2013.
+		
+		\bibitem{callebaut2005importance}
+		H.~Callebaut and Q.~Hu, ``Importance of coherence for electron transport in
+		terahertz quantum cascade lasers,'' \emph{J. Appl. Phys.}, vol.~98, no.~10,
+		p. 104505, 2005.
+		
+		\bibitem{kumar2009coherence}
+		S.~Kumar and Q.~Hu, ``Coherence of resonant-tunneling transport in terahertz
+		quantum-cascade lasers,'' \emph{Phys. Rev. B}, vol.~80, no.~24, p. 245316,
+		2009.
+		
+		\bibitem{dupont2010simplified}
+		E.~Dupont, S.~Fathololoumi, and H.~Liu, ``Simplified density-matrix model
+		applied to three-well terahertz quantum cascade lasers,'' \emph{Phys. Rev.
+			B}, vol.~81, no.~20, p. 205311, 2010.
+		
+		\bibitem{wang2007coherent}
+		C.~Y. Wang, L.~Diehl, A.~Gordon, C.~Jirauschek, F.~X. K\"artner, A.~Belyanin,
+		D.~Bour, S.~Corzine, G.~H\"ofler, M.~Troccoli, J.~Faist, and F.~Capasso,
+		``Coherent instabilities in a semiconductor laser with fast gain recovery,''
+		\emph{Phys. Rev A}, vol.~75, p. 031802, Mar 2007.
+		
+		\bibitem{burghoff2015evaluating}
+		D.~Burghoff, Y.~Yang, D.~J. Hayton, J.-R. Gao, J.~L. Reno, and Q.~Hu,
+		``Evaluating the coherence and time-domain profile of quantum cascade laser
+		frequency combs,'' \emph{Opt. Express}, vol.~23, no.~2, pp. 1190--1202, 2015.
+		
+		\bibitem{bastard1990wave}
+		G.~Bastard, \emph{{Wave Mechanics Applied to Semiconductor
+				Heterostructures}}.\hskip 1em plus 0.5em minus 0.4em\relax New York, NY
+		(USA); John Wiley and Sons Inc., 1990.
+		
+		\bibitem{boyd2003nonlinear}
+		R.~W. Boyd, \emph{Nonlinear {O}ptics}.\hskip 1em plus 0.5em minus 0.4em\relax
+		Academic {P}ress, 2003.
+		
+		\bibitem{iotti2005microscopic}
+		R.~C. Iotti and F.~Rossi, ``Microscopic theory of semiconductor-based
+		optoelectronic devices,'' \emph{Rep. Prog. Phys.}, vol.~68, no.~11, p. 2533,
+		2005.
+		
+		\bibitem{jirauschek2010monte}
+		C.~Jirauschek, ``{Monte Carlo study of intrinsic linewidths in terahertz
+			quantum cascade lasers},'' \emph{Opt. Express}, vol.~18, no.~25, pp.
+		25\,922--25\,927, 2010.
+		
+		\bibitem{gordon2008multimode}
+		A.~Gordon, C.~Y. Wang, L.~Diehl, F.~X. K\"artner, A.~Belyanin, D.~Bour,
+		S.~Corzine, G.~H\"ofler, H.~C. Liu, H.~Schneider, T.~Maier, M.~Troccoli,
+		J.~Faist, and F.~Capasso, ``Multimode regimes in quantum cascade lasers: From
+		coherent instabilities to spatial hole burning,'' \emph{Phys. Rev. A},
+		vol.~77, p. 053804, May 2008.
+		
+		\bibitem{friedli2013four}
+		P.~Friedli, H.~Sigg, B.~Hinkov, A.~Hugi, S.~Riedi, M.~Beck, and J.~Faist,
+		``Four-wave mixing in a quantum cascade laser amplifier,'' \emph{Appl. Phys.
+			Lett.}, vol. 102, no.~22, p. 222104, 2013.
+		
+		\bibitem{risken1968self}
+		H.~Risken and K.~Nummedal, ``Self-pulsing in lasers,'' \emph{J. Appl. Phys.},
+		vol.~39, no.~10, pp. 4662--4672, 1968.
+		
+		\bibitem{graham1968quantum}
+		R.~Graham and H.~Haken, ``Quantum theory of light propagation in a fluctuating
+		laser-active medium,'' \emph{Z. Phys.}, vol. 213, no.~5, pp. 420--450, 1968.
+		
+		\bibitem{villares2016dispersion}
+		G.~Villares, S.~Riedi, J.~Wolf, D.~Kazakov, M.~J. S{\"u}ess, P.~Jouy, M.~Beck,
+		and J.~Faist, ``Dispersion engineering of quantum cascade laser frequency
+		combs,'' \emph{Optica}, vol.~3, no.~3, pp. 252--258, 2016.
+		
+		\bibitem{sutherland2003handbook}
+		R.~L. Sutherland, \emph{{Handbook of Nonlinear Optics}}.\hskip 1em plus 0.5em
+		minus 0.4em\relax CRC press, 2003.
+		
+		\bibitem{gkortsas2010dynamics}
+		V.-M. Gkortsas, C.~Wang, L.~Kuznetsova, L.~Diehl, A.~Gordon, C.~Jirauschek,
+		M.~Belkin, A.~Belyanin, F.~Capasso, and F.~K{\"a}rtner, ``Dynamics of
+		actively mode-locked quantum cascade lasers,'' \emph{Opt. Express}, vol.~18,
+		no.~13, pp. 13\,616--13\,630, 2010.
+		
+		\bibitem{siegman1986lasers}
+		A.~E. Siegman, \emph{Lasers}.\hskip 1em plus 0.5em minus 0.4em\relax
+		{University Science Books, Mill Valley, CA}, 1986.
+		
+		\bibitem{taflove2000computational}
+		A.~Taflove and S.~C. Hagness, \emph{{Computational Electrodynamics}}.\hskip 1em
+		plus 0.5em minus 0.4em\relax Artech house publishers, 2000.
+		
+		\bibitem{herr2012universal}
+		T.~Herr, K.~Hartinger, J.~Riemensberger, C.~Wang, E.~Gavartin, R.~Holzwarth,
+		M.~Gorodetsky, and T.~Kippenberg, ``Universal formation dynamics and noise of
+		kerr-frequency combs in microresonators,'' \emph{Nat. Photon.}, vol.~6,
+		no.~7, pp. 480--487, 2012.
+		
+		\bibitem{toll1956}
+		J.~S. Toll, ``Causality and the dispersion relation: Logical foundations,''
+		\emph{Phys. Rev.}, vol. 104, pp. 1760--1770, 1956.
+		
+		\bibitem{revin2016active}
+		D.~Revin, M.~Hemingway, Y.~Wang, J.~Cockburn, and A.~Belyanin, ``Active mode
+		locking of quantum cascade lasers in an external ring cavity,'' \emph{Nat.
+			Commun.}, vol.~7, 2016.
+		
+	\end{thebibliography}
+	\begin{IEEEbiography}
+		[{\includegraphicsBIO{IMGS/IEEE_COMB_photo1}}]{Petar Tzenov} received his B.S. degree in applied mathematics from Sofia University (St. "Kliment Ohrisdski"), Bulgaria, in 2012. From 2012 to 2014 he completed a M.S. degree in computational science and engineering at the Technische Universit\"at M\"unchen (TUM), Germany. Since 2015 he has been a member of Dr. Jirauschek's group in computational photonics at the TUM, pursuing his Ph.D. degree in the areas of laser physics and nonlinear optics. 
+		
+		His research  interests include classical and quantum optics, quantum electronics, computational physics as well as high-performance computing. 
+	\end{IEEEbiography}
+	\begin{IEEEbiography}
+		[{\includegraphicsBIO{IMGS/IEEE_COMB_photo2}}]{David Burghoff} received a B.S. degree in electrical engineering from the University of Illinois at Urbana-Champaign in 2007, an S.M. degree in electrical engineering from the Massachusetts Institute of Technology (MIT) in 2009, and a Ph.D. degree in electrical engineering from MIT in 2014, for which he was awarded the Jin-Au Kong Doctoral Thesis Award.
+		
+		Since 2015, he has been a Research Scientist in the Research Laboratory of Electronics at MIT. His research interests lie at the intersection of quantum nanostructures, long-wavelength photonics, ultrafast optics, and computationally-assisted spectroscopy.
+	\end{IEEEbiography}
+	\begin{IEEEbiography}
+		[{\includegraphicsBIO{IMGS/IEEE_COMB_photo3}}]{Qing Hu} (M'03-SM'03-F'10) received the Ph.D. degree in physics from Harvard University, Cambridge, MA, USA, in 1987.
+		
+		From 1987 to 1989, he was a Postdoctoral Associate with the University of California at Berkeley, Berkeley, USA. He joined the Massachusetts Institute of Technology, Cambridge, in 1990, where he is currently a Distinguished Professor with the Electrical Engineering and Computer Science Department. He has made significant contributions to physics and device applications over a broad electromagnetic spectrum from millimeter wave, terahertz (THz), to infrared frequencies. Among those contributions, the most distinctive is his development of high-performance THz quantum cascade lasers. Now this breakthrough has already found applications in heterodyne receiver technology and real-time THz imaging, which was also pioneered by his group.
+		
+	Dr. Hu is a Fellow of the Optical Society of America (OSA), a Fellow of the American Physical Society, and a Fellow of the American Association for the Advancement of Science. He was the recipient of the 2012 IEEE Photonics Society William Streifer Scientific Achievement Award and the 2015 Nick Holonyak, Jr., Award from the OSA. He has been an Associate Editor of Applied Physics Letters during 2006-2014 and has been a Deputy Editor since 2015.
+	\end{IEEEbiography} 
+	\begin{IEEEbiography}
+		[{\includegraphicsBIO{IMGS/IEEE_COMB_photo4}}]{Christian Jirauschek} received his Dipl.-Ing. and doctoral degrees in electrical engineering from Universit\"at Karlsruhe (TH), Germany, in 2000 and 2004, respectively. From 2002 to 2005, he worked at the Massachusetts Institute of Technology (MIT). He then joined the Institute of Nanoelectronics at Technische Universit\"at M\"unchen (TUM), Germany, where since 2007 he headed an independent junior research group within the Emmy Noether program of the Deutsche Forschungsgemeinschaft (DFG). 
+		
+		In 2014, he received a Heisenberg professorship grant from the DFG. His research interests include modeling in the areas of photonics and nanoelectronics.
+	 \end{IEEEbiography}
+	 \vfill
+	
+\end{document} 

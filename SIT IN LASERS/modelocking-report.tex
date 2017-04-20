@@ -216,6 +216,32 @@ A formula, more revealing to the nature of the gain recovery dynamics, in a pump
 \tau_{gr} = T_{1g} \ln\left[\frac{p}{\left(p-1\right)}\times\frac{|E|^2/W_{sat}^G}{\left (1+|E|^2/W_{sat}^G\right)}\right].
 \end{align}
 
+\section{Round trip gain and losses}
+
+Since the intuitive effect of incorporating a saturable absorber along the optical path of the field is to open a net gain window for the pulse inside the cavity. To calculate the total gain in the system, as a function of time, we need to calculate the total round trip gain and total round trip losses. 
+
+The gain coefficient of the optical system can be defined as the derivative of the logarithm of the optical power, i.e. 
+
+\begin{equation}
+g(x,t) = \frac{d \log P(x,t)}{dx} = \frac{dP /dx}{P}.
+\end{equation}
+In general this coefficient will be also frequency dependent. From the semi-classical theory of two level systems we know that the gain coefficient $g_\omega(x,t)$ at frequency $\omega$ will be given by 
+\begin{equation}
+g_\omega(x,t) = \sigma_{\omega}^{g}N_g(x,t), 
+\end{equation} 
+where $\sigma_\omega^g$ is the gain cross-section at frequency $\omega$, and $N_g(x,t) = N_g\Delta_g(x,t)$ is the total density of inverted two level systems. 
+Thus the round trip gain (per frequency) is simply the gain integrated over the cavity length:
+\begin{align}
+\label{eq:rount_trip_gain}
+G_\omega(t) = \int_{0}^{L_g} g_\omega(x,t)dx =  \sigma_{\omega}^{g} N_g \int_{0}^{L_g}(\rho_{22}^g-\rho_{11}^g)(x,t) dx.
+\end{align}
+Similarly the round-trip losses (linear losses $a$ and absorption due to the SA system) are given by
+\begin{align}
+\label{eq:rount_trip_loss}
+Q_\omega(t) = aL_g +  \sigma_{\omega}^{a} N_a \int_{0}^{L_a}(\rho_{11}^a-\rho_{22}^a)dx.
+\end{align}
+
+
 
 \section{Haus's theory of passive mode locking with a fast saturable absorber}
 \label{sec:haustheory}

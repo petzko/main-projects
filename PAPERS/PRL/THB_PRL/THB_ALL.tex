@@ -1,0 +1,507 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[onecolumn,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+\renewcommand{\baselinestretch}{1.0} 
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+\usepackage{xr}
+
+
+
+\externaldocument[MAIN-]{THB_FINAL}
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\t{\tilde}
+\def\s{\sigma}
+\def\e{\eta}
+
+
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+\newcommand{\vspacec}{\vspace{-0.3cm}}
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.7\textwidth]{#1}}
+\newcommand{\includegraphicsM}[1]{\includegraphics[width = 0.50\textwidth]{#1}}
+\newcommand{\includegraphicsS}[1]{\includegraphics[width = 0.40\textwidth]{#1}}
+
+%\captionsetup{width=.45\textwidth}
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+	
+	\title{Temporal hole burning in lasers with an upper state doublet}%
+
+	\author{Petar Tzenov}%
+	\email{petar.tzenov@tum.de}
+	\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+	\author{David Burghoff}
+	\affiliation{Department of Electrical Engineering
+		and Computer Science, Research Laboratory of Electronics, Massachusetts
+		Institute of Technology, Cambridge, Massachusetts 02139, USA}
+	\author{Qing Hu}
+	\affiliation{Department of Electrical Engineering
+		and Computer Science, Research Laboratory of Electronics, Massachusetts
+		Institute of Technology, Cambridge, Massachusetts 02139, USA}
+	\author{Christian Jirauschek}
+	\affiliation{Institute for Nanoelectronics, Technical University of Munich, D-80333 Munich, Germany}
+
+	
+
+\begin{abstract}
+	We present a theoretical explanation for a novel phenomenon, termed temporal hole burning (THB), first experimentally observed in terahertz quantum cascade laser (THz QCL) frequency combs. We trace the origins of THB to resonant tunneling induced spectral splitting of the injector and the upper laser level of these devices into a doublet of anticrossed states, both of which are radiatively coupled to the ground state. In the time-domain, the existence of a pair of upper laser levels produces two co-propagating pulses which do not coexist in time, but transiently switch on and off as to maintain an almost constant instantaneous intensity. With the aid of a simple three level density matrix formalism, we show that THB can be interpreted as a two-photon process where the distinct lasing modes exchange a photon accompanied by an energy-conserving electron redistribution in the system. Fundamentally, such a dynamics reminds us of stimulated Raman scattering, however with an inverted energy configuration as the electron exchange occurs via the ground state, rather than the upper levels.  
+\end{abstract}
+\maketitle
+
+Resonant tunneling (RT) is a coherent quantum phenomenon where electrons can tunnel through a pair of potential barriers into an available state on the other end of this energetic obstacle \cite{davies1997physics}. This process is most efficient, i.e. the transmission is maximized, when both in-coming and out-going wave functions are perfectly aligned in energy, with the tunneling current taking the shape of a Lorentzian centred around the resonance condition. The tunneling effect is well understood and widely used in various quantum devices such as the Zener or resonant-tunneling diodes \cite{tsu1973tunneling}, as well as quantum well heterostructures \cite{kazarino1971possibility}. 
+
+
+Terahertz quantum cascade lasers (THz QCLs) routinely exploit RT for selective electron injection into the upper laser state, and correspondingly efficient electron extraction from the depopulation level \cite{sirtori1998resonant,williams2007terahertz}. Several theoretical investigations have been made on the impact of different system parameters, such as detuning energy, coupling strength and dephasing, on the coherence of tunneling transport, but all of those discussions have neglected transient effects and tackled the problem in steady state \cite{callebaut2005importance,kumar2009coherence,dupont2010simplified}. For example, it was quickly understood \cite{dupont2010simplified} that in frequency domain, for devices with sufficiently coherent optical transition or sufficiently strong anticrossing energy, QCLs employing resonant tunneling coupling between the injector and the upper laser level should produce a split optical spectrum, symmetrically distributed around the upper-lower laser level transition frequency. Due to the inherent difficulties in designing a sufficiently coherent broadband QC laser, such a spectral splitting, the origins of which lie in the RT coupling-induced anticrossing,  was experimentally observed only in 2014 \cite{burghoff2014terahertz}. In this publication the authors presented a THz frequency comb, consisting of more than 70 equidistantly spaced modes, with a spectrum comprised of a low and a high frequency lobe centred around 3.4 THz and 3.8 THz, respectively, separated without significant cross-talk (Fig.~\ref{fig:thb_experiment}a). Subsequent investigation of the time-domain dynamics of this device \cite{burghoff2015evaluating} revealed a very intricate pulse switching behaviour, named "temporal hole burning" by the authors, which left for a concise theoretical explanation and will be the main focus of this letter. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/exper_0p9A_small2.eps}
+		\caption{Experimental data from the device in Ref.~\onlinecite{burghoff2014terahertz} in frequency and time domain, when the laser was injected with 0.9 A current. \textbf{a} Optical spectrum, and \textbf{b} the averaged out instantaneous intensity, $I(t)$, obtained via the method in Ref.~\onlinecite{burghoff2015evaluating} over a smoothing window of 10 ps. The high frequency lobe in \textbf{a} corresponds to the pulse in \textbf{b} with longer duration, coloured in dark blue, whereas the low frequency lobe to the shorter pulse, coloured in red.} \label{fig:thb_experiment}
+	\end{center}	
+\end{figure}
+
+Figure~\ref{fig:thb_experiment} illustrates experimental data~\cite{burghoff2015evaluating}, demonstrating the temporal hole burning effect in both time and frequency domains. In the intensity spectrum of Fig.~\ref{fig:thb_experiment}a we can observe spectral hole burning as the optical power is distributed into two lobes, as mentioned above and in good agreement with theoretical predictions. On the other hand, in the time domain, i.e. Fig.~\ref{fig:thb_experiment}b, we see how the blue and the red pulses do not coexist in time, but instead periodically "burn a hole" into each other's temporal trace. It is interesting to note that both signals combine as to produce an almost constant instantaneous intensity, a feature of QCL combs produced by self frequency modulation\cite{khurgin2014coherent}. In our previous publication \cite{petz2016} we developed a density matrix model, coupled to Maxwell's equations, for time-domain simulations of THz QC lasers. When we modelled the comb in Ref.~\onlinecite{burghoff2014terahertz}, our results reproduced the spectral splitting and more interestingly the pulse switching behaviour, as illustrated in Fig.~\ref{fig:thb_simulation}, which lead us to think that THB is intrinsically included in our model. In the current paper we set out to explain this effect analytically with the aid of a substantial simplification of our previous work, which however still correctly captures the essential physics. In contrast to Ref.~\onlinecite{petz2016}, here we move away from the tight binding (TB) basis, Fig.~\ref{fig:basisnew}a, traditionally used to model resonant tunneling phenomena~\cite{callebaut2005importance}, and consider the interaction of a unidirectional electric field with a three level system in the delocalized picture, Fig.~\ref{fig:basisnew}b. In all subsequent derivations we also omit the inclusion of incoherent intersubband scattering or dephasing processes, as we do not consider these effects as critical for the understanding of temporal hole burning. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/sim_10p8_small2.eps}
+		\caption{Simulation results from the our model in Ref.~\onlinecite{petz2016}, where all parameters are as in the reference with the exception of the pure dephasing time, which was set to 2 ps in order to produce more pronounced spectral splitting. \textbf{a} Simulated optical spectrum and \textbf{b} the computed instantaneous intensity $I(t)$ of the high and low frequency lobes. The colour-coding is identical to Fig.~\ref{fig:thb_experiment}.}\label{fig:thb_simulation}
+	\end{center}	
+\end{figure}
+
+The energy splitting, or spectral hole, induced by the resonant tunneling coupling, can be most easily understood by comparing the tight binding with the extended basis pictures, as illustrated in Fig.~\ref{fig:basisnew}. In the TB basis, Fig.~\ref{fig:basisnew}a, the active region states $\ket{l}$ and $\ket{g}$ (for "left" and "ground", respectively) are spatially localized on the left side of the tunneling barrier, whereas the injector state $\ket{r}$ is confined on the right side. We set $\hbar\omega_0$ to denote the $\ket{l} \leftrightarrow \ket{g}$ transition energy and $\hbar\epsilon$ the detuning between the states $\ket{r}$ and $\ket{l}$. When $\hbar \epsilon \ll 1 $ meV, the close energetic alignment of the left and the right levels induces a strong wave function coupling, modelled via the energy interaction term $\hbar\Omega_{lr}$. This leads to a regime of coherent electron transport across the barrier via Rabi oscillations~\cite{callebaut2005importance}. An equivalent, and probably more convenient for our purposes, interpretation is the delocalized, or dressed states, picture, illustrated in Fig.~\ref{fig:basisnew}b. Since the total system's Hamiltonian is non-diagonal in the TB basis, the inclusion of the coupling term $\hbar\Omega_{lr}$ produces a splitting of the near-resonant states $\ket{l}$ and $\ket{r}$ into a new doublet, the symmetric $\ket{-}$ and anti-symmetric $\ket{+}$ levels, spatially extended across the tunneling barrier. Essentially this results in a pair of upper levels, from both of which radiative transition to the ground state is possible. It is within this picture that the temporal hole burning effect is susceptible to a very intuitive explanation. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/basisnew.eps}
+		\caption{3-level system, employing RT for current injection, represented in the \textbf{a} tight binding and \textbf{b} delocalized basis.} \label{fig:basisnew}
+	\end{center}	
+\end{figure}
+
+In operator formalism, neglecting energy dissipation due to interaction with the environment, the atomic Hamiltonian of the unperturbed system in Fig.~\ref{fig:basisnew}b can be written down as 
+\begin{align}
+\label{eq:semiclassical_H}
+\hat{H} &= \hbar \omega_+\P^{\dagger}\P+\hbar\omega_-\M^{\dagger}\M, 
+\end{align}
+where $\hat{\pi}_{\pm} = \ket{g}\bra{\pm}$ and $\hat{\pi}_{\pm}^{\dagger} = \ket{\pm}\bra{g}$ are the lowering and raising operators, respectively, modelling the possible transitions from the anti-symmetric and symmetric dressed states to the ground level, $\ket{g}$. In Eq.~(\ref{eq:semiclassical_H}) we have set the eigenenergies of the anticrossed states  $E_{\pm} = \hbar\omega_{\pm} = \hbar\omega_0\pm \hbar[\epsilon^2+4\Omega_{lr}]^{1/2}/2$, and that of the ground level to zero, i.e. $E_g=0$. To include the light-matter interaction dynamics, we couple the atomic system to a classical electric field propagating in the $x$-direction, only the $z$-component of which, i.e. $E_z(x)$, interacts with the conduction band electrons. We further decompose the field $E_z(x) = \Re\left\{f(x,t)e^{i(k_0x-\omega_0 t)}\right\}$ as the product of a slowly-varying envelope, $f(x,t)$, and a quickly varying carrier wave, oscillating with the $g\leftrightarrow l$ transition frequency, $\omega_0$. The corresponding wave number is $k_0=n_0\omega_0/c$, where $n_0$ denotes the refractive index and $c$ the velocity of light in vacuum. Lastly, we assume the electric dipole and the rotating wave approximations and write down the resulting semi-classical Hamiltonian as follows
+\begin{align}
+\label{eq:semiclassical_H}
+\hat{H} &= \hbar (\omega_+-\omega_0)\P^{\dagger}\P+\hbar(\omega_--\omega_0)\M^{\dagger}\M \nonumber \\ 
+&+\frac{d_{+}}{2}(f\P^{\dagger}+f^*\P)+\frac{d_{-}}{2}(f\M^{\dagger}+f^*\M),
+\end{align}
+where $d_{\pm} = q_0\bra{\pm}\hat{z}\ket{g} $ are the transition dipoles and $q_0$ denotes the elementary charge. 
+
+The density matrix of this 3-level system can be defined as 
+\begin{align}
+\rho = \begin{bmatrix}
+\rho_{++} & \rho_{+-} & \eta_{+g} \\ 
+\rho_{-+} & \rho_{--} & \eta_{-g} \\
+\eta_{g+} & \eta_{g-} & \rho_{gg}
+\end{bmatrix},
+\end{align}
+where $\rho_{ii}$ denote the population densities and $\eta_{\pm g} = \rho_{\pm g}e^{i\omega_0t}$ the slowly varying coherences. The time evolution of $\rho$ is governed by the von Neumann equation, which for the $\rho_{++}$, $\rho_{--}$, and $\eta_{\pm g}$ matrix elements reads  
+\begin{subequations}
+	\label{eq:4eqns}
+	\begin{align}
+	\frac{d \rho_{++}}{dt} &= i\frac{d_{+}}{2\hbar}(f^*\eta_{+g}-f\eta_{+g}^*), \\
+	\frac{d \rho_{--}}{dt} &= i\frac{d_{-}}{2\hbar}(f^*\eta_{-g}-f\eta_{-g}^*), \\
+	\frac{d \eta_{+g}}{dt} &= -i\Omega_{lr}\eta_{+g}+i\frac{d_{+}}{2\hbar}f(\rho_{++}-\rho_{gg})+i\frac{d_{-}}{2\hbar}f\rho_{+-}, \label{eq:eta+a}\\
+	\frac{d \eta_{-g}}{dt} &= i\Omega_{lr}\eta_{-g}+i\frac{d_{-}}{2\hbar}f(\rho_{--}-\rho_{gg})+i\frac{d_{+}}{2\hbar}f\rho_{-+}, \label{eq:eta-a}
+	\end{align}
+\end{subequations}
+where we have assumed that $\epsilon = 0$. 
+
+The origin of the temporal hole burning effect is revealed by assuming that $\Re\{f\} \gg \Im\{f\} $, which is reasonable under resonance, since then the even order dispersion can be considered negligible\cite{khurgin2005optical} (see appendix Sec.~\ref{subsec:sup-real}), as well as taking $d_{+}\approx d_{-} = d$, setting  $\eta = \eta_{+g}+(\eta_{-g})^*$ and deriving the equation of motion of this quantity. Direct substitution from Eq.~(\ref{eq:4eqns}) gives us
+\begin{equation}
+\label{eq:coherence_quasi2lvl}
+\frac{d \eta}{dt} = -i\Omega_{lr} \eta + i\Re\{\beta\}w, 
+\end{equation}
+where  $\beta =d f/2\hbar$ is the Rabi frequency and $w = \rho_{++}-\rho_{--}$ denotes the inversion between the delocalized states, which evolves according to 
+\begin{align}
+\label{eq:inversion_quasi2lvl}
+\frac{d w }{dt}	&=  i\Re\{\beta\}(\eta-\eta^*).
+\end{align}
+Via a similar procedure as above, one can derive the time evolution of a complementary set of quantities, namely $\sigma =\eta_{+g}-(\eta_{-g})^*$, $\rho_{+-}$ and $\rho_{gg}$, which together with Eqs. (\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) form a system that is equivalent to the original von Neumann equation. To complete the picture we write down the time evolution of the field envelope, which in the slowly varying envelope approximation is given by the classical propagation equation~\cite{jirauschek2014modeling}
+\begin{align}
+\label{eq:propagation-eq}
+\frac{n_0}{c}\frac{\p \beta}{\p t} + \frac{\p \beta}{\p x} &= - i\frac{N\Gamma d^2 k_0}{2\epsilon_0n_0^2\hbar}(\eta_{+g}+\eta_{-g}) \nonumber \\
+&=  -i\frac{g}{2}\Re\{\eta\}+\frac{g}{2}\Im\{\sigma\},
+\end{align}
+where $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $ is the peak value of the optical gain. In the appendix Sec.~\ref{subsec:sup-existence} we show that there exists a \emph{stable} configuration of these new variables, i.e. $\sigma = \rho_{+-} = 0$ and $\rho_{gg} = \text{const} = 1/3$, which completely decouples the time evolution of $w$, $\eta$ and $\beta$ from the rest of the system. This solution we will call the temporal hole burning solution and will investigate it in the rest of our paper.
+
+Assuming conservation of charges so that $\rho_{++}+\rho_{--}+\rho_{gg} = 1$, we see how $\rho_{gg}= 1/3$  would necessarily mean that one of the anticrossed states will have population $\geq 1/3$ and the other $\leq 1/3$. Considering the two possible optical transitions, i.e.  $\ket{\pm}\leftrightarrow \ket{g}$, we see that while one would experience gain, then the other will experience losses with the rate of stimulated depletion of electrons from the inverted state exactly equal to the rate of excitation of electrons from the ground level to the un-inverted one, so that the constancy of $\rho_{gg}$ and the total photon number can be maintained. This would naturally lead to the observed pulse switching behaviour and thus the temporal hole burning phenomena. 
+
+From a more fundamental point of view, we can interpret such a coherent dynamics as a two-photon process where the states $\ket{+}$ and $\ket{-}$ exchange an electron via the ground state $\ket{g}$. This also follows from the understanding of $\eta = \eta_{+g}+\eta_{g-}$ as expectation value of the time-dependent operator \cite{loudon2000quantum}
+\begin{align}
+\hat\eta(t) = \P(t) +\M^{\dagger}(t),
+\end{align}
+where the terms $\hat\pi_{\pm}(t)$ are the slowly varying Heisenberg-picture analogues of the raising and lowering operators introduced before, satisfying $\P(0) =\ket{g}\bra{+}$ and $\M^{\dagger}(0)=\ket{-}\bra{g}$. We can therefore see that $\hat\eta$ will lower an electron from the anti-symmetric state, $\ket{+}$, to the ground level and raise an electron from $\ket{g}$ to the symmetric state, $\ket{-}$. This process will be accompanied by an energy conserving exchange of a photon in the $\omega_{-}$ mode for a photon in the $\omega_{+}$ mode, as illustrated in Fig.~\ref{fig:two_photon_process}a, and will continue until the anti-symmetric state is sufficiently depleted so that the conjugate effect could take over. Figure~\ref{fig:two_photon_process}b illustrates this alternative process, namely the one corresponding to the action of the conjugate transpose operator $\hat{\eta}^{\dagger}$, which swaps a $\omega_+$ photon for a $\omega_-$ photon. In a way, these two-photon processes are similar to the familiar Stokes, Fig.~\ref{fig:two_photon_process}c, and anti-Stokes, Fig.~\ref{fig:two_photon_process}d, Raman scattering, however in an flipped energy configuration as the electron exchange does not occur in the upper levels, but rather in the ground state \cite{butcher1991elements}. 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsM{IMGS/two_photon_process2.eps}
+		\caption{Schematic illustration of the two-photon processes, responsible for temporal hole burning, \textbf{a} and \textbf{b}, and the familiar Stokes, \textbf{c}, and anti-Stokes, \textbf{d}, Raman scattering.} \label{fig:two_photon_process}
+	\end{center}	
+\end{figure}
+
+Lastly, we can elaborate a little further and try to illustrate the time-evolution dynamics of Eqs. (\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) in Bloch space. We make the ansatz $u=\Re\{\eta\}$, $v =\Im\{\eta\}$ and as before $w = \rho_{++}-\rho_{--}$. This transforms Eqs.~(\ref{eq:coherence_quasi2lvl}) and (\ref{eq:inversion_quasi2lvl}) into the following system 
+\begin{subequations}
+	\label{eq:quasi-Blocheqn}
+	\begin{align}
+	\dot{u} &= \Omega_{lr} v , \\
+	\dot{v} &= -\Omega_{lr} u +\Re\{\beta\} w , \\
+	\dot{w} &= -2\Re\{\beta\} v.
+	\end{align}
+\end{subequations}
+Notice that Eqs.~(\ref{eq:quasi-Blocheqn}) above are \emph{not} exactly the familiar Bloch equations and therefore the solutions do \emph{not} lie on the Bloch sphere. In fact, we see that the derivative $d(u^2+v^2+w^2)/dt = -2\Re\{\beta\} vw \neq 0$, i.e. the radius is actually not a conserved quantity. One can easily show that the Bloch-space variables, $u,v $ and $w$, instead satisfy the equality $d(u^2+v^2+(w/\sqrt{2})^2)/dt = 0$, which describes the surface of an \emph{ellipsoid} with two equal principal axes $a=b$, i.e. those in the $u-v$ plane, and a third axis $c = \sqrt{2}a$ parallel to $w$, which tells us that, irrespective of the driving field $\Re\{\beta(t)\}$, the time evolution will proceed on the surface of an ellipsoid in Bloch space.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/quasi-bloch-resonance-new2.eps}
+		\caption{\textbf{a} The Bloch variables $u,v$ and $w$ evolved for 120 picoseconds with Eq.~(\ref{eq:quasi-Blocheqn}), when $\omega_f = \Omega_{lr}$ and $\beta_0 = 0.1\times\Omega_{lr}$, with $\Omega_{lr} = 290\times 2\pi$ GHz. \textbf{b} Bloch space representation of \textbf{a}.} \label{fig:quasi-bloch-resonance}
+	\end{center}	
+\end{figure}
+We solve these quasi-Bloch equations, i.e. Eqs.~(\ref{eq:quasi-Blocheqn}), numerically, initially setting $u(t=0)=0$, $v(t=0) = 0$ and $w(t=0) = 0.2$ and assuming $\Re\{\beta\} = \beta_0 \cos\omega_f t$. The latter is indeed a reasonable assumption as the field envelope will not be a DC field, but rather contain components oscillating around the frequency $\omega_f \approx \Omega_{lr}$, which directly follows from the tunneling-induced energy splitting. Our results, when we set $\beta_0 = 0.1\Omega_{lr}$ and $\omega_f = \Omega_{lr}$, are plotted in Fig.~\ref{fig:quasi-bloch-resonance}. These simulations reveal that the population inversion, $w$, completes full swings between -0.2 and 0.2, whereas in the same time $|u|$ and $|v|$ are upper bounded by $0.2/\sqrt{2}$, Fig.~\ref{fig:quasi-bloch-resonance}a. This confirms the deduction that the coherent time-evolution of this system will lie on the surface of an ellipsoid with principal axes $a=b=c/\sqrt{2}$ in the $u$,$v$ and $w$ direction, respectively, as it is evident from Fig.~\ref{fig:quasi-bloch-resonance}b. 
+
+
+\begin{appendices}
+\section{Detailed derivation of the temporal hole burning model}
+\label{sec:sup-derivation}
+Even though the following algebraic operations are quite standard and could be found in most textbooks on quantum mechanics, we nevertheless outline the derivation of the basis transform relating the tight-binding state triplet $\{\ket{g},\ket{l}, \ket{r}\}$ from Fig.~\ref{fig:basisnew}a to the dressed (delocalized) states triplet $\{\ket{g},\ket{-}, \ket{+}\}$ of Fig.~\ref{fig:basisnew}b. Adhering to the same notation as in the main body of this paper, we can write down the tigh-binding basis Hamiltonian of the unperturbed system in Fig.~\ref{fig:basisnew}a as 
+\begin{equation}
+\label{eq:tbH}
+H_{TB} = \begin{pmatrix} 
+\hbar (\epsilon+\omega_0) & \hbar\Omega_{lr} & 0 \\
+\hbar\Omega_{lr}  & \hbar \omega_0 &  0 \\
+0  & 0 & E_g = 0 
+\end{pmatrix},
+\end{equation}
+where we have assumed the ordering of the states $(\ket{r},\ket{l},\ket{g})$ to calculate the matrix elements of $H_{TB}$, i.e. $(H_{TB})_{11} = \bra{r}\hat{H}_{TB}\ket{r}$ and so on. The diagonalization of Eq.~(\ref{eq:tbH}) boils down to diagonalization of the $2\times2$ submatrix
+\begin{equation}
+H_{TB}^{2\times2} = \begin{pmatrix} 
+\hbar (\epsilon+\omega_0)& \hbar\Omega_{lr} \\
+\hbar\Omega_{lr}  & \hbar \omega_0 \\
+\end{pmatrix}.
+\end{equation}
+The eigenenergies of $H_{TB}^{2\times2}$ are given by 
+\begin{equation}
+E_{\pm} = \hbar \omega_\pm =\hbar(\omega_0+\frac{\epsilon}{2}) \pm \frac{1}{2} \hbar \sqrt{\epsilon^2+4\Omega_{lr}^2}.
+\end{equation}
+The corresponding eigenstates $\Ket{\pm} = (\alpha_{\pm},\beta_{\pm})$ solve the equation (dropping the $\hbar$'s)
+\begin{equation}
+(\epsilon+\omega_0-\omega_\pm)\alpha_\pm + \Omega_{lr}\beta_\pm = (\frac{\epsilon}{2}\mp \frac{1}{2}\sqrt{\epsilon^2+4\Omega_{lr}^2})\alpha_\pm + \Omega_{lr}\beta_\pm =0.
+\end{equation}
+This gives us
+\begin{align}
+\alpha_{\pm} &= \frac{2\Omega_{lr}}{(\epsilon\mp \sqrt{\epsilon^2+4\Omega_{lr}^2})}, \\
+\beta_{\pm} &= -1.
+\end{align}
+
+Defining $\tan\theta = -\frac{2\Omega_{lr}}{(\epsilon+\sqrt{\epsilon^2+4\Omega_{lr}^2})}$ and noting that 
+\begin{equation}
+-\frac{2\Omega_{lr}}{(\epsilon+\sqrt{\epsilon^2+4\Omega_{lr}^2})}\frac{2\Omega_{lr}}{(\epsilon-\sqrt{\epsilon^2+4\Omega_{lr}^2})} = \tan \theta \frac{2\Omega_{lr}}{(\epsilon-\sqrt{\epsilon^2+4\Omega_{lr}^2})} = 1,
+\end{equation}
+it follows that
+\begin{align}
+\Ket{+} &= C_+\left( \cot\theta \Ket{r} -1\Ket{l}\right), \\
+\Ket{-} &= C_-\left (-\tan\theta \Ket{r} -1\Ket{l}\right),
+\end{align}
+where $C_\pm$ are normalization constants. After normalization and using the trigonometric identities
+\begin{align}
+\sin\theta &= \frac{1}{\sqrt{1+\cot^2\theta}} ,\text{ for } \theta \in (0;\pi) \\
+\cos\theta &= \frac{1}{\sqrt{1+\tan^2\theta}} ,\text{ for } \theta \in (-\pi/2;\pi/2)
+\end{align}
+we obtain
+\begin{align}
+\Ket{+} &= \frac{1}{\sqrt{1+\cot^2\theta }} (\cot\theta \Ket{r} -1\Ket{l}) = \cos\theta \Ket{r} -\sin\theta\Ket{l} , \label{eq:THB2A} \\
+\Ket{-} &= \frac{1}{\sqrt{1+\tan^2\theta }} (-\tan\theta \Ket{r} -1\Ket{l}) = \sin\theta\Ket{r} + \cos\theta\Ket{l},  \label{eq:THB2S} 
+\end{align}
+where in the last equation we have absorbed the $-$ sign due to the freedom of choosing an arbitrary overall phase of the state. From Eqs.~(\ref{eq:THB2A}) and (\ref{eq:THB2S}) we see that the tight-binding and the delocalized bases are related via the rotation matrix 
+\begin{equation}
+U(\theta) = \begin{pmatrix} 
+\cos\theta & -\sin\theta \\
+\sin\theta & \cos\theta \\
+\end{pmatrix}.
+\end{equation}
+
+Now we are ready to derive the time evolution equations of the density matrix in the delocalized picture. We have seen how the tunneling coupling of the injector and the upper laser states ($l$ and $r$) leads to their splitting into a doublet of anticrossed levels, spatially extending over the tunneling barrier. This will lead to a transfer of the transition dipole moment $d_{lg}=q_0\bra{l}\hat{z}\ket{g}$ onto the pair $d_{+}$ and $d_{-}$, defined as in the main body of the paper, which approximately satisfy the relation $d_{lg}^2=d_{+}^2+d_{-}^2$. In the $\{\ket{+},\ket{-},\ket{g}\}$ basis, the Hamiltonian takes the form
+\begin{align}
+H = \begin{bmatrix}
+\hbar\omega_+ & 0 & d_+E_z \\
+0 & \hbar\omega_- & d_-E_z \\
+d_+E_z & d_-E_z & 0
+\end{bmatrix},
+\end{align}
+which, when plugged into the von Neumann equation, leads to the system
+\begin{subequations}
+\label{eq:vonNeu_nonapprox}
+\begin{align}
+\frac{d \rho_{++}}{dt} &= i\frac{d_+E_z}{\hbar}(\rho_{+g}-\rho_{+g}^*), \\
+\frac{d \rho_{--}}{dt} &= i\frac{d_-E_z}{\hbar}(\rho_{-g}-\rho_{-g}^*), \\
+\frac{d \rho_{gg}}{dt} &= -i\frac{d_+E_z}{\hbar}(\rho_{+g}-\rho_{+g}^*)-i\frac{d_-E_z}{\hbar}(\rho_{-g}-\rho_{-g}^*), \\
+\frac{d \rho_{+-}}{dt} &= -i(\omega_+-\omega_-)\rho_{+-}-i\frac{d_{+}E_z}{\hbar}\rho_{g-}+i\frac{d_{-}E_z}{\hbar}\rho_{+g},\\
+\frac{d \rho_{+g}}{dt} &= -i\omega_+\rho_{+g}+i\frac{d_{+}E_z}{\hbar}(\rho_{++}-\rho_{gg})+i\frac{d_{-}E_z}{\hbar}\rho_{+-}, \\
+\frac{d \rho_{-g}}{dt} &= -i\omega_-\rho_{-g}+i\frac{d_{-}E_z}{\hbar}(\rho_{--}-\rho_{gg})+i\frac{d_{+}E_z}{\hbar}\rho_{-+}. 
+\end{align}
+\end{subequations}
+Now, to employ the rotating wave approximation \cite{weiner2011ultrafast}, we make the standard ansatz 
+\begin{subequations}
+\begin{align}
+E_z(x,t) &= \Re\{f(x,t)e^{i(k_0x-\omega_0t)}\}, \\
+\rho_{+g}(x,t) &= \eta_{+g}(x,t)e^{i(k_0x-\omega_0t)}, \\
+\rho_{-g}(x,t) &= \eta_{-g}(x,t)e^{i(k_0x-\omega_0t)},
+\end{align}
+\end{subequations}
+where $\omega_0$ is the $\ket{l}\leftrightarrow\ket{g}$ transition frequency and $k_0$ the corresponding wave number.  We finally plug this ansatz into Eqs.~(\ref{eq:vonNeu_nonapprox}) and drop terms oscillating with $e^{\pm 2i\omega_0t}$. From this procedure we obtain the time evolution of $\rho^{\text{RWA}}$ as
+\begin{subequations}
+\label{eq:4eqns}
+\begin{align}
+\frac{d \rho_{++}}{dt} &= i\frac{d_{+}}{2\hbar}(f^*\eta_{+g}-f\eta_{+g}^*), \\
+\frac{d \rho_{--}}{dt} &= i\frac{d_{-}}{2\hbar}(f^*\eta_{-g}-f\eta_{-g}^*), \\
+\frac{d \rho_{gg}}{dt} &= - i\frac{d_{+}}{2\hbar}(f^*\eta_{+g}-f\eta_{+g}^*)-i\frac{d_{-}}{2\hbar}(f^*\eta_{-g}-f\eta_{-g}^*), \\
+\frac{d \rho_{+-}}{dt} &= -i(\omega_+-\omega_-)\rho_{+-}-i\frac{d_{+}f}{2\hbar}\eta_{g-}+i\frac{d_{-}f^*}{2\hbar}\eta_{+g},\\
+\frac{d \eta_{+g}}{dt} &= -i(\omega_+-\omega_{0})\eta_{+g}+i\frac{d_{+}}{2\hbar}f(\rho_{++}-\rho_{gg})+i\frac{d_{-}}{2\hbar}f\rho_{+-}, \label{eq:eta+g}\\
+\frac{d \eta_{-g}}{dt} &= -i(\omega_--\omega_{0})\eta_{-g}+i\frac{d_{-}}{2\hbar}f(\rho_{--}-\rho_{gg})+i\frac{d_{+}}{2\hbar}f\rho_{-+}. \label{eq:eta-g}. 
+\end{align}
+\end{subequations}
+We can cast Eqs.~(\ref{eq:4eqns}) into their final form, i.e. Eqs.~(\ref{MAIN-eq:4eqns}) from the main body of the article, via assuming that when resonance detuning is small, i.e. $\epsilon \approx  0$ , then the anticrossing splitting yields the energy difference $\omega_+-\omega_0 \approx \Omega_{lr}$, $\omega_--\omega_0\approx - \Omega_{lr}$ as well as $\omega_+-\omega_- \approx 2\Omega_{lr}$. Next we assume that the dipoles have the same algebraic value, i.e. $d_+ = d_- =d$, and that the optical field's Rabi frequency, i.e. $\beta(x,t) = df(x,t)/2\hbar $ satisfies the relation $\Re\{\beta\} \gg \Im\{\beta\}$, i.e. it evolves primarily in the domain of real numbers. 
+Under these conditions we can decouple the system of ODEs in Eq.~(\ref{eq:4eqns}) by setting $\eta = \eta_{+g}+\eta_{-g}^*$, $\sigma = \eta_{+g}-\eta_{-g}^*$, $w = \rho_{++}-\rho_{--}$ and deriving the time-evolution of these quantities.
+
+After some simple algebraic operations, neglecting terms $\propto \Im \{\beta\}$, we obtain
+\begin{subequations}
+	\label{eq:rhogg-system}
+	\begin{align}
+	\frac{d \rho_{gg}}{dt} &= - i\Re\{\beta\}(\sigma-\sigma^*), \label{eq:rhoggprime} \\
+	\frac{d \rho_{+-}}{dt} &= -2i\Omega_{lr}\rho_{+-}+i\Re\{\beta\}\sigma,\\
+	\frac{d \sigma}{dt} &= -i\Omega_{lr}\sigma+i\Re\{\beta\}(1-3\rho_{gg})+2i\Re\{\beta\}\rho_{+-},
+	\end{align}
+\end{subequations}
+for $\rho_{gg}$, $\sigma$ and $\rho_{+-}$, where we have also used the normalization condition ${\rho_{++}+\rho_{--}+\rho_{gg} = 1}$. On the other hand, the dynamics of $w$ and $\eta$ is governed by 
+\begin{subequations}
+\label{eq:w-system}
+\begin{align}
+\frac{d w}{dt} &= i\Re\{\beta\}(\eta-\eta^*), \\
+\frac{d \eta}{dt} &= -i\Omega_{lr}\eta+i\Re\{\beta\} w. \label{eq:eta}
+\end{align}
+\end{subequations}
+Lastly, the Rabi frequency obeys the slowly varying propagation equation \cite{jirauschek2014modeling}
+\begin{align}
+\label{eq:propagation-eq}
+\frac{n_0}{c}\frac{\p \beta}{\p t} + \frac{\p \beta}{\p x} &= - i\frac{N\Gamma d^2 k_0}{2\epsilon_0n_0^2\hbar}(\eta_{+g}+\eta_{-g}) \nonumber \\
+		&=  -i\frac{g}{2}\Re\{\eta\}+\frac{g}{2}\Im\{\sigma\},
+\end{align}
+where $g =N\Gamma d^2 k_0/\epsilon_0n_0^2\hbar $. The relationships between all variables of interest are schematically illustrated in Fig. \ref{fig:coupling}. 
+To completely decouple Eqs.~(\ref{eq:rhogg-system}) from Eqs.~(\ref{eq:w-system}) and (\ref{eq:propagation-eq}), we simply have to find a solution of Eqs.~(\ref{eq:rhogg-system}), for which $\Im\{\sigma\} =0$. If such a solution existed, this would have two very significant consequences. First, setting $\Im\{\sigma\} =0$ in Eq.~(\ref{eq:propagation-eq}) would mean that the real part of the Rabi frequency would propagate without interacting with the medium, i.e. some kind of a coherent regime of transparency would be observed. And second, the population of the ground electron level, $\rho_{gg}$, would remain constant, as evident from Eq.~(\ref{eq:rhoggprime}). In fact, in our previous simulation results we had already observed this approximately time-constant behaviour of the population in the ground state~\cite{tzenov2017temporal}. These observations strongly enhance our hypothesis of the onset of a two-photon process, suggested in the main body of this paper.
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsM{IMGS/couplingscheme.eps}
+		\caption{Coupling scheme between the new density matrix variables, $\{\eta,\omega\}$, $\{\sigma, \rho_{+-},\rho_{gg}\}$, as well as the field envelope $\beta = \Re\{\beta\}+i\Im\{\beta\}$. The crossed-out quantities denote the temporal hole burning dynamical regime.} \label{fig:coupling}
+	\end{center}	
+\end{figure}
+
+Some questions, left for us to address, are whether it is reasonable to assume that $\beta$ is mainly real, i.e. $\Re\{\beta\} \gg \Im\{\beta\}$, whether there is a solution of Eqs. (\ref{eq:rhogg-system}), for which $\Im\{\sigma\} = 0$ and how stable it is, and lastly what if the dipole moments have same magnitude but different algebraic sign, i.e. $d_+ = -d_-$. Each of these issues will be addressed briefly in the following parts of the appendix.  
+\section{Validity of the temporal hole burning assumptions}
+\label{sec:sup-validity}
+\subsection{Real-valuedness of the field envelope}
+\label{subsec:sup-real}
+First, let us consider when will the reality condition for the Rabi frequency $\beta(x,t)$  hold. To investigate that, let us take an input pulse $\beta_{in}(t_0) = \beta(x=0,t_0)$, with Fourier transform $F_{in}(\omega)$, entering the medium at the left facet, such that at $F_{in}(\omega)^* = F_{in}(-\omega)$, i.e. $\beta_{in}$ is real. After propagating a distance $L$ inside the cavity the pulse transforms according to \cite{weiner2011ultrafast}
+\begin{align}
+\label{eq:fout-expansion}
+\beta(x=L,t) &= \int_{-\infty}^{\infty} F(x=L,\omega)e^{-i\omega t}d\omega = \int_{-\infty}^{\infty} F_{in}(\omega)e^{-i\omega t}e^{g(\omega)L+i\Psi(\omega)}d\omega,
+\end{align}
+where $g(\omega)$ denotes the spectral gain per unit length and $\Psi(\omega)=k(\omega)L$, the acquired phase. In order for $\beta(x=L,t)$ to remain real, it is sufficient that $F(x=L,\omega)^*= F(x=L,-\omega)$. To find when this holds, we first expand the wave number $k(\omega)$ around $\omega=0$ up to fourth order to get  
+\begin{align}
+\label{eq:k-expansion}
+k(\omega) = k_1\omega + \frac{k_2}{2}\omega^2 + \frac{k_3}{6}\omega^3 + O(\omega^4), 
+\end{align}
+which is justified since, by virtue of the rotating wave approximation, we had centred the spectrum around zero and also subtracted out $k_0$ as the wave number at the central frequency $\omega_0$. Now from Eqs. (\ref{eq:fout-expansion}) and (\ref{eq:k-expansion}), we can write (neglecting terms $\propto O(\omega^4)$)
+\begin{subequations}
+	\begin{align}
+	F(x=L,\omega)^* &\approx F_{in}(\omega)^* \exp\{g(\omega)L-i(k_1\omega + \frac{k_2}{2}\omega^2 + \frac{k_3}{6}\omega^3 )L\}, \\
+	F(x=L,-\omega) &\approx F_{in}(-\omega) \exp\{g(-\omega)L+i(-k_1\omega + \frac{k_2}{2}\omega^2 - \frac{k_3}{6}\omega^3 )L\},
+	\end{align}
+\end{subequations}
+which will be equal if
+\begin{subequations}
+	\begin{align}
+	g(-\omega) &= g(\omega), \label{eq:symmetric-gain}\\
+	k_2 = k_4 &= ... = k_{2n}=0. \label{eq:vanish-even-order-dispersion}
+	\end{align}
+\end{subequations}
+The symmetric gain condition, Eq.~(\ref{eq:symmetric-gain}), will be satisfied when the device is biased at injector $\leftrightarrow$ upper laser level resonance. On the other hand Eq.~(\ref{eq:vanish-even-order-dispersion}) requires vanishing even order dispersion, which is approximately satisfied in the tunneling resonance case as then the higher order phase $\Psi$ has equal in magnitude, but opposite in sign, components immediately below and above the central frequency $\omega_0$~\cite{khurgin2005optical}. For illustrative purposes, we plot the higher order phase, the amplitude gain and the field envelope, calculated with our model in Ref.~\onlinecite{petz2016}, in the case when $\epsilon = 0$ (Fig.~\ref{fig:dispersion-on-off-resonance}a) and when $\epsilon < 0$ (Fig.~\ref{fig:dispersion-on-off-resonance}b). 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphicsXL{IMGS/dispersion-on-off-resonance.eps}
+		\caption{ \textbf{a} Higher order phase $\Psi$ and a third order polynomial fit $\Psi_{fit}$ to it, spectral gain  and the real and imaginary parts of $f$, i.e. $\Re\{\beta\}$ and $\Im\{\beta\}$, respectively when $\epsilon = 0$. \textbf{b} Same as \textbf{a}, but when $\epsilon <0$. Notice the drastically smaller values (by 13 orders of magnitude) of $\Im\{\beta\}$ in \textbf{a}. } \label{fig:dispersion-on-off-resonance}
+	\end{center}	
+\end{figure}
+Considering the phase $\Psi$ for a second, we see that within the region of interest, i.e. from 3.5 THz to 4.2 THz, in both cases it can be described very well by a third order polynomial fit $\Psi_{fit}(\omega) = k_2\omega^2/2 + k_3\omega^3/6$ with vanishing $k_2$ coefficient in the symmetric case ($\epsilon = 0$) and non-negligible GVD coefficient in the asymmetric case $\epsilon <0$. Simulating the propagation of an initially real-valued Gaussian pulse $\beta_{in}(t)$ for several round trips, we see that when the symmetric gain and vanishing even order dispersion conditions are satisfied, the field envelope does evolve mainly within the domain of real numbers, as can be verified from the negligibly small imaginary part of $\beta(t)$ in Fig.~\ref{fig:dispersion-on-off-resonance}a. On the contrary, when the gain symmetry condition is violated, the initially real envelope evolves as a complex number, which is illustrated in Fig.~\ref{fig:dispersion-on-off-resonance}b. As for the experimental device in Ref.~\onlinecite{burghoff2014terahertz}, we note that this laser probably approximately satisfies the $k_2 = 0$ condition, due to the incorporation of a dispersion compensation mechanism designed specifically to cancel this coefficient. 
+
+We can also discuss whether the temporal hole burning phenomena will be present in the assymetric regime. Even without rigorous proof, we think that THB will also appear upon slight detuning from perfect resonance, as this has already been verified by experiment \cite{burghoff2015evaluating}. In this letter, we treat theoretically only the perfectly symmetric configuration as it is susceptible to a simple analytical analysis. For a more realistic interpretation, it is essential to also consider effects of detuning onto the pulse switching behaviour, propagation effects, boundary conditions etc., which significantly complicates the model and would require numerical simulations.
+
+
+From Fig.~\ref{fig:coupling} we see that the temporal hole burning solution imposes coupling between the real and imaginary parts of $\beta(x,t)$. However since at the onset of our derivations we had imposed that $\Re\{\beta\} \gg \Im\{\beta\}$, it therefore follows that not every single field configuration will satisfy this condition and at the same time the coupling in Fig.~\ref{fig:coupling}. To derive the requirements on $\Re\{\beta\}$ we will solve the coupled system Eqs.~(\ref{eq:w-system}) and (\ref{eq:propagation-eq}) via a perturbative approach. Since the former system strongly resembles the classical two level system, we make the usual expansion of the population inversion $w=w^{(0)} + w^{(2)}$ and the polarization $\eta = \eta^{(1)} + \eta^{(3)}$, in terms of powers of $\Re\{\beta\}$. Plugging this ansatz in Eq. \ref{eq:w-system} we immediately see that $w^{(0)} = w_0 = \text{const}$ is the zeroth order solution of the inversion. In Fourier domain, the solution for $\eta^{(1)}$ goes as
+\begin{align}
+-i\om\t\eta^{(1)}(x,\om) &= -i\Omega_{lr}\t\eta^{(1)}(x,\om) +i\t\beta^{re}(x,\om)w^{(0)} \nonumber \\
+	&\Leftrightarrow \nonumber \\
+	\t\eta^{(1)}(x,\om) &= \frac{1}{\Omega_{lr}-\om}\t\beta^{re}(x,\om)w^{(0)}, \label{eq:eta-1-solution} 
+\end{align}
+where $\t\eta^{(1)}(x,\om) $ and $\tilde\beta^{re}(x,\om)$ are the Fourier transforms of $\eta$ and $\Re\{\beta\}$, respectively, at the angular frequency $\omega$ and position $x$ along the cavity. We will consider only first order solutions for $\eta$ and therefore neglect higher order terms. 
+
+Addressing the propagation equation and assuming the temporal hole burning solution holds, i.e. $\sigma = 0$, then we get 
+\begin{subequations}
+\label{eq:propagation-eq2}
+\begin{align}
+&\frac{n_0}{c}\frac{\p \beta}{\p t} + \frac{\p \beta}{\p x} = -i\frac{g}{2}\Re\{\eta\}+\frac{g}{2}\Im\{\sigma\}, \nonumber \\
+	&{\Leftrightarrow} \nonumber \\
+&	\frac{n_0}{c}\frac{\p \Re\{\beta\}}{\p t} + \frac{\p \Re\{\beta\}}{\p x} = 0, \label{eq:beta-real-prop} \\
+&	\frac{n_0}{c}\frac{\p \Im\{\beta\}}{\p t} + \frac{\p \Im\{\beta\}}{\p x} = -\frac{g}{2}\Re\{\eta\}. \label{eq:beta-imag-prop} 
+\end{align}
+\end{subequations}
+Again, transforming Eq. (\ref{eq:beta-real-prop}) the Fourier domain, we immediately get the solution $\t\beta^{re}(x,\om) = \t\beta^{re}(0,\om)e^{i\frac{\om n_0}{c}x}$. On the other hand, Eq. (\ref{eq:beta-imag-prop}) reduces to 
+\begin{align}
+-i\frac{\om n_0}{c}\t\beta^{im}(x,\om) + \frac{\p \t\beta^{im}(x,\om)}{\p x} = -\frac{g}{2}\frac{\t\eta(x,\om)+\t\eta(x,-\om)^*}{2}, \label{eq:beta-imag-prop-fourier} 
+\end{align}
+which can be directly solved, to first order in $\Re\{\beta\}$ by plugging in the solution Eq. (\ref{eq:eta-1-solution}). Now rewriting and simplifying the terms we get the ordinary differential equation 
+\begin{align}
+\frac{\p \t\beta^{im}(x,\om)} {\p x} -i\frac{\om n_0}{c}\t\beta^{im}(x,\om)  = -\frac{g w^{(0)} }{4}\times  \big(\frac{\t\beta^{re}(x,\om)}{\Omega_{lr}-\om} + \frac{\t\beta^{re}(x,-\om)^* }{\Omega_{lr}+\om} \big).
+\end{align}
+Furthermore exploiting the symmetry of $\t\beta^{re}(x,\om)$ since it is the Fourier transform of a real function, i.e.  $\t\beta^{re}(x,-\om)  =  \t\beta^{re}(x,\om)^*$, premultiplying both sides of the previous equation with $e^{-i\frac{\om n_0}{c}x}$ and using the fact that $\t\beta^{re}(x,\om) = \t\beta^{re}(0,\om)e^{i\frac{\om n_0}{c}x}$
+\begin{align}
+\frac{\p \left [ \t\beta^{im}(x,\om)e^{-i\frac{\om n_0}{c}x} \right] } {\p x}  = -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(0,\om) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}.
+\end{align}
+After some more algebra we obtain the analytical solution of $\t\beta^{im}(x,\om)$
+\begin{equation}
+\label{eq:beta-imag-solution-fourier}
+\t\beta^{im}(x,\om) = \t\beta^{im}(0,\om)e^{i\frac{\om n_0}{c}x} -\frac{g w^{(0)} }{2}\times  \t\beta^{re}(0,\om) \times\frac{\Omega_{lr}}{\Omega_{lr}^2-\om^2}\times x e^{i\frac{\om n_0}{c}x}.
+\end{equation}
+Now inverse Fourier transforming Eq.~(\ref{eq:beta-imag-solution-fourier}) we obtain
+\begin{equation}
+\label{eq:beta-imag-solution-tine}
+\beta^{im}(x,t) = \beta^{im}(0,t-xn_0/c)  -x\frac{g w^{(0)} \Omega_{lr} }{2}\times \frac{1}{2\pi} \int_{-\infty}^{\infty} \frac{\t\beta^{re}(0,\om)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega.
+\end{equation}
+The first term on the right contains the propagation part of the solution, while the second term is in general an indefinite integral of $\omega$, due to the singularities at $\omega = \pm \Omega_{lr}$. Now, from complex analysis we know that the Cauchy principle value of the latter integral is given by
+\begin{equation}
+\label{eq:pvalue}
+P \int_{-\infty}^{\infty} \frac{\t\beta^{re}(0,\om)}{\Omega_{lr}^2-\om^2} e^{i\om(\frac{x n_0}{c}x-t)}d\omega = -i\pi \left[Res(f(\tilde\omega);\tilde\omega=\Omega_{lr})+Res(f(\tilde\omega);\tilde\omega=-\Omega_{lr})\right],
+\end{equation}
+where $f(\tilde\omega) = \t\beta^{re}(0,\tilde\omega) e^{i\tilde\omega(\frac{x n_0}{c}x-t)}/[\Omega_{lr}^2-\tilde\omega^2]$ is the continuation of the integrand over the complex plane with $\tilde\omega = \omega + iu$, and $Res(f(\tilde{\omega}),\tilde\omega=\tilde\omega_i)$ denote the residuals of the function at the points $\tilde\omega_i$. Since $f(\tilde\omega)$ has simple poles at $\pm\Omega_{lr}$, we one can easily find the residuals to be 
+\begin{subequations}
+\label{eq:residuals}
+\begin{align}
+Res(f(\tilde{\omega});\tilde{\omega}=\Omega_{lr}) &= - \beta^{re}(0,\Omega_{lr})e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}, \\
+Res(f(\tilde{\omega});\tilde{\omega}=-\Omega_{lr}) &= \beta^{re}(0,-\Omega_{lr})e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}/2\Omega_{lr}.
+\end{align}
+\end{subequations}
+Combining Eqs.~(\ref{eq:residuals}) with Eqs.~(\ref{eq:pvalue}) and (\ref{eq:beta-imag-solution-tine}) we obtain
+\begin{subequations}
+	\begin{align}
+	\beta^{im}(x,t) &= \beta^{im}(0,t-xn_0/c)  -i\pi x\frac{g w^{(0)} \Omega_{lr} }{2}\times  \frac{1}{2\pi} \left( \frac{\beta^{re}(0,\Omega_{lr})e^{i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}}-\frac{\beta^{re}(0,-\Omega_{lr})e^{-i\Omega_{lr}(\frac{x n_0}{c}x-t)}}{2\Omega_{lr}} \right) \nonumber \\
+	&= \beta^{im}(0,t-xn_0/c)+ x\frac{g w^{(0)}}{4}\Im\{ \beta^{re}(x,\Omega_{lr})e^{-i\Omega_{lr}t}\}. 
+	\end{align}
+\end{subequations}
+
+\subsection{Existence and stability of the THB solution}
+\label{subsec:sup-existence}
+Next, we will discuss the existence and stability of a solution, decoupling Eqs.~(\ref{eq:rhogg-system}) from Eqs.~(\ref{eq:w-system}) and (\ref{eq:propagation-eq}). It is immediately obvious that at least one such solution exists for the case when $\bar\rho_{gg} = 1/3$ and $\bar\sigma = \bar\rho_{+-} = 0$. Then Eqs.~(\ref{eq:rhogg-system}) are identically satisfied and thus the systems have been decoupled. In the more general case, we can impose $\Im\{\sigma\}=0$ into Eq. (\ref{eq:rhogg-system}), which amounts to solving a liner differential-algebraic equation with time-varying coefficients of the form 
+\begin{subequations}
+	\begin{align}
+	\dot{y} &= M(t)y \label{eq:diffequation} \\
+	0 &= g(y) \label{eq:algebraicequation},
+	\end{align}
+\end{subequations}
+where $y = [\Re\{\rho_{+-}\},\Im\{\rho_{+-}\},\Re\{\sigma\}]$, is the vector of remaining variables, $M$ is the coefficients matrix and $g(y) =0 $ is a constraint, establishing the relationships between the $y-$vector variables so that $\Im\{\sigma\} = 0$ is satisfied. The existence and uniqueness of such a solution is a mathematical topic on its own and is out of the scope of this work. Therefore, we will concentrate on the proposed solution and investigate its stability subject to a small perturbation of the form $\rho_{gg}=\bar{\rho}_{gg}+\delta\rho_{gg}$, $\sigma = \bar{\sigma} + \delta\sigma$ and $\rho_{+-} = \bar{\rho}_{+-} + \delta\rho_{+-}$. These perturbations would then evolve according to 
+\begin{subequations}
+	\label{eq:rhogg-perturbation}
+	\begin{align}
+	\frac{d \delta\rho_{gg}}{dt} &= - i\Re\{\beta\}(\delta\sigma-\delta\sigma^*), \\
+	\frac{d \delta\rho_{+-}}{dt} &= -2i\Omega_{lr}\delta\rho_{+-}+i\Re\{\beta\}\delta\sigma,\\
+	\frac{d \delta\sigma}{dt} &= -i\Omega_{lr}\delta\sigma-3i\Re\{\beta\}\delta\rho_{gg}+2i\Re\{\beta\}\delta\rho_{+-}.
+	\end{align}
+\end{subequations}
+After separating the variables into their real and imaginary parts, we write down Eqs.~(\ref{eq:rhogg-perturbation}) into matrix-vector form 
+\begin{equation}
+\dot{y} = A(t)y,
+\end{equation}
+where $y =[\delta\rho_{gg},\Re\{\delta\rho_{+-}\},\Im\{\delta\rho_{+-}\},\Re\{\delta\sigma\},\Im\{\delta\sigma\}]^T$ and the coefficient matrix correspondingly given by
+\begin{equation}
+A = \begin{bmatrix} 0 & 0 & 0 & 0 & 2\Re\{\beta\} \\
+0  & 0 & 2\Omega_{lr} & 0 & -\Re\{\beta\} \\
+0 & -2\Omega_{lr} & 0 & \Re\{\beta\} & 0 \\
+0 & 0 & -2\Re\{\beta\} & 0 & \Omega_{lr} \\
+-3\Re\{\beta\} & 2\Re\{\beta\} & 0 & -\Omega_{lr} & 0  
+\end{bmatrix}.
+\end{equation} 
+The characteristic polynomial of $A$ is 
+\begin{equation}
+p(\lambda) = -\lambda\big[ (\lambda^2+2\Omega_{lr}^2+4\Re\{\beta\}^2 )^2+\lambda^2(2\Re\{\beta\}^2+\Omega_{lr}^2)\big],
+\end{equation} which obviously has one root $\lambda_{1} =0 $ and four \emph{purely} imaginary roots 
+\begin{subequations}
+	\label{eq:eigenvalues}
+	\begin{align}
+	\lambda_{2,3} = \pm i\frac{1}{2}\left(\sqrt{2\Re\{\beta\}^2+\Omega_{lr}^2} + \sqrt{18\Re\{\beta\}^2+9\Omega_{lr}^2} \right),  \\
+	\lambda_{4,5} =  \pm i\frac{1}{2}\left(\sqrt{2\Re\{\beta\}^2+\Omega_{lr}^2} - \sqrt{18\Re\{\beta\}^2+9\Omega_{lr}^2} \right). 
+	\end{align}
+\end{subequations}
+
+Since $\lambda_i$ are also the eigenvalues of $A(t)$, we have just proven the stability of the temporal hole burning solution: $\bar\rho_{gg} = 1/3$ and $\bar\sigma = \bar\rho_{+-}=0$. 
+
+\subsection{Dipole moments relation}
+\label{sec:sup-dipole}
+Lastly, we refer to the assumption we made that the dipole moments have equal algebraic value, i.e. $d_{+} = d_{-} = d$. What if they have opposite signs, i.e. $d_{+} = -d_{-} = d$? It is very easy to show that one can derive an equivalent quasi two-level system, but this time with the coherence set as $\eta = \eta_{+g}-\eta_{-g}^*$, instead of the substitution made above. In this case, the interpretation of the pulse switching behaviour remains the same, as the reader can readily verify by him/her-self.
+\end{appendices}
+
+	
+\bibliography{D:/docs/MAIN-PROJECTS/PAPERS/literature/bib_resources.bib}
+\end{document}
+
