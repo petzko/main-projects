@@ -1,0 +1,586 @@
+%% ****** Start of file apsguide4-1.tex ****** %
+%%
+%%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%%   Version 4.1r of REVTeX, August 2010.
+%%
+%%   Copyright (c) 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4.1 README file for restrictions and more information.
+%%
+\documentclass[preprint,secnumarabic,amssymb, nobibnotes, aip, prd]{revtex4-1}
+%\usepackage{acrofont}%NOTE: Comment out this line for the release version!
+\newcommand{\revtex}{REV\TeX\ }
+\newcommand{\classoption}[1]{\texttt{#1}}
+\newcommand{\macro}[1]{\texttt{\textbackslash#1}}
+\newcommand{\m}[1]{\macro{#1}}
+\newcommand{\env}[1]{\texttt{#1}}
+\setlength{\textheight}{9.5in}
+
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\usepackage{color}
+\usepackage[latin9]{inputenc}
+\usepackage{mathrsfs,amsmath}
+\usepackage{graphicx}%
+\usepackage{float}
+\usepackage{amsfonts}%
+\usepackage[titletoc]{appendix}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage{bm}
+
+\newcommand{\mb}[1]{\bm{#1}}
+\usepackage[T1]{fontenc}
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\def\P{\hat{\pi}_+}
+\def\M{\hat{\pi}_-}
+
+
+
+
+
+\def\Nabla{\bm{\nabla}}
+\def\bm{\mathbf}
+\def\curl{\Nabla\times}
+\def\div{\Nabla\cdot}
+\def\lap{\Delta}
+\def\vlap{\Delta}
+\def\x{\hat{e}_{x}}
+\def\y{\hat{e}_{y}}
+\def\z{\hat{e}_{z}}
+\def\p{\partial}
+\def\h{\hat}
+\def\tw{\tilde{\omega}}
+\def\gm{\gamma}
+\def\om{\omega}
+\def\OM{\Omega}
+\def\GM{\Gamma}
+\def\dw{\delta\omega}
+\def\dth{\Delta\theta}
+\def\dk{\delta k}
+\def\Hdth{\frac{\dth}{2}} %half Delta Theta
+\DeclareMathOperator{\Tr}{Tr}
+
+
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arcCot}
+\DeclareMathOperator{\arccsc}{arcCsc}
+\DeclareMathOperator{\arccosh}{arcCosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arcCsch}
+\DeclareMathOperator{\arccoth}{arcCoth} 
+
+%\usepackage[font=small]{caption}
+\newcommand{\includegraphicsXL}[1]{\includegraphics[width = 0.7\textwidth]{#1}}
+\newcommand{\includegraphicsM}[1]{\includegraphics[width = 0.5\textwidth]{#1}}
+
+%\captionsetup{width=.45\textwidth}
+
+
+
+
+\bibliographystyle{ieeetr}
+\begin{document}
+	\title{Optical Bistability in Quantum Cascade Lasers}
+	\author{Petar Tzenov}
+	\affiliation{Technical University of Munich}
+	\maketitle
+	
+	\section{Motivation}
+	
+	\section{Density matrix equations}
+	The density matrix equations for the three level system with two modes can be written as 
+	\begin{subequations}
+		\label{eq:4eqns}
+		\begin{align}
+		\frac{d \rho_{++}}{dt} &= \mu_+ J_{in}/(qNL_p) + i\frac{d_{+}}{2\hbar}(A^*\eta_{+g}-A\eta_{+g}^*) - (\rho_{++}-\rho_{++}^{eq})/\tau_{+}, \\
+		\frac{d \rho_{--}}{dt} &= \mu_- J_{in}/(qNL_p) + i\frac{d_{-}}{2\hbar}(B^*\eta_{-g}-B\eta_{-g}^*) - (\rho_{--}-\rho_{--}^{eq})/\tau_{-}, \\
+		\frac{d \rho_{gg}}{dt} &= -J_{out}/(qNL_p)- i\frac{d_{+}}{2\hbar}(A^*\eta_{+g}-A\eta_{+g}^*)-i\frac{d_{-}}{2\hbar}(B^*\eta_{-g}-B\eta_{-g}^*)  - (\rho_{gg}-\rho_{gg}^{eq})/\tau_{g}, \\
+		\frac{d \rho_{+-}}{dt} &= [-i(\omega_+-\omega_-)+\gamma_{\perp}^{\pm}]\rho_{+-}-i\frac{d_{+}}{2\hbar}A\eta_{g-}+i\frac{d_{-}}{2\hbar}B^*\eta_{+g},\\
+		\frac{d \eta_{+g}}{dt} &= [-i(\omega_+-\omega_{0})-\gamma_{\perp}^{+}]\eta_{+g}+i\frac{d_{+}}{2\hbar}A(\rho_{++}-\rho_{gg})+i\frac{d_{-}}{2\hbar}B\rho_{+-}, \label{eq:eta+g}\\
+		\frac{d \eta_{-g}}{dt} &= [-i(\omega_--\omega_{0})-\gamma_{\perp}^{-}]\eta_{-g}+i\frac{d_{-}}{2\hbar}B(\rho_{--}-\rho_{gg})+i\frac{d_{+}}{2\hbar}A\rho_{-+}, \label{eq:eta-g}
+		\end{align}
+	\end{subequations}
+	where $A$ and $B$ denote the (complex) envelopes of each respective mode, $\rho_{jj}$  the population densities in each respective level, $\eta_{jg} = \rho_{jg}e^{i\omega_0 t}$ are the slowly varying coherence terms and I have taken the rotating wave approximation. Above, similar to the work of M. Yamada [Transverse and Longitudinal Mode control in semicond. inj. lasers], I have included three different contributions to the electron population densities, and namely an external component due to the injected current density (properly normalized to the dimensions of a density matrix), the optical transition rates and finally another scattering component due to intersubband scattering amongst the three energy levels. The latter is modelled as a diagonal operator which leads to some quasi-equilibrium condition $\rho_{jj}^{eq}$. Finally $\mu_{+}$ and $\mu_{-}$ are the fractions of the total injection current entering the $\ket{+}$ and $\ket{-}$ states, respectively, chosen such that $\mu_{+}+\mu_{-}=1$.
+	
+	
+	\section{Perturbative solution}
+	I will first write the equations in powers of the field amplitudes $|A|$ and $|B|$. Based on this perturbative expansion, setting the rhs of the corresponding polarization components to 0, I will derive analytical expression of the steady state linear and third order polarizations. Those will then be used in the modal expansion equations to obtain a final expression for the time evolution of the modal intensities and the modal gain. These equations will then be analytically and numerically analyzed to investigate regimes of stable multimode operatation, of bi-stable operation or of chaotic behaviour. Or at least that is the plan ... 
+	
+	
+	
+	
+	\subsection{Full perturbative solution}
+	In this section we will derive, based on perturbative expansion of the density matrix in powers of the incident electric field, analytical expressions of the first, second and third order susceptibilities in a three level quantum system. 
+	
+	In its basic form the EOM can be written as 
+	\begin{align}
+	\frac{d\hat\rho}{dt} = -\frac{i}{\hbar}[\hat H,\hat\rho] + (\frac{d \rho }{dt}|_{coll}) + \Lambda_{inj},
+	\end{align}
+	where $\rho$ is the density matrix, $H$ is the total Hamiltonian and the last term denotes phenomenologically included scattering rates. In our model, the Hamiltonian has two distinct contributions: $H_0$ for the bare system Hamiltonian, the eigenstates of which are the wave functions displayed in Fig. \ref{}, and the interaction Hamiltonian, $H_{int}$, modelling the effect of an applied electric field onto the system dynamics. Assuming a field $E_z$, polarized along the growth $z$-direction, it enters the Hamiltonian via the electric dipole approximation, i.e. $H_{int} = q_0 \hat{z} E_z$, where $\hat{z}$ denotes the position operator and $q_0$ the elementary charge. Due to the tunneling coupling between the injector and the upper laser level, the tight-binding eigenstates split into a doublet of "delocalized states", each coupled to the lower laser level via a dipole allowed transition. In fact, one can easily verify that the dipole matrix element between the upper and the lower level in the tight-binding basis, i.e. $d_{lg}$, will be distributed amongst the dipole elements between each delocalized state and the lower level, i.e. $d_{\pm g}$, via the quadratic relation (see Appendix)
+	\begin{equation}
+	d_{lg}^2 =d_{+g}^2+d_{-g}^2,
+	\end{equation} 
+	where the relative strength of the delocalized states' dipoles is determined by the detuning from "injector"-"upper level" resonance. In this dressed states/delocalized basis, we can write down the von Neumann equation as follows
+	\begin{align}
+	\label{eq:EOM_nm}
+	\dot{\rho}_{nm} = -i\omega_{nm}\rho_{nm}  - \frac{i}{\hbar} [H_{int},\rho]_{nm} + (\frac{d \rho }{dt}|_{coll})_{nm} + \Lambda_{nm},
+	\end{align}
+	where $\omega_{nm} = (E_n-E_m)/\hbar$ is the transition frequency between levels $n$ and $m$ for $n,m \in\{+,-,2\}$. For the collision terms, we will assume the form 
+	\begin{align}
+	(\frac{d \rho }{dt}|_{coll})_{nm} = -\gamma_{nm}(\rho_{nm}-\rho_{nm}^{(eq)}),
+	\end{align}
+	with $\rho_{nm}^{(eq)}$ denoting the equilibrium value of the corresponding density matrix element and $\gamma_{nm}$ the convergence rate to that equilibrium. We assume that $\rho_{nm}^{(eq)}=0$ for $n\neq m$, and generally $\rho_{nm}^{(eq)}\neq=0$ for $n = m$. This is the equilibrium achieved as a combination of external current injection and intrasubband scattering due to the various non-radiative mechanisms which determine the dynaimcs. Additionally we explicitly factor out a current injection and depletion term $\Lambda_{inj}$ into the equations, which is assumed to be a diagonal matrix with the values $\Lambda_{++} = \mu_+J/q_0NL_p$, $\Lambda_{--} = \mu_-J/q_0NL_p$  and $\Lambda_{gg} = -J/q0NL_p$ where $J$ is the net current density, $L_p$ is the period length, $q_0$ is the elementary charge, $N$ is the average carrier density and $\mu_{\pm}$ is the fraction of the current that enters the respective level $\ket{\pm}$, such that $\mu_++\mu_-=1$. The explicit inclusion of the current density here is necessary to be able to relate the pulse switching behaviour and the relative dwell times of THB to the applied bias. 
+	
+	
+	A standard technique for the analytical solution of Eq. (\ref{eq:EOM_nm}) is the perturbative expansion approach [cite], assuming a series expansion of the density matrix elements in powers of the electric field
+	\begin{equation}
+	\label{eq:expansion}
+	\rho_{nm} = \rho_{nm}^{(0)}+\rho_{nm}^{(1)}+\rho_{nm}^{(2)} +\rho_{nm}^{(3)} + ...
+	\end{equation} 
+	This approach is valid only for moderate strengths of the applied field and is a very good approximation for terahertz quantum cascade lasers due to the still relatively low output powers of these devices. We will solve Eq. (\ref{eq:EOM_nm}), assuming the solution form in Eq. (\ref{eq:expansion}), in a step-wise fashion, starting from the zero-th order element up to third order. This will allow us to derive explicit formulas for the linear, i.e. $\chi^{(1)}$, and higher order susceptibilities, i.e. $\chi^{(2)}$ and $\chi^{(3)}$, which govern the mode proliferation mechanisms in QCL frequency combs. Following Boyd [cite] we can now write the consecutive coupled differential equations as 
+	\begin{subequations}
+		\label{eq:EOM_expansion_nm}
+		\begin{align}
+		\dot{\rho}_{nm}^{(0)} &= -i\omega_{nm}\rho_{nm}^{(0)} -\gamma_{nm}(\rho_{nm}^{(0)}-\rho_{nm}^{(eq)}) + \Lambda_{nm}, \label{eq:EOM_zeroth}\\
+		\dot{\rho}_{nm}^{(1)} &= -(i\omega_{nm}+\gamma_{nm})\rho_{nm}^{(1)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(0)}]_{nm}, \label{eq:EOM_first}\\
+		\dot{\rho}_{nm}^{(2)} &= -(i\omega_{nm}+\gamma_{nm})\rho_{nm}^{(2)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(1)}]_{nm},  \label{eq:EOM_second}\\
+		\dot{\rho}_{nm}^{(3)} &= -(i\omega_{nm}+\gamma_{nm})\rho_{nm}^{(3)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(2)}]_{nm},  \label{eq:EOM_third}
+		\end{align} 
+	\end{subequations}
+	where $Z$ denotes the dipole moment matrix in the delocalized basis and the other quantities are as defined previously.  
+	
+	\subsection{First order susceptibility}
+	
+	We start by explicit integration of Eqs. (\ref{eq:EOM_expansion_nm}). From the explicit form of the collision term in Eq. (\ref{eq:EOM_zeroth}) we can quickly deduce that $\rho_{nn}^{(0)} = \rho_{nn}^{(eq)} = p_n$ and $\rho_{nm}^{0} = 0$ for $n\neq m$. Putting that together we can write $\rho_{nm}^{(0)} = \delta_{nm}p_n $, where $\delta_{nm}$ is the Kronecker delta. Now, after we know these values we can plug the result in Eq. (\ref{eq:EOM_first}) and integrate. To do that we need to expand the electric field $E_z$ as a superposition of $M$ modes via
+	\begin{equation}
+	\label{eq:field_expansion}
+	E_z(t,x) = \frac{1}{2}(\sum_{j=1}^{M} A_j(t)u_j(x) e^{-i\tw_j t } + c.c.), \quad j \in N,
+	\end{equation}
+	where $j$ is the mode index and $\tw_j$  is the respective optical frequency, $A_j$ is the amplitude and $u_j$ is the longitudinal mode profile, assumed a complete set of orthogonal cavity eigenmodes. Assuming that the optical signal is relatively narrowband, distributed around some central frequency $\omega_c$ we can, with employing the rotating wave and slowly varying envelope approximations in hindsight, we rewrite Eq. (\ref{eq:field_expansion}) as 
+	\begin{align}
+	\label{eq:field_expansion_rwa}
+	E_z(t,x) &= \frac{1}{2}(e^{-i\omega_c t}\sum_{j=1}^{M} A_j(t)u_j(x) e^{-i(\tw_j-\omega_c) t } + c.c.) \nonumber \\
+	&= \frac{1}{2}(e^{-i\omega_c t}\sum_{j=-q}^{p} A_j(t)u_j(x) e^{-i\tw_j t } + c.c.), 
+	\end{align}
+	where we have denoted with $\tilde \tw_j = \tw_j-\omega_c$ and have also changed the indexing, assuming the modes with negative index have lower frequency than $\omega_c$ and those with positive index are higher. Lastly, without loss of generality, we have also assumed that $\omega_c$, i.e. the central frequency, coincides with one of the cavity modes and has amplitude and longitudinal profile denoted by $A_0$ and $u_0$, respectively.   
+	
+	Plugging in Eq. \ref{eq:field_expansion_rwa} into Eq. (\ref{eq:EOM_first}) and evaluating the commutator yields
+	\begin{align}
+	\label{eq:coherence_expansion}
+	\dot{\rho}_{nm}^{(1)} &= -(i\omega_{nm}+\gamma_{nm})\rho_{nm}^{(1)}  \nonumber \\ 
+	&- \frac{iq_0}{2\hbar}z_{nm}(p_m-p_n)(e^{-i\omega_c t}\sum_{j=-q}^{p}A_ju_je^{-i\tw_j t} + c.c.).
+	\end{align}
+	
+	I will assume that the mode amplitudes are time-independent and perform the time-integration explicitly for sake of clarity only once. Eq. (\ref{eq:coherence_expansion}) is equivalent to 
+	\begin{align}
+	\label{eq:coherence_expansion2}
+	& \frac{ d\rho_{nm}^{(1)}e^{(i\omega_{nm}+\gamma_{nm})t}} {dt} = \frac{iq_0}{2\hbar}z_{nm}(p_n-p_m)e^{(i\omega_{nm}+\gamma_{nm})t}(\sum_{j=-q}^{p}A_ju_je^{-i(\tw_j+\omega_c) t} + c.c.). 
+	\end{align}
+	Now explicitly performing the integration in the interval $[0;t]$ we get
+	\begin{align}
+	\label{eq:coherence_expansion3} 
+	\rho_{nm}^{(1)}e^{(i\omega_{nm}+\gamma_{nm})t} &= \frac{iq_0}{2\hbar}z_{nm}(p_n-p_m)\times \sum_{j=-q}^{p}\Big \{A_ju_j \int_{0}^{t}  e^{[i( \omega_{nm} - \tw_j-\omega_c)+ \gamma_{nm}]\tau} d\tau  \nonumber \\
+	&+ A_j^*u_j^* \int_{0}^{t}  e^{[i( \omega_{nm} + \tw_j+\omega_c)+ \gamma_{nm}]\tau} d\tau \Big \} \nonumber \\
+	\Leftrightarrow \nonumber \\
+	\rho_{nm}^{(1)} &= \frac{iq_0}{2\hbar}z_{nm}(p_n-p_m)\times \sum_{j=-q}^{p} \Big \{\frac{A_ju_j e^{-i(\tw_j +\omega_c)}}{[i( \omega_{nm} - \tw_j-\omega_c)+ \gamma_{nm}]} \nonumber \\
+	&+\frac{A_j^*u_j^* e^{i(\tw_j +\omega_c)}}{[i( \omega_{nm} + \tw_j+\omega_c)+ \gamma_{nm}]}
+	\Big \} \nonumber \\
+	\Leftrightarrow \nonumber \\
+	\rho_{nm}^{(1)} &= \frac{q_0}{2\hbar}z_{nm}(p_n-p_m)\times \sum_{j=-q}^{p} \Big \{e^{-i\omega_c t}\frac{A_ju_j e^{-i\tw_j}}{[( \omega_{nm} - \tw_j-\omega_c) -i\gamma_{nm}]} \nonumber \\
+	&+e^{i\omega_c t}\frac{A_j^*u_j^* e^{i\tw_j}}{[( \omega_{nm} + \tw_j+\omega_c) -i\gamma_{nm}]}
+	\Big \} \nonumber \\
+	\end{align}
+	
+	Below I will perform explicit evaluation of Eq. (\ref{eq:coherence_expansion3}) for our energy levels. 
+	\begin{align}
+	\label{eq:rho_1_pmg_solution}
+	\rho_{\pm g}^{(1)} &= \frac{q_0}{2\hbar}z_{\pm g}(p_\pm-p_g)\times \sum_{j=-q}^{p} \Big \{e^{-i\omega_c t}\frac{A_ju_j e^{-i\tw_j}}{[( \omega_{\pm g} - \tw_j-\omega_c) -i\gamma_{\pm g}]} \nonumber \\
+	&+e^{i\omega_c t}\frac{A_j^*u_j^* e^{i\tw_j}}{[( \omega_{\pm g} + \tw_j+\omega_c) -i\gamma_{\pm g}]}
+	\Big \}.
+	\end{align}
+	For a more compact notation, we can also make the ansatz $\rho_{\pm g}^{(1)} = \eta_{\pm g}^{(1)}e^{-i\omega_c t}$ and employ the rotating wave approximation. Indeed, Eq.~(\ref{eq:rho_1_pmg_solution}) above contains two components under the summation, one with denominator $[( \omega_{\pm g} - \tw_j-\omega_c) -i\gamma_{\pm g}]$ and the other with $[( \omega_{\pm g} + \tw_j+\omega_c) -i\gamma_{\pm g}]$. Since I assume that the electric field spectrum is distributed around both resonance frequencies $\omega_{\pm g}$ it becomes evident that while the former term will have a rather compact denominator, the denominator of the latter (i.e. the anti-resonant term) will be quite large. Then we can neglect this anti-resonant contribution and write the solution simply as
+	\begin{align}
+	\label{eq:eta_1_pmg_solution}
+	\eta_{\pm g}^{(1)} &= \frac{q_0}{2\hbar}z_{\pm g}(p_\pm-p_g)\times \sum_{j=-q}^{p} \frac{A_ju_j e^{-i\tw_j}}{[( \omega_{\pm g} - \tw_j-\omega_c) -i\gamma_{\pm g}]}.
+	\end{align}
+	
+	Additionally we  have the coherence term $\rho_{+-}^{(1)}$, given by
+	\begin{align}
+	\label{eq:rho_1_pm_solution}
+	\rho_{+-}^{(1)} &= \frac{q_0}{2\hbar}z_{+-}(p_+-p_-)\times \sum_{j=-q}^{p} \Big \{e^{-i\omega_c t}\frac{A_ju_j e^{-i\tw_j}}{[( \omega_{+-} - \tw_j-\omega_c) -i\gamma_{+-}]} \nonumber \\
+	&+e^{i\omega_c t}\frac{A_j^*u_j^* e^{i\tw_j}}{[( \omega_{+-} + \tw_j+\omega_c) -i\gamma_{+-}]}
+	\Big \}.
+	\end{align}
+	Now since the energy splitting $\omega_{+-}$ is much smaller than $\omega_c$, both denominators in the above expression can be assumed to be very large in comparison to the mode intensity and thus we can set $\rho_{+-}^{(1)} \approx 0$.
+	
+	
+	Note that within the rotating wave approximation, the only non-zero first order solutions are $\rho_{+2}^{(1)}$ and $\rho_{-2}^{(1)}$. Indeed, Eq. \ref{eq:coherence_expansion} tells us that $\rho_{nn}^{(1)} = 0 $ or at least will decay to zero with the rate $\gamma_{nn}$.
+	
+	To finally derive $\chi^{(1)}$ we compute the polarization via the expectation value of the dipole operator $q_0\hat{z}$, i.e. 
+	\begin{align}
+	\label{eq:polarization_01}
+	P(t,x) &= -N<\hat \mu> = -N q_0\Tr(\rho Z)\nonumber \\
+	&= -Nq_0\sum_{k=1}\Tr(\rho^{(k)}Z),
+	\end{align}
+	where $N$ is the average carrier density, $Z$ is the dipole matrix and $\Tr$ is the trace. Expanding the polarization in powers of the electric field amplitude we can write 
+	\begin{align}
+	\label{eq:polarization_02}
+	P(t,x) &= P^{(1)}+P^{(2)}+P^{(3)} + ...,
+	\end{align}
+	where the first order term is given by 
+	\begin{align}
+	\label{eq:polarization_linear}
+	P^{(1)} &=  \frac{1}{2}e^{-i\omega_ct}\sum_{j}\epsilon_0 \chi^{(1)}(\tilde{\omega}_j) A_ju_je^{-i\tw_jt} + c.c..
+	\end{align}
+	Now taking Eqs.~(\ref{eq:eta_1_pmg_solution}) and (\ref{eq:polarization_linear}) and substituting for the first order term in Eq. (\ref{eq:polarization_01}) we obtain 
+	\begin{align}
+	\label{eq:polarization_linear_final}
+	\chi^{(1)}(\tw_j) &=  -\frac{2N}{\epsilon_0\hbar}\sum_{n\in \{+,-\}} \frac{\kappa_{ng}^2(p_n-p_g)}{\omega_{ng}-\omega_c-\tw_j-i\gamma_{ng}},
+	\end{align}
+	where, for compactness, we have set $\kappa_{ng} = q_0z_{ng}/2\hbar$ as the optical coupling coefficient between states $n$ and $g$. 
+	
+	
+	Now I am going to use Eq. (\ref{eq:polarization_linear_final}) in order to derive EOM for the time evolution of the field modes. The wave equation reads
+	\begin{equation}
+	\label{eq:waveqns}
+	\underbrace{\left [\frac{c^2}{n_{THz}^2} \frac{\p^2}{\p x^2} -\frac{\p^2}{\p t^2} \right ] E}_{LHS} =\overbrace{\frac{1}{\epsilon_0 n_{THz}^2}\frac{\p^2}{\p t^2}P}^{RHS}
+	\end{equation}
+	Now we plug our mode expansion ansatz for the field $E$ 
+	\begin{align}
+	\label{eq:waveqn2}
+	&\frac{c^2}{n_{THz}^2} \sum_{j}A_j\frac{d^2u_j}{d x^2}e^{-i(\tw_j+\omega_c)t} -\sum_{j} \left(\frac{d^2 A_j}{d t^2}-2i(\tw_j+\omega_c)\frac{dA_j}{dt}-(\tw_j+\omega_c)^2A_j\right)e^{-i(\tw_j+\omega_c)t} \nonumber \\
+	&=\frac{1}{\epsilon_0 n_{THz}^2}\epsilon_0 \sum_{j}\chi^{(1)}(\tilde{\omega}_j) \left (\frac{d^2 A_j}{d t^2}-2i(\tw_j+\omega_c)\frac{dA_j}{dt}-(\tw_j+\omega_c)^2A_j \right)u_je^{-i(\tw_j+\omega_c)t}.
+	\end{align}
+	Now we make a standing wave ansatz for the modes, i.e. we assume that 
+	\begin{align}
+	u_j(x) = \sin(k_j x), \quad \quad k_j = (j+j_c)\pi/L,
+	\end{align}
+	where $j_0$ is the index of the central mode with angular frequency $\omega_c$, and $L$ is the cold cavity length. We further employ the slowly varying envelope approximation and thus neglect terms proportional to the second derivative. Rearranging we get the following evolution equations for the "j-th" mode
+	\begin{align}
+	 [2i\omega_j \frac{dA_j}{dt} + (\omega_j^2 - \bar{\omega}_j^{2})A_j] = -\frac{\chi^{(1)}(\omega_j)}{n_{THz}^2}  \omega_j^2 A_j,
+	\end{align}
+	where $\bar\omega_j = ck_j/n_{THz}$ is the angular frequency corresponding to the "j" standing mode with wavenumber $k_j$ in the cold cavity. Additionally we can include losses, which we model by adding a term $-i\omega_j/\tau_c A_j$ to the right hand side to finally obtain
+	\begin{align}
+	& 2i\omega_j \frac{dA_j}{dt} + (\omega_j^2 - \bar{\omega}_j^{2})A_j = -\frac{\chi^{(1)}(\omega_j)}{n_{THz}^2}  \omega_j^2 A_j -i\frac{\omega_j}{\tau_c} A_j,  \nonumber \\
+	& \Leftrightarrow \nonumber \\
+	& \frac{dA_j}{dt} -i\frac{(\omega_j^2 - \bar{\omega}_j^{2})}{2\omega_j}A_j = i\frac{\chi^{(1)}(\omega_j)}{2n_{THz}^2}  \omega_j A_j -\frac{1}{2\tau_c} A_j. 
+	\end{align}
+	Now the intensity, proportional to $|A_j|^2$ evolves according to
+	\begin{align}
+	\frac{dI_j}{dt} = -\frac{\omega_j }{n_{THz}^2} \Im\{\chi^{(1)}(\omega_j)\} I_j -\frac{1}{\tau_c} I_j,
+	\end{align}
+	where $\tau_c$ is the photon lifetime in the cavity. Using Eq. \ref{eq:polarization_linear_final} we get 
+	\begin{align}
+	\frac{dI_j}{dt} = (G^{+}(\omega_j,t)+G^{-}(\omega_j,t))I_j -\frac{1}{\tau_c} I_j,
+	\end{align}
+	where 
+	\begin{align}
+		G^{\pm}(\omega,t) = \frac{2N\omega}{\hbar\epsilon_0 n_{THz}^2}\frac{\kappa_{\pm g}^2\gamma_{\pm g}}{(\omega_{\pm g}-\omega)^2+\gamma_{\pm g}^2}\times(\rho_{\pm\pm}(t)-\rho_{gg}(t))
+	\end{align}
+		
+	Now I will couple the above modal equations to a time evolution equation for the density matrix elements. I derive in the subsequent sections, via perturbation expansion, the time evolution of the diagonal elements of the DM up to second order. We have that $\rho_{jj} = \rho_{jj}^{(0)}+\rho_{jj}^{(0)}$, where the former term is time-constant and the latter evolves in time according to (within the rotating wave approximation)
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} &\approx -\gamma_{++}\rho_{++}^{(2)} + i\left(\frac{q_0z_{+g}}{2\hbar}\right)^2\times (p_+-p_g) \times 
+	\Big \{
+	\sum_{r,j} \frac{A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]} \nonumber \\
+	&- \sum_{r,j} \frac{A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}]}
+	\Big \}.
+	\end{align}
+	
+	Similarly we can divide the gain terms into a small signal gain, i.e. $G^{\pm}(\omega)^{(0)}\propto (p_\pm-p_g)$ and a saturation gain which is equal to $G^{\pm}(\omega)^{(2)}\propto (\rho_{\pm\pm}^{(2)}-\rho_{gg}^{(2)})$. Now at steady state, the losses should exactly cancel out with the linear gain, which would lead to the simple equation 
+	
+	\begin{align}
+	\frac{dI_j}{dt} = (G^{+}(\omega_j,t)^{(2)}+G^{-}(\omega_j,t)^{(2)})I_j.
+	\end{align}
+	\subsection{Two mode solution}
+	
+	Let us now assume that we have only two longitudinal modes, one centred at the $\omega_{+g}$ transition and the other at $\omega_{-g}$ one, separated by the anticrossing energy $\omega_{+g}-\omega_{-g}\approx 2\Omega$. Then We can rewrite the expressions as 
+	\begin{align}
+	\frac{dI_+}{dt} = (G^{+}(\omega_+,t)^{(2)}+G^{-}(\omega_+,t)^{(2)})I_+, \\
+	\frac{dI_-}{dt} = (G^{+}(\omega_-,t)^{(2)}+G^{-}(\omega_-,t)^{(2)})I_-. \\
+	\end{align}
+	Now the time evolution of the second order gain terms are proportional to 
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} &\approx -\gamma_{++}\rho_{++}^{(2)} + i\kappa_{+g}^2\times (p_+-p_g) \times 
+	\Big \{
+	\sum_{r,j} \frac{A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]} \nonumber \\
+	&- \sum_{r,j} \frac{A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}]}
+	\Big \}.
+	\end{align}
+	Now, expanding the sum yields
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} &\approx -\gamma_{++}\rho_{++}^{(2)} + i\kappa_{+g}^2\times (p_+-p_g) \times 
+	\Big \{
+	\frac{A_+^*A_+}{ -i\gamma_{+ g}} + \frac{A_+^*A_-e^{2i\Omega t}}{2\Omega  -i\gamma_{+ g} }	+ \frac{A_-^*A_+e^{-2i\Omega t}}{ -i\gamma_{+ g}}	+ \frac{A_-^*A_-}{2\Omega -i\gamma_{+ g}}	- c.c.
+	\Big \} \nonumber \\
+	&\approx -\gamma_{++}\rho_{++}^{(2)} -2\kappa_{+g}^2\times (p_+-p_g) \times \left (	\frac{I_+}{ \gamma_{+ g}} +\frac{I_-\gamma_{+g}}{4\Omega^2+\gamma_{+g}^2} \right ) \nonumber \\
+	=& -\gamma_{++}\rho_{++}^{(2)}  -\alpha_+ I_+ -\beta_{+}I_-,
+	\end{align}
+	where we have dropped the cross terms $\propto A_+A_-$, assuming that this condition approximately holds in the THB regime and we have used $\alpha_+ = 2\kappa_{+g}^2(p_+-p_g)/\gamma_{+g} $ to denote the self-saturation term, and also $\beta_+ = 2\kappa_{+g}^2(p_+-p_g)\gamma_{+g}/[4\Omega^2+\gamma_{+g}^2]$ as the cross saturation term. 
+	
+	
+	
+	
+	\newpage
+	\subsection{Second order susceptibility}
+	
+	In materials with inversion symmetry the second order nonlinearity vanishes and thus $\chi^{(2)} = 0.$ This condition is satisfied if the diagonal terms of the dipole matrix $Z$ are identically zero, which is a commonly assumed approximation in the theoretical treatment of QCLs. However, in reality this assumption is not satisfied since when biased quantum well heterostructures are highly assymetric along the growth direction and in fact are known to posses extremely large second order nonlinearities [cite]. Thus a necessary step towards more realistic modelling of these devices, especially in the context of comb generation, must be taken by including $\chi^{(2)}$ in the overall theoretical treatment. 
+	To come to the desired solution, we continue the iterative procedure above and substitute in Eq. (\ref{eq:EOM_second}) the previously obtained solution for the first and zero-th order terms. Rewriting, again, for completeness we get 
+	\begin{align}
+	\rho_{nm}^{(1)} &= \frac{q_0}{2\hbar}z_{nm}(p_n-p_m)\times \sum_{j=-q}^{p} \Big \{e^{-i\omega_c t}\frac{A_ju_j e^{-i\tw_j}}{[( \omega_{nm} - \tw_j-\omega_c) -i\gamma_{nm}]} \nonumber \\
+	&+e^{i\omega_c t}\frac{A_j^*u_j^* e^{i\tw_j}}{[( \omega_{nm} + \tw_j+\omega_c) -i\gamma_{nm}]}
+	\Big \} \nonumber \\ 
+	\dot{\rho}_{nm}^{(2)} &= -(i\omega_{nm}+\gamma_{nm})\rho_{nm}^{(2)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(1)}]_{nm},  \label{eq:EOM_second-2}
+	\end{align}
+	Now I will evaluate the commutator 
+	\begin{align}
+	[Z,\rho^{(1)}]_{nm} &= \sum_{k} z_{nk}\rho_{km}^{(1)} - z_{km}\rho_{nk}^{(1)}
+	\end{align}
+	explicitly for every combination of $n,m$. I do this in the following:
+	\begin{subequations}
+		\label{eq:Z_rho_1_commutators}
+		\begin{align}
+		[Z,\rho^{(1)}]_{++} &= z_{++}\rho_{++}^{(1)} - z_{++}\rho_{++}^{(1)} + z_{+-}\rho_{-+}^{(1)} - z_{-+}\rho_{+-}^{(1)} + z_{+g}\rho_{g+}^{(1)} - z_{g+}\rho_{+g}^{(1)} \nonumber \\
+		&=  z_{+g}(\rho_{g+}^{(1)} - \rho_{+g}^{(1)}), \\
+		[Z,\rho^{(1)}]_{+-} &= z_{++}\rho_{+-}^{(1)} - z_{+-}\rho_{++}^{(1)} + z_{+-}\rho_{--}^{(1)} - z_{--}\rho_{+-}^{(1)} + z_{+g}\rho_{g-}^{(1)} - z_{g-}\rho_{+g}^{(1)} \nonumber \\
+		&= z_{+g}\rho_{g-}^{(1)} - z_{g-}\rho_{+g}^{(1)}, \\
+		[Z,\rho^{(1)}]_{+g} &= z_{++}\rho_{+g}^{(1)} - z_{+g}\rho_{++}^{(1)} + z_{+-}\rho_{-g}^{(1)} - z_{-g}\rho_{+-}^{(1)} + z_{+g}\rho_{gg}^{(1)} - z_{gg}\rho_{+g}^{(1)} \nonumber \\
+		&= (z_{++}- z_{gg})\rho_{+g}^{(1)} + z_{+-}\rho_{-g}^{(1)}, \\
+		&\text{By symetry we can write the rest of the dipole elements} \nonumber \\
+		[Z,\rho^{(1)}]_{--} &=z_{-g}(\rho_{g-}^{(1)} - \rho_{-g}^{(1)}), \\
+		[Z,\rho^{(1)}]_{gg} &= - z_{-g}(\rho_{g-}^{(1)} - \rho_{-g}^{(1)}) - z_{+g}(\rho_{g+}^{(1)} - \rho_{+g}^{(1)}),  \\
+		[Z,\rho^{(1)}]_{-g} &=  (z_{--}- z_{gg})\rho_{-g}^{(1)}+ z_{-+}\rho_{+g}^{(1)}.
+		\end{align}
+	\end{subequations}
+	
+	Now explicitly for $\rho_{++}^{(2)}$, where we also absorb the product $A_j(t)u_j(x)\rightarrow A_j(x,t)$ for simplicity, 
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} &= -\gamma_{++}\rho_{++}^{(2)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(1)}]_{++}\nonumber \\
+	&= -\gamma_{++}\rho_{++}^{(2)} -i\frac{q_0z_{+g}}{2\hbar}\times (\rho_{g+}^{(1)} - \rho_{+g}^{(1)})\times (\sum_{r=-q}^{p} A_r(x,t) e^{-i(\tw_r+\omega_c) t } + c.c.).
+	\end{align}
+	We use Eq. (\ref{eq:rho_1_pmg_solution})
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} &= -\gamma_{++}\rho_{++}^{(2)} +i\frac{q_0z_{+g}}{2\hbar}\times (\sum_{r=-q}^{p} A_r e^{-i(\tw_r+\omega_c) t } + c.c.) \times \frac{q_0}{2\hbar}z_{+g}(p_+-p_g)\nonumber \\
+	&\times \Big \{ 
+	\sum_{j=-q}^{p} \Big [\frac{A_j e^{-i(\tw_j+\omega_c)t}}{( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}} +\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{( \omega_{+ g} + \tw_j+\omega_c) -i\gamma_{+ g}}
+	\Big ] 
+	\nonumber \\
+	&- \sum_{j=-q}^{p} \Big [\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}} +\frac{A_j e^{-i(\tw_j+\omega_c)t}}{( \omega_{+ g} + \tw_j+\omega_c) +i\gamma_{+ g}}
+	\Big ]
+	\Big \}. 
+	\end{align}
+	
+	If we explicitly perform the multiplication we will be able to substantially simplify, by virtue of the RWA, the above expression. Multiplying the terms proportional to $A_re^{-i(\tw_r+\omega_c)t}$ with those proportional to $A_j$ and $A_j^*$ we can see that a single term will dominate, and namely $\sum A_rA_j^*e^{-i(\tw_r-\tw_j)t}/[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}]$, because the others will be either proportional to $\exp\{\pm 2i\omega_c t\}$ or will have a very large denominator. Equivalently, the only terms that we can retain upon multiplication with $A_r^*e^{i(\tw_r+\omega_c)t}$ are those $\propto A_r^*A_je^{-i(\tw_j-\tw_r)t}/[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]$. Taking this into consideration we rewrite Eq.~(\ref{eq:eq:rho_2_pp_solution1}) in a much simpler form
+	
+	\begin{align}
+	\dot{\rho}_{++}^{(2)} +\gamma_{++}\rho_{++}^{(2)} &\approx i\left(\frac{q_0z_{+g}}{2\hbar}\right)^2\times (p_+-p_g) \times 
+	\Big \{
+	\sum_{r,j} \frac{A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]} \nonumber \\
+	&- \sum_{r,j} \frac{A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}]}
+	\Big \},
+	\end{align}
+	after which we are ready to perform the integration to finally obtain
+	\begin{align}
+	\rho_{++}^{(2)} &\approx 
+	\sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{++}]} \nonumber \\
+	& + \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{++}]}
+.	\end{align}
+	A "sanity" check for the correctness of the above expression is that we can quickly verify that $\rho_{++}^{(2)}$ will be a real number, as required by the physical reality, as it is equal to the sum of some number and its complex conjugate. Similar formulas hold for $\rho_{--}^{(2)}$ and $\rho_{gg}^{(2)}$.
+	
+	Next I will derive the formula for $\rho_{+-}^{(2)}$. From Eqs. (\ref{eq:Z_rho_1_commutators}) and (\ref{eq:EOM_second-2}) we have
+	\begin{align}
+	\label{eq:rho_2_pm1}
+	\dot{\rho}_{+-}^{(2)} &= -(i\omega_{+-}+\gamma_{+-})\rho_{+-}^{(2)}  + i \frac{q_0}{2\hbar}(\sum_{r}A_r e^{-i(\tilde{\omega}_r+\omega_c)t} + c.c) [z_{-g}\rho_{+g}^{(1)} - z_{+g}\rho_{g-}^{(1)}] \nonumber \\ 
+	&= -(i\omega_{+-}+\gamma_{+-})\rho_{+-}^{(2)} + i \frac{q_0}{2\hbar}(\sum_{r}A_r e^{-i(\tilde{\omega}_r+\omega_c)t} + A_r^* e^{i(\tilde{\omega}_r+\omega_c)t} ) \nonumber  \\
+	&\times 
+	\Big \{
+	z_{-g} \frac{q_0}{2\hbar}z_{+ g}(p_+-p_g)\times \sum_{j=-q}^{p} \Big (\frac{A_j e^{-i(\tw_j+\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]} 
+	+\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{[( \omega_{+ g} + \tw_j+\omega_c) -i\gamma_{+ g}]} \Big) \nonumber \\
+	&-z_{+g}
+	\frac{q_0}{2\hbar}z_{-g}(p_--p_g)\times \sum_{j=-q}^{p} \Big (\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{-g}]} 
+	+\frac{A_j e^{-i(\tw_j+\omega_c)t}}{[( \omega_{- g} + \tw_j+\omega_c) +i\gamma_{- g}]} \Big)
+	\Big \}.
+	\end{align}
+	Explicitly performing the multiplication and factoring out marginal terms (within the rotating wave approximation) we can retain only two out of in total eight summands 
+	\begin{align}
+	\label{eq:rho_2_pm2}
+	\dot{\rho}_{+-}^{(2)} &\approx -(i\omega_{+-}+\gamma_{+-})\rho_{+-}^{(2)}  - i (\frac{q_0}{2\hbar})^2z_{-g}z_{+g}(p_--p_g)\sum_{r,j}\frac{A_rA_j^* e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}]} \nonumber \\
+	&+ i (\frac{q_0}{2\hbar})^2z_{-g}z_{+g}(p_+-p_g)\sum_{r,j}\frac{A_r^*A_j e^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]}.
+	\end{align}
+	
+	Now we perform the integration 
+	\begin{align}
+	\label{eq:rho_2_pm_solution}
+	\rho_{+-}^{(2)} &\approx  - i\kappa_{-g}\kappa_{+g}(p_--p_g)\sum_{r,j}\frac{A_rA_j^* e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][i( \omega_{+-} - (\tw_r-\tw_j))+\gamma_{+-}]} \nonumber \\
+	&+ i \kappa_{-g}\kappa_{+g}(p_+-p_g)\sum_{r,j}\frac{A_r^*A_j e^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][i( \omega_{+-} + (\tw_r-\tw_j))+\gamma_{+-}]} \nonumber \\
+	&= \sum_{r,j}\frac{\kappa_{-g}\kappa_{+g}(p_+-p_g)A_r^*A_j e^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][( \omega_{+-} + (\tw_r-\tw_j))-i\gamma_{+-}]} \nonumber \\
+	&-\sum_{r,j}\frac{\kappa_{-g}\kappa_{+g}(p_--p_g)A_rA_j^* e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][(\omega_{+-} - (\tw_r-\tw_j))-i\gamma_{+-}]}.
+	\end{align}
+	
+	Lastly I will derive the solution of $\rho_{+g}^{(2)}$. The commutator evaluates to
+	 $$[Z,\rho^{(1)}]_{+g} =(z_{++}- z_{gg})\rho_{+g}^{(1)} + z_{+-}\rho_{-g}^{(1)}. $$ 
+	 Again, we plug this into the differential equation Eq. (\ref{eq:EOM_second-2})
+	\begin{align}
+		\dot{\rho}_{+g}^{(2)} &= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(2)}  - i q_0E_z\hbar^{-1}[Z,\rho^{(1)}]_{+g} \nonumber \\
+		&= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(2)} - i \frac{q_0}{2\hbar}(\sum_{r}A_r e^{-i(\tilde{\omega}_r+\omega_c)t} +  A_r^* e^{i(\tilde{\omega}_r+\omega_c)t}) \times [(z_{++}- z_{gg})\rho_{+g}^{(1)}  + z_{+-}\rho_{-g}^{(1)}] \nonumber \\
+		&= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(2)} -i \frac{q_0}{2\hbar}(\sum_{r}A_r e^{-i(\tilde{\omega}_r+\omega_c)t} + A_r^* e^{i(\tilde{\omega}_r+\omega_c)t})  \times (z_{++}- z_{gg})  \nonumber \\ 
+		&\times \frac{q_0}{2\hbar}z_{+g}(p_+-p_g)\times \sum_{j} \Big \{\frac{A_j e^{-i(\tw_j+\omega_c)t}}{[( \omega_{+g} - \tw_j-\omega_c) -i\gamma_{+ g}]} +\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{[( \omega_{+ g} + \tw_j+\omega_c) -i\gamma_{+ g}]}	\Big \} \nonumber \\
+		&- i \frac{q_0}{2\hbar}(\sum_{r}A_r e^{-i(\tilde{\omega}_r+\omega_c)t} +  A_r^* e^{i(\tilde{\omega}_r+\omega_c)t}) \times z_{+-} \times \frac{q_0}{2\hbar}z_{-g}(p_--p_g)\nonumber \\ 
+		&\times \sum_{j} \Big \{\frac{A_j e^{-i(\tw_j+\omega_c)t}}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{- g}]} +\frac{A_j^* e^{i(\tw_j+\omega_c)t}}{[( \omega_{- g} + \tw_j+\omega_c) -i\gamma_{- g}]}
+		\Big \} .
+	\end{align}
+	RWA leads to 
+	\begin{align}
+	\dot{\rho}_{+g}^{(2)} &\approx -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(2)} -i\kappa_{+g}(\kappa_{++}-\kappa_{gg})(p_+-p_g)\sum_{r,j} \frac{ A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}]} \nonumber \\ 
+	&-i\kappa_{+-}\kappa_{-g}(p_--p_g)\sum_{r,j}\frac{ A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{-g}]}.
+	\end{align}
+	Integrating yields:
+	\begin{align}
+	\rho_{+g}^{(2)} &\approx -i\kappa_{+g}(\kappa_{++}-\kappa_{gg})(p_+-p_g)\sum_{r,j} \frac{ A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][i( \omega_{+ g} +\tw_r- \tw_j) +\gamma_{+ g}]} \nonumber \\ 
+	&-i\kappa_{+-}\kappa_{-g}(p_--p_g)\sum_{r,j}\frac{ A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{-g}][i( \omega_{+ g} +\tw_r- \tw_j) +\gamma_{+ g}]}.
+	\end{align}
+	Or rewriting  in a more compact form 
+	\begin{align}
+	\rho_{+g}^{(2)} &\approx  \sum_{r,j} \frac{\kappa_{+g}(\kappa_{++}-\kappa_{gg})(p_g-p_+) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]} \nonumber \\ 
+	&+\sum_{r,j}\frac{\kappa_{+-}\kappa_{-g}(p_g-p_-) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{-g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]}.
+	\end{align}
+	Similarly
+	\begin{align}
+	\rho_{-g}^{(2)} &\approx  \sum_{r,j} \frac{\kappa_{-g}(\kappa_{--}-\kappa_{gg})(p_g-p_-) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]} \nonumber \\ 
+	&+\sum_{r,j}\frac{\kappa_{+-}\kappa_{+g}(p_g-p_+) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+g} - \tw_j-\omega_c) -i\gamma_{+g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]}.
+	\end{align}
+	
+	
+	
+	
+	\newpage
+	Now we finally have the second order terms
+	
+	
+	\begin{align}
+	\label{eq:rho_2_pp_solution_fin}
+	\rho_{++}^{(2)} &\approx 
+	\sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{++}]} \nonumber \\
+	& + \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{++}]},
+	\end{align}
+
+	\begin{align}
+	\label{eq:rho_2_mm_solution_fin}
+	\rho_{--}^{(2)} &\approx \sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][ \tw_r-\tw_j +i\gamma_{--}]} \nonumber \\
+	& + \sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][ \tw_r-\tw_j -i\gamma_{--}]},
+	\end{align}
+	\begin{align}
+		\label{eq:rho_2_gg_solution_fin}
+		\rho_{gg}^{(2)} &\approx -\sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+		& - \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{gg}]} \nonumber \\
+		 &-\sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+		& - \sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][ \tw_r-\tw_j -i\gamma_{gg}]},
+	\end{align}	
+Finally for the  second order coherence terms we obtained
+	\begin{align}
+	\label{eq:rho_2_pm_solution_fin}
+	\rho_{+-}^{(2)} &\approx \sum_{r,j}\frac{\kappa_{-g}\kappa_{+g}(p_+-p_g)A_r^*A_j e^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][( \omega_{+-} + (\tw_r-\tw_j))-i\gamma_{+-}]} \nonumber \\
+	&-\sum_{r,j}\frac{\kappa_{-g}\kappa_{+g}(p_--p_g)A_rA_j^* e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][(\omega_{+-} - (\tw_r-\tw_j))-i\gamma_{+-}]}.
+	\end{align}
+	\begin{align}
+	\label{eq:rho_2_+g_solution_fin}
+	\rho_{+g}^{(2)} &\approx  \sum_{r,j} \frac{\kappa_{+g}(\kappa_{++}-\kappa_{gg})(p_g-p_+) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]} \nonumber \\ 
+	&+\sum_{r,j}\frac{\kappa_{+-}\kappa_{-g}(p_g-p_-) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{-g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]}.
+	\end{align}
+	Similarly
+	\begin{align}
+	\label{eq:rho_2_-g_solution_fin}
+	\rho_{-g}^{(2)} &\approx  \sum_{r,j} \frac{\kappa_{-g}(\kappa_{--}-\kappa_{gg})(p_g-p_-) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]} \nonumber \\ 
+	&+\sum_{r,j}\frac{\kappa_{+-}\kappa_{+g}(p_g-p_+) A_j A_r^* e^{-i(\tw_j-\tw_r)t}}{[( \omega_{+g} - \tw_j-\omega_c) -i\gamma_{+g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]}.
+	\end{align}
+	Now the susceptibility is given by 
+	\begin{align}
+	P^{(2)} = -Nq_0 \Tr\{\rho^{(2)} Z\} = -Nq_0 (z_{g+}\rho_{+g}^{(2)} + z_{-g}\rho_{-g}^{(2)} +c.c.) \label{eq:P_2_dfg_1}
+	\end{align}
+	Now for difference frequency generation we have 
+	\begin{align}
+	P^{(2)}_{\text{DFG}}(\omega_\sigma) &= \frac{\epsilon_0}{2} \left (\sum_{j,r} \chi^{(2)}(\omega_\sigma,\omega_j,-\omega_r) E(\omega_j)E(\omega_r)^* e^{-i(\omega_j-\omega_r)t} + c.c. \right )\nonumber \\
+	&= \frac{\epsilon_0}{2}\left (\sum_{j,r} \chi^{(2)}(\omega_\sigma,\omega_j,-\omega_r) A_jA_r^* e^{-i(\omega_j-\omega_r)t} + c.c.\right ), \label{eq:P_2_dfg_2}
+	\end{align}
+	where we have used that $E(\omega_j)e^{-i\omega_j} = A_j e^{-i(\tw_j+\omega_c)}$ and also that $$\omega_\sigma + \omega_j-\omega_r = \omega_\sigma + \tw_j-\tw_r = 0.$$
+	Now using the formulas (\ref{eq:rho_2_+g_solution_fin})-(\ref{eq:P_2_dfg_2}) we get
+	\begin{align}
+	\chi^{(2)}(\omega_\sigma,\omega_j,-\omega_r) &= 
+	 \frac{4 N \hbar}{\epsilon_0}\times \Big \{ \frac{\kappa_{+g}^2(\kappa_{++}-\kappa_{gg})(p_+-p_g)}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]} \nonumber \\ 
+   & +\frac{\kappa_{+-}\kappa_{+g}\kappa_{-g}(p_--p_g)}{[( \omega_{-g} - \tw_j-\omega_c) -i\gamma_{-g}][( \omega_{+ g} +\tw_r- \tw_j) -i\gamma_{+ g}]} \nonumber \\
+    &+ \frac{\kappa_{-g}^2(\kappa_{--}-\kappa_{gg})(p_--p_g)}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]} \nonumber \\ 
+    &+\frac{\kappa_{+-}\kappa_{-g}\kappa_{+g}(p_+-p_g)}{[( \omega_{+g} - \tw_j-\omega_c) -i\gamma_{+g}][( \omega_{- g} +\tw_r- \tw_j) -i\gamma_{- g}]}  \Big \}.
+	\end{align}
+	\newpage
+	\subsection{Third order susceptibility}
+	
+	Since the whole derivation becomes quite complex, hereafter we will adhere to the derivation of the susecptibility due to the transition dipoles $z_{\pm g}$ only and not due to the dipoles arising from the non-centrosymmetric nature of the QCL structure, i.e.  $z_{jj}$ and $z_{+-}$. First we evaluate the commutator $[Z,\rho^{(2)}]_{+g} \approx -z_{+g}[\rho_{++}^{(2)}-\rho_{gg}^{(2)}]$. Now direct substitution into the EOM gives us 
+	\begin{align}
+	\dot\rho_{+g}^{(3)} &= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(2)} -i\frac{q_0}{\hbar}E_z[Z,\rho^{(2)}]_{+g} \nonumber \\
+	&= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(3)} +i\kappa_{+g} \sum_{k} \left ( A_k e^{-i(\tw_k+\omega_c)} + A_k^* e^{+i(\tw_k+\omega_c)}\right ) \nonumber \\
+	& \times \Big \{ \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{++}]} \nonumber \\
+	& + \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{++}]},\nonumber \\
+	 &+ \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+	 &+ \sum_{r,j} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{gg}]} \nonumber \\
+	 &+ \sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_rA_j^*e^{-i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+	 &+ \sum_{r,j} \frac{\kappa_{-g}^2 (p_--p_g) A_r^*A_je^{i(\tw_r-\tw_j)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][ \tw_r-\tw_j -i\gamma_{gg}]}
+	\Big\}.
+	\end{align}	
+	Explicit multiplication yields
+	\begin{align}
+	\dot\rho_{+g}^{(3)} &= -(i\omega_{+g}+\gamma_{+g})\rho_{+g}^{(3)} +i\kappa_{+g} \nonumber \\
+	& \times \Big \{ 
+	\sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*A_ke^{-i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{++}]} 
+	+\sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*A_k^*e^{-i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{++}]} \nonumber \\
+	& + \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_jA_ke^{i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{++}]}
+	  + \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_jA_k^*e^{i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{++}]}\nonumber \\	
+	&+ \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*A_ke^{-i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{gg}]} 
+	 + \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_rA_j^*A_k^*e^{-i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) +i\gamma_{+ g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+	&+ \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_jA_ke^{i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{gg}]} 
+	 + \sum_{r,j,k} \frac{\kappa_{+g}^2 (p_+-p_g) A_r^*A_jA_k^*e^{i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{+ g} - \tw_j-\omega_c) -i\gamma_{+ g}][ \tw_r-\tw_j -i\gamma_{gg}]} \nonumber \\
+	&+ \sum_{r,j,k} \frac{\kappa_{-g}^2 (p_--p_g) A_rA_j^*A_ke^{-i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][ \tw_r-\tw_j +i\gamma_{gg}]} 
+	 + \sum_{r,j,k} \frac{\kappa_{-g}^2 (p_--p_g) A_rA_j^*A_k^*e^{-i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{- g} - \tw_j-\omega_c) +i\gamma_{- g}][ \tw_r-\tw_j +i\gamma_{gg}]} \nonumber \\
+	&+ \sum_{r,j,k} \frac{\kappa_{-g}^2 (p_--p_g) A_r^*A_jA_ke^{i(\tw_r-\tw_j-\tw_k-\omega_c)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][ \tw_r-\tw_j -i\gamma_{gg}]} 
+	 + \sum_{r,j,k} \frac{\kappa_{-g}^2 (p_--p_g) A_r^*A_jA_k^*e^{i(\tw_r-\tw_j+\tw_k+\omega_c)t}}{[( \omega_{- g} - \tw_j-\omega_c) -i\gamma_{- g}][ \tw_r-\tw_j -i\gamma_{gg}]}
+	\Big\}.
+	\end{align}	
+	
+	ToDo-> assume only two modes $A_1,A_2$, also assume $\gamma_{++}=\gamma_{gg}=\gamma_{--}$ and derive the susceptibility -> non-linear gain -> due to them.  
+	
+	
+	
+	\bibliography{bib_resources.bib}
+	
+\end{document}
+
